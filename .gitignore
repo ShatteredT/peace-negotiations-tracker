@@ -1,0 +1,20 @@
+# Віртуальне оточення
+venv/
+.venv/
+
+# Файли конфігурацій та секрети
+.env
+*.env
+
+# Кеш Python
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.vscode/
+
+# База даних та логи
+*.db
+*.sqlite3
+logs/

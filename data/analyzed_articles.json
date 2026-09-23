@@ -1,0 +1,48 @@
+[
+  {
+    "article_id": "istanbul_talks_framework",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Делегації зустрілися для обговорення можливих параметрів... Позиції стали більш реалістичними."
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Обговорення можливих параметрів нейтрального статусу та безпекових гарантій."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Прямих територіальних поступок не згадано, але обговорюється рамковий договір та нейтральний статус."
+      },
+      "humanitarian": {
+        "score": 0.7,
+        "justification": "Сторони обговорили питання створення та функціонування гуманітарних коридорів."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "art_001",
+    "overall_sentiment": -0.8,
+    "categories": {
+      "diplomacy": {
+        "score": -0.9,
+        "justification": "Будь-які дипломатичні контакти заморожені."
+      },
+      "security": {
+        "score": -0.8,
+        "justification": "Риторика свідчить про намір продовжувати боротьбу."
+      },
+      "territorial": {
+        "score": -0.9,
+        "justification": "Офіційні особи наголошують, що територіальні поступки виключені."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання або обмін полоненими у тексті не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  }
+]

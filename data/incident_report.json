@@ -1,0 +1,116 @@
+{
+  "incident_id": "INC-20261006-203042",
+  "start_time": "2026-10-06T20:30:42.959726",
+  "detection_time": "2026-10-06T20:30:42.959726",
+  "resolution_time": "2026-10-06T20:30:42.975388",
+  "events": [
+    {
+      "timestamp": "2026-10-06T20:30:42.958725",
+      "role": "System",
+      "action": "BACKUP_CREATED",
+      "details": "Backup saved to data\\backups\\peacetalk_20261006_203042.db",
+      "hypothesis": "",
+      "evidence": ""
+    },
+    {
+      "timestamp": "2026-10-06T20:30:42.959726",
+      "role": "Simulator",
+      "action": "CORRUPTION_INJECTED",
+      "details": "Mode: truncate",
+      "hypothesis": "Simulated failure for training",
+      "evidence": ""
+    },
+    {
+      "timestamp": "2026-10-06T20:30:42.959726",
+      "role": "Simulator",
+      "action": "CORRUPTION_COMPLETE",
+      "details": "DB file state: e3b0c44298fc1c14",
+      "hypothesis": "",
+      "evidence": ""
+    },
+    {
+      "timestamp": "2026-10-06T20:30:42.959726",
+      "role": "Monitoring",
+      "action": "FAILURE_DETECTED",
+      "details": "Health check failed: cannot connect to DB",
+      "hypothesis": "",
+      "evidence": ""
+    },
+    {
+      "timestamp": "2026-10-06T20:30:42.967389",
+      "role": "Tech Lead",
+      "action": "DIAGNOSIS_START",
+      "details": "Integrity check: {'accessible': True, 'tables_ok': False, 'data_ok': False, 'error': None, 'counts': {}}",
+      "hypothesis": "",
+      "evidence": ""
+    },
+    {
+      "timestamp": "2026-10-06T20:30:42.969387",
+      "role": "Tech Lead",
+      "action": "RESTORE_START",
+      "details": "Restoring from data\\backups\\peacetalk_20261006_203042.db",
+      "hypothesis": "",
+      "evidence": ""
+    },
+    {
+      "timestamp": "2026-10-06T20:30:42.974388",
+      "role": "Tech Lead",
+      "action": "RESTORE_SUCCESS",
+      "details": "DB restored, verified: {'accessible': True, 'tables_ok': True, 'data_ok': True, 'error': None, 'counts': {'assessment_records': 0, 'expert_notes': 3, 'news_articles': 0}}",
+      "hypothesis": "",
+      "evidence": ""
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1",
+      "description": "SQLite file corrupted (disk error, partial write, kill -9)",
+      "evidence": "File hash: e3b0c44298fc1c14, size: 0",
+      "tested": true,
+      "confirmed": false
+    },
+    {
+      "id": "H2",
+      "description": "Filesystem permission or disk full",
+      "evidence": "Disk free: 274.5 GB, writable: True",
+      "tested": true,
+      "confirmed": false
+    },
+    {
+      "id": "H3",
+      "description": "DB locked by another process",
+      "evidence": "Lock file exists: False",
+      "tested": true,
+      "confirmed": false
+    }
+  ],
+  "root_cause": "Simulated file corruption (truncated to 0 bytes)",
+  "recovery_action": "Restored from latest backup (data/backups/peacetalk_*.db)",
+  "verification_results": {
+    "accessible": true,
+    "tables_ok": true,
+    "data_ok": true,
+    "error": null,
+    "counts": {
+      "assessment_records": 0,
+      "expert_notes": 3,
+      "news_articles": 0
+    }
+  },
+  "corrective_actions": [
+    {
+      "id": "CA-1",
+      "description": "Implement auto-backup context manager for all DB writes",
+      "implemented": true,
+      "script": "scripts\\auto_backup.py",
+      "verification": "Tested - backup created on each write operation"
+    },
+    {
+      "id": "CA-2",
+      "description": "Add health check script for monitoring/alerting",
+      "implemented": true,
+      "script": "scripts\\health_check.py",
+      "verification": "Run manually - returns exit code 0/1"
+    }
+  ]
+}

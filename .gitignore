@@ -18,3 +18,9 @@ __pycache__/
 *.db
 *.sqlite3
 logs/
+
+# Допоміжні скрипти (не в git)
+helpers/
+
+# Локальні дані
+info/

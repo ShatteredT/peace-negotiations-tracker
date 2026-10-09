@@ -1,48 +1,3452 @@
 [
   {
-    "article_id": "istanbul_talks_framework",
-    "overall_sentiment": 0.6,
+    "article_id": "news-60537140",
+    "overall_sentiment": -0.2,
     "categories": {
       "diplomacy": {
-        "score": 0.7,
-        "justification": "Делегації зустрілися для обговорення можливих параметрів... Позиції стали більш реалістичними."
+        "score": 0.2,
+        "justification": "Українська влада заявляє, що не відмовляється від переговорів з Росією"
       },
       "security": {
-        "score": 0.6,
-        "justification": "Обговорення можливих параметрів нейтрального статусу та безпекових гарантій."
+        "score": -0.5,
+        "justification": "Військові дії посилювалися, звинувачення у брехні та спробах виграти час"
       },
       "territorial": {
-        "score": 0.2,
-        "justification": "Прямих територіальних поступок не згадано, але обговорюється рамковий договір та нейтральний статус."
+        "score": 0.0,
+        "justification": "Питання територій безпосередньо не обговорюється, акцент на припиненні війни"
       },
       "humanitarian": {
-        "score": 0.7,
-        "justification": "Сторони обговорили питання створення та функціонування гуманітарних коридорів."
+        "score": 0.0,
+        "justification": "Гуманітарні питання не є ключовими в цій статті"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-60548078",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Проведення переговорів на кордоні, хоча віри в успіх мало"
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Зеленський не дуже вірить у результат, але дає шанс зупинити війну"
+      },
+      "territorial": {
+        "score": 0.5,
+        "justification": "Головна мета - захистити Україну та її територіальну цілісність"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються"
       }
     },
     "is_compromise_oriented": true
   },
   {
-    "article_id": "art_001",
-    "overall_sentiment": -0.8,
+    "article_id": "features-60546246",
+    "overall_sentiment": 0.2,
     "categories": {
       "diplomacy": {
-        "score": -0.9,
-        "justification": "Будь-які дипломатичні контакти заморожені."
+        "score": 0.4,
+        "justification": "Домовленість про переговори без попередніх умов на українсько-білоруському кордоні"
       },
       "security": {
-        "score": -0.8,
-        "justification": "Риторика свідчить про намір продовжувати боротьбу."
+        "score": 0.2,
+        "justification": "Лукашенко взяв відповідальність за безпеку під час проїзду делегації"
       },
       "territorial": {
-        "score": -0.9,
-        "justification": "Офіційні особи наголошують, що територіальні поступки виключені."
+        "score": 0.0,
+        "justification": "Територіальні питання не обговорюються детально"
       },
       "humanitarian": {
         "score": 0.0,
-        "justification": "Гуманітарні питання або обмін полоненими у тексті не згадуються."
+        "justification": "Гуманітарні питання не зачіпаються"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60544458",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Україна виступає за чесні переговори, але вказує на деструктивні дії РФ"
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Росія посилила обстріли, підняла бомбардувальники"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території не обговорюються"
+      },
+      "humanitarian": {
+        "score": -0.3,
+        "justification": "Загроза знищення мирних жителів"
       }
     },
     "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-60548082",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Відбувся перший раунд переговорів, знайдені деякі спільні точки, планують другий раунд"
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Головна мета переговорів - припинення вогню та війни"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Конкретні території не обговорювалися публічно"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру не є фокусом статті"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60594131",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Завершився другий раунд перемовин, домовилися про подальші зустрічі"
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Можливість тимчасового припинення вогню в секторах евакуації"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не врегульоване"
+      },
+      "humanitarian": {
+        "score": 0.8,
+        "justification": "Досягнуто розуміння про спільне забезпечення гуманітарних коридорів та доставку ліків і їжі"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60663741",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Зеленський закликає до прямого діалогу з Путіним і обговорення гарантій"
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Готовність до колективного договору безпеки з усіма сусідами та провідними державами"
+      },
+      "territorial": {
+        "score": 0.5,
+        "justification": "Готовність на компроміс і дискусії щодо Криму та Донбасу без капітуляції"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60691136",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Переговори міністрів не дали результату, але домовилися продовжувати зусилля"
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Не вдалося домовитися про 24-годинне перемир'я та гумкоридор з Маріуполя"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території прямо не обговорювалися"
+      },
+      "humanitarian": {
+        "score": -0.3,
+        "justification": "Питання евакуації з Маріуполя та перемир'я заблоковані позицією Росії"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-60739251",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Початок обговорення конкретних пропозицій щодо безпекового статусу"
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Обговорення нейтрального статусу та гарантій безпеки"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не є головними в цій частині переговорів"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарний блок не розглядається"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60787869",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Телефонні розмови на найвищому рівні, обговорення вимог для мирної угоди"
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обговорення нейтрального статусу та роззброєння"
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Питання Донбасу та Криму залишаються найскладнішими"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60829512",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Зеленський вірить у шанс знайти компроміс через зустріч президентів"
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обговорення припинення вогню, виведення військ та гарантів безпеки замість НАТО"
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Відмова від ультиматумів на кшталт віддати Харків чи Маріуполь"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не є фокусом"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "features-60814680",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Переговорники максимально зблизили позиції щодо нейтралітету"
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Обговорення позаблокового статусу як можливого компромісу"
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Київ твердить про непоступливість у питаннях суверенітету"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарний аспект згадано побіжно"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60908349",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Повідомлення про інцидент під час неформальних контактів, офіційна позиція стримана"
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки переговорників без прямих наслідків для фронту"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території не обговорюються"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарна складова відсутня"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-60911195",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Початок чергового раунду переговорів у Стамбулі за посередництва Туреччини"
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Програма максимум - припинення вогню"
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Жорстка позиція щодо недоторканності людей, земель та суверенітету"
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Програма мінімум - вирішення гуманітарних проблем"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-60908356",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Україна висунула конкретні конструктивні пропозиції щодо договору про безпеку"
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Запропоновано новий міжнародний механізм гарантій безпеки аналогічно ст. 5 НАТО"
+      },
+      "territorial": {
+        "score": 0.5,
+        "justification": "Можливість дипломатичного відновлення територіальної цілісності через нейтралітет"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не є головною темою комюніке"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "features-60932854",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Зустріч української і російської делегацій у Стамбулі може вважатись результативною, сторони озвучили перший проєкт мирного договору."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Основний аспект пропозиції - відмова від НАТО і нові гарантії безпеки."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Статус Криму і Донбасу описаний як 'підвішений'."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру прямо не обговорюються у цьому уривку."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-61467520",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Переговорний процес із Росією призупинено, сторони звинувачують одна одну у виході з переговорів."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Війна триває, відсутні будь-які домовленості про припинення вогню."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Жодних компромісів щодо територій не обговорюється на тлі зупинки діалогу."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-61633913",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.4,
+        "justification": "Переговори заморожені, 'вони згасли як сірник'."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Жорстоке протистояння на фронті не припинилось, а загострилось на Донбасі."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Питання окупованих територій залишається заблокованим через зупинку діалогу."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти не є фокусом цієї статті."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-60922358",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.1,
+        "justification": "Президент заявляє, що не бачить підстав для довіри словам російської влади щодо перемовин."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Сигнали позитивні, але вони не заглушають розриви російських снарядів; оборона - завдання номер один."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Російські війська мають залишити окуповані території для реальних результатів."
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Держава запускає компенсацію за втрачену нерухомість для громадян."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-61088631",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "Знищення військових у Маріопулі поставить остаточну крапку на всіх перемовах."
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Заклики до швидшої передачі зброї, очікування на ескалацію та можливість застосування ядерної зброї."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Жодних територіальних поступок, жорстка оборона та наслідки облоги."
+      },
+      "humanitarian": {
+        "score": -0.5,
+        "justification": "Згадки про масові вбивства у Бучі, Бородянці та загрозу знищення людей в Маріуполі."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-62234163",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Путін заявляє, що київська влада не має бажання виконувати домовленості та відмовилася від стамбульських угод."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Бойові дії тривають, лідери не планують зустрічей через невиконання зобов'язань."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання залишаються невирішеними та відкладеними."
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Обговорення розблокування експорту українського зерна для запобігання загрозі голоду."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-62546681",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.4,
+        "justification": "Ані в Москві, ані в Києві до миру на умовах компромісу зараз не готові, переговори припинилися."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Війна триває вже майже пів року, швидкого закінчення не очікується."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Згадуються початкові компромісні ідеї щодо статусу, але наразі процес заморожено."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру не є ключовими в тексті."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-62592306",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Ердоган і Гутерреш виступають за переговори та бачать шлях до миру через стамбульську зернову угоду."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Обговорюється ситуація на Запорізькій АЕС та безпека кораблів."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Зеленський наголошує на проблемі викрадення збіжжя та неприйнятності російської агресії у вікні можливостей."
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Зеленський підняв питання викрадення збіжжя, а Гутерреш наголосив, що люди потребують миру."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-62590215",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Туреччина та ООН налаштовані обговорювати припинення війни дипломатичними засобами."
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Обговорення деескалації та ситуації навколо Запорізької АЕС."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання безпосередньо не дебатуються в анонсі зустрічі."
+      },
+      "humanitarian": {
+        "score": 0.4,
+        "justification": "Планується обговорення посередництва Туреччини в обміні полоненими між Росією та Україною."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-62653206",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "Про перемовини з Росією не може бути й мови, Мінська-3 не буде, це пастка."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Україна буде боротися військовим шляхом, потрібна подальша військова допомога і зброя."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Україна готова повернути анексований Крим будь-яким шляхом самостійно; неприпустимість заморожування поточної лінії фронту."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання обміну не є головною темою."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-62868020",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "Жодні переговори з РФ поки неможливі, суспільство не хоче говорити з терористами, хоча західні партнери спонукають до діалогу."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Міністр оборони зазначає, що не можна довіряти розмовам про мир."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Спочатку РФ має покинути українські території та віддати назад чужу землю."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарна тематика відсутня."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-62912958",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Презентація концепції гарантій безпеки без участі Росії викликала нервову реакцію у Москві."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Розробка нової системи міжнародних гарантій безпеки для запобігання майбутній агресії."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання кордонів згадується в контексті історичного Будапештського меморандуму."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-62957165",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Ердоган заявляє, що Путін прагне якнайшвидше закінчити війну, хоча в Кремлі це заперечують."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Загальні роздуми про завершення війни без деталей щодо припинення вогню."
+      },
+      "territorial": {
+        "score": 0.5,
+        "justification": "Захоплені землі мають бути повернуті Україні, повернення Криму законним власникам."
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Домовленість про обмін 200 заручників між сторонами."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-62986817",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Зеленський нагадав про 88 марних раундів переговорів до війни і виставив жорсткі умови для світової спільноти."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Вимагається оборонна підтримка та зброя для захисту."
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "Один із пунктів формули миру - відновлення територіальної цілісності."
+      },
+      "humanitarian": {
+        "score": -0.3,
+        "justification": "Жорсткі згадки про звірства та катування у масових похованнях в Ізюмі."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-63125520",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.1,
+        "justification": "Публічна дискусія та пропозиції щодо мирного плану від третіх осіб (Ілона Маска), які викликали різку критику."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Згадки про ризики мобілізації та ядерної війни у разі ескалації довкола Криму."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Спірні пропозиції щодо референдумів та визнання Криму російським викликали відмову з боку України."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не є центральними в обговоренні цього твіту."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-63226370",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Обговорення так званого мирного плану Маска, який передбачає неприйнятні для України умови та викликає гостру полеміку."
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Згадки про можливий ядерний удар у разі українського контрнаступу та загрози повної мобілізації в Росії."
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "План передбачає віддання Криму Росії, новий референдум на окупованих територіях та визнання нейтралітету України."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру або обміну полоненими не порушуються в тексті."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-63239393",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Туреччина намагається виступати посередником і організувати переговори між Москвою та західними країнами."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Згадується постачання озброєнь Києву та відсутність масштабних санкцій з боку Туреччини."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Київ категорично відкидає прямі переговори після анексію 15% території та тримається принципу 'нічого про Україну без України'."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання безпосередньо не обговорюються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-63512968",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Заклики Шольца до Китаю використати вплив на Росію та заклик Сі Цзіньпіна до поновлення прямих контактів і переговорів."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обидві країни висловилися проти безвідповідальних ядерних загроз з боку Росії."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання конкретних територіальних поступок чи кордонів у статті детально не обговорюються."
+      },
+      "humanitarian": {
+        "score": 0.2,
+        "justification": "Згадується проблема мільйонів біженців та вплив війни на світові продовольчі ринки."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-63521303",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "США та Україна заявляють, що нинішні умови Росії неприйнятні для початку реального діалогу."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Обговорення російських ударів ракетами і дронами та потреба міжнародних гарантій безпеки для України."
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Україна наполягає на повній деокупації всіх територій і виплаті репарацій; Росія вимагає зберегти силою відібрані території."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти або обмін полоненими не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-63567149",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Зеленський дещо пом'якшив позицію після консультацій зі США, прибравши умову про обов'язкове усунення Путіна для переговорів."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпекових гарантій чи перемир'я не є фокусом матеріалу."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Базові територіальні вимоги України залишаються незмінними, хоча риторика щодо старту переговорів змінилася."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "63568736",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Росія заявляє про готовність до переговорів без попередніх умов (окрім визнання нових реалій), з'явилося 'вікно можливостей'."
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Відведення російських військ з правобережної Херсонщини розцінюється як потенційний жест."
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "РФ вимагає визнання анексії українських регіонів, тоді як Україна вимагає повного відновлення територіальної цілісності."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру не обговорюються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "features-63687128",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Заклики американських генералів та розвідників скористатися моментом для мирних переговорів через значні втрати."
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Констатація величезних втрат з обох боків та обговорення військових і дипломатичних шляхів виходу з кризи."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання конкретних територіальних поступок не деталізуються, наголос на політичному рішенні."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного спрямування відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "features-63759235",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Британський міністр підтримує Україну і наголошує, що переговори не можуть вестися з пістолетом біля скроні."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Обговорення масованих російських атак на енергооб'єкти та потреби України у сучасних засобах ППО."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання кордонів чи поступок не є головною темою інтерв'ю."
+      },
+      "humanitarian": {
+        "score": -0.3,
+        "justification": "Російські удари спрямовані на те, щоб заморозити цивільне населення та позбавити його води й світла."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "press-review-64075158",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Дипломатичні зусилля зосереджені переважно на зміцненні позицій сторін перед майбутніми наступами, а не на негайних переговорах."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Очікування нового наступу та заклики Зеленського до швидкого надання більшої кількості зброї."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Сторони готуються до етапу боротьби за перевагу перед майбутніми переговорами."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не зачіпаються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-63851617",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.1,
+        "justification": "Обговорення ідеї Макрона щодо 'гарантій безпеки' для Росії, яка викликала обурення в Україні."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Згадки про попередні ультиматуми Росії щодо нерозширення НАТО та військового стримування."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Захід не готовий йти на поступки щодо політики відкритих дверей НАТО."
+      },
+      "humanitarian": {
+        "score": -0.2,
+        "justification": "Згадується необхідність притягнути Росію до відповідальності за воєнні злочини та звірства."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64175507",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.4,
+        "justification": "Одностороннє доручення Путіна про припинення вогню на Різдво розцінюється українською стороною як пропаганда."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Окупаційна влада заявляє про припинення наступу, але обіцяє відповідати на провокації; Україна відкидає ініціативу."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Україна вимагає відходу російських військ з окупованих територій для будь-якого тимчасового перемир'я."
+      },
+      "humanitarian": {
+        "score": 0.1,
+        "justification": "Припинення вогню формально аргументувалося відвідинами богослужінь у різдвяні дні, хоча назване пасткою."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64177519",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.6,
+        "justification": "Українська влада назвала різдвяне перемир'я виключно пропагандистським жестом і цинічною пасткою."
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "В ОП вважають, що перемир'я потрібне РФ лише для допмобілізації, перегрупування та будівництва укріплень."
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "Кремль прагне нав'язати прийняття ультиматуму та нову лінію поділу."
+      },
+      "humanitarian": {
+        "score": -0.3,
+        "justification": "Жорстка критика дій РФ, яка продовжує обстрілювати цивільні об'єкти та дітей попри свята."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64175504",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Заклик патріарха Кирила до різдвяного перемир'я повністю відкинутий в Україні як пропаганда."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Прогнози ударів дронами та ракетами у святкові дні замість реального миру."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання кордонів не є ключовими у цьому епізоді."
+      },
+      "humanitarian": {
+        "score": -0.4,
+        "justification": "Згадки про зруйновані храми, загиблих священників та цивільних у новорічну ніч."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64169567",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Ердоган закликає до одностороннього припинення вогню та підкреслює успіхи попередніх домовленостей (зерновий коридор, обмін)."
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Обговорення безпечної зони навколо ЗАЕС та ідеї зупинення бойових дій."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Москва вимагає виконання ультиматумів та врахування нових територіальних реалій."
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Згадується успішний досвід попередніх обмінів полоненими та гуманітарна підтримка."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-64184425",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Західні лідери скептично та критично поставилися до ініціативи Путіна про різдвяне перемир'я."
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Оцінка перемир'я як спроби РФ перегрупувати війська та зробити 'ковток повітря'."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Наголос на тому, що Росія має повністю вивести війська з України для досягнення миру."
+      },
+      "humanitarian": {
+        "score": -0.4,
+        "justification": "Згадки про готовність Путіна бомбардувати лікарні, дитячі садки та церкви."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "features-64198777",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Україна майже одразу відкинула ідею такого перемир'я."
+      },
+      "security": {
+        "score": -0.8,
+        "justification": "Оголошене Росією припинення вогню - це лише слова, обстріли тривають."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Російські сили намагаються просунутися далі на захід, місто не впало."
+      },
+      "humanitarian": {
+        "score": -0.6,
+        "justification": "Загинули мирні люди, військові, умови життя в підвалах під обстрілами."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64203928",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Відбувся черговий обмін полоненими внаслідок переговорного процесу."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки не обговорюються окрім контексту повернення військових."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не зачіпаються напряму."
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Успішний обмін полоненими (по 50 осіб з кожного боку), надання допомоги."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "press-review-64247596",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Обговорення західними аналітиками можливих гарантій безпеки та майбутніх компромісів."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Без поразки Росії гарантії будуть крихкими, Захід уникає прямої конфронтації."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Український суверенітет вже підірваний російською анексією Криму."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання згадані побіжно у контексті ціни війни для цивільних."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64388413",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Заява Лукашенка про нібито пропозицію 'пакту про ненапад' від України."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Напруга на білоруському кордоні, загроза нового наступу, плани самооборони."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання кордонів напряму не переглядаються."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти відсутні в тексті."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64509558",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Чутки про секретні пропозиції територіального обміну через директора ЦРУ, які офіційно заперечують."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Спроби уникнути затяжної війни через кулуарні пропозиції припинення вогню."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Обговорення ідеї залишити за Росією близько 20% території України, яку відхилив Київ."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарна тематика відсутня."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-64522210",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Успішний обмін за посередництва Об'єднаних Арабських Еміратів."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові питання не обговорюються."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не зачіпаються."
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Великий обмін полоненими (116 українців та 63 росіян), повернення тіл загиблих."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-64667644",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Черговий успішний процес обміну полоненими між сторонами."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки не є фокусом матеріалу."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території не згадуються у контексті переговорів."
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Обмін 100 українських воїнів і 1 цивільного на 101 російського військового."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c51l5yp45kwo",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Оприлюднення мирної ініціативи Китаю та позиції України."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Занепокоєння військовими ризиками та побоювання щодо планів постачання зброї."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Позиція Києва: мирний план має починатися з відновлення в кордонах 1991 року."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "press-review-64769479",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Обговорення європейськими країнами ідей щодо спонукання до мирних переговорів через посилення зв'язків з НАТО."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Надання зброї для 'суттєвої переваги' та розгляд майбутніх гарантій безпеки."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Приватні сумніви європейських політиків щодо здатності повернути Крим."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-64879524",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Черговий результативний обмін між Україною та РФ."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії не обговорюються."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальних поступок немає."
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Обмін 130 українських військових на 90 російських."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "press-review-65199077",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Заява Офісу президента про готовність відкрити дипломатичну сторінку щодо Криму за певних умов."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки подано через побоювання західних чиновників щодо ескалації."
+      },
+      "territorial": {
+        "score": 0.1,
+        "justification": "Потенційна готовність обговорювати долю Криму після виходу на адмінмежу."
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Згадка про те, що раніше сторонам вдавалося домовлятися про обміни."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "news-65291406",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Черговий успішний обмін полоненими у святковий день."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові аспекти не зачіпаються."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не обговорюються."
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Повернення 130 захисників з полону, надання медичної допомоги."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "crg5gnyzx13o",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Візит українського міністра до Іраку, обговорення можливого посередництва у перемовинах."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки фронту не розглядаються."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не обговорюються."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cje5exx20plo",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Розробка французького плану («план Макрона») щодо організації переговорів між Україною і Росією влітку."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії безпосередньо не обговорюються."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Побіжні побоювання щодо можливої втрати Україною територій у разі примусу до перемир'я."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарна тематика відсутня."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "crgkjdxk5wqo",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Атака сталася у день приїзду африканських лідерів-«миротворців»."
+      },
+      "security": {
+        "score": -0.9,
+        "justification": "Потужна ракетна атака Росії по Києву та області, робота ППО, руйнування будівель."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не піднімаються."
+      },
+      "humanitarian": {
+        "score": -0.6,
+        "justification": "Є постраждалі серед цивільних, пошкоджені приватні будинки і почалася пожежа."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c8v00rzp91ro",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Переговори у Саудівській Аравії щодо мирного плану України з широким міжнародним представництвом."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки обговорюються на рівні радників з національної безпеки, але без конкретних рішень про припинення вогню."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Вимога про звільнення окупованих територій є неприйнятною для Москви, що виключає її участь."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання безпосередньо не зачіпаються в тексті."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "features-66427193",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Понад 40 країн обговорювали формулу миру, участь Китаю та пом'якшення позицій."
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Пєсков заявив про відсутність підстав для мирної угоди і продовження бойових дій."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Всі віддані принципам непорушності територіальної цілісності України, але компромісів щодо кордонів немає."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються детально."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cp61765zglro",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Аналіз військових сценаріїв та допомоги Заходу, дипломатія не є фокусом."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Війна триває, поточних потужностей недостатньо для перемоги, потрібен тривалий час і зброя."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Констатація неможливості швидко прогнати Росію з України."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарний аспект відсутній."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "news-66819495",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Столтенберг закликає готуватися до довгої війни, відкидаючи тимчасові перемир'я як пастку для РФ."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Необхідність довшої війни та подальших гарантій безпеки, оскільки складання зброї Україною означатиме її знищення."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій не обговорюється через призму поступок."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cqqpv759kyyo",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Рішучість продовжувати боротьбу, розробка нової військової стратегії замість переговорів."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Визнання повільного прогресу та пошук нових військових операцій для ударів по РФ."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Непохитність позицій щодо продовження бойових дій."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cjjp4g4qqngo",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Макрон зазначає, що згодом може настати час для чесних переговорів і пошуку рішення з Росією."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Критичний момент для українського наступу, війна триває."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Спроби України повернути втрачені землі."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c6pd9jj2zdmo",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Зеленський висловив готовність вислухати план Трампа, але категорично відкинув мир за рахунок Криму і Донбасу."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Обговорення військової допомоги від США."
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Повна відмова від будь-яких територіальних поступок (Крим і Донбас)."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарна допомога згадується лише як частина бюджетного пакета США."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c6pd6lpee3jo",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.4,
+        "justification": "Тиск Заходу через дефіцит ресурсів може змусити Україну піти на небажані переговори з позиції слабкості."
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Складна ситуація на фронті, дефіцит боєприпасів та окупаційні хвилі Росії."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Ризик примусу до переговорів через брак зброї при збереженні лінії фронту."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c6p6j93nxj8o",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Очікування, що Путін не піде на мир до виборів у США, заморожує дипломатичні зусилля."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Побоювання щодо зменшення військової допомоги та продовження конфлікту."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій прямо не обговорюється."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c72e57e2rkyo",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Згадка мирних пропозицій Генрі Кіссінджера щодо НАТО та територій."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Історичний некролог дипломату, безпекові деталі війни відсутні."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Ідея обміну територій на гарантії безпеки."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "crg85elkpw2o",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Порушення російською стороною домовленостей і гарантій безпеки при виході з 'Азовсталі'."
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Порушення гарантій життя та загибель полонених в Оленівці."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не обговорюються."
+      },
+      "humanitarian": {
+        "score": -0.8,
+        "justification": "Жорстоке порушення прав військовополонених та вбивство полонених бійців попри гарантії."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cd1l9zm4j46o",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Підписання двосторонньої 10-річної безпекової угоди між Британією та Україною."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Надання чітких повоєнних гарантій безпеки, військової підтримки та постачання зброї."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Зміцнення оборони без обговорення поступок."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарний аспект відсутній."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c902g72jqxko",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Сигнали через посередників про готовність Путіна заморозити конфлікт вздовж лінії фронту."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Пропозиції припинення вогню та перемир'я на поточних позиціях."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Ідея залишитися там, де є на полі бою (фактичне заморожування по лінії зіткнення)."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c872yxnz2kyo",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Обговорення можливих майбутніх переговорів та зміни стратегії США у бік оборони для посилення позицій."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Перехід до оборонної стратегії через брак подальшого фінансування та зрив наступу."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Передбачення, що переговори можуть означати передачу Росії частини українських територій."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "czkpk27xznxo",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Переговори Вірменії та Азербайджану під різними егідами щодо мирної угоди."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Збройні інциденти, порушення припинення вогню, незадоволення якістю російських миротворців."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Незгода щодо статусу Карабаху та безпеки його мешканців."
+      },
+      "humanitarian": {
+        "score": -0.3,
+        "justification": "Проблема біженців, неможливість пересування та глибока недовіра між народами."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cljxxky1nwwo",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Обговорення минулих переговорів у Стамбулі та спростування звинувачень у зриві миру."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки чи припинення вогню безпосередньо не обговорюються."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не порушуються."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c3g0lgvzxgeo",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Непрямі сигнали про готовність до контактів, але Кремль і США спростовують їх."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Ймовірне пом'якшення позиції щодо НАТО, проте вимагається визнання захоплених територій."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Очільник Кремля хоче визнання за Росією захоплених територій України."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c1d1j5l0jn0o",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "США заявили, що не обговорюватимуть припинення вогню без участі України, контакти припинено."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Пропозиція «заморозити» конфлікт на поточній лінії фронту."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Замороження війни за умови залишення російських військ на захоплених територіях."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c884egg0g5lo",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Путін відкритий до переговорів на умовах Москви, Україна каже про неможливість переговорів без виведення військ."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Вимоги перетворити Україну на нейтральну державу із забороною відновлювати армію."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Крим залишити під фактичним контролем Росії, а будь-які домовленості нав'язуються силою."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cj7v39223d3o",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Заклик Папи Римського мати сміливість вести переговори та шукати посередників."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Заклик до припинення вогню та запобігання подальшим смертям."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій напряму не обговорюється."
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Мотивація уникнути людських жертв та смертей."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cj56014yq46o",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Обговорення можливого тиску на Київ з метою змусити до переговорів."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Виступи проти подальшого розширення НАТО та вступу України в альянс."
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "План змусити Україну відмовитися від частини територій, включаючи Крим і Донбас."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cd13q0gg5q7o",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.1,
+        "justification": "Обговорення перспектив мирних переговорів в умовах дефіциту військової допомоги."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Гострий дефіцит ППО та боєприпасів, знищення енергетичної інфраструктури."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Акцент на захисті контрольованих територій, але без конкретних поступок."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти не порушуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c0v0rwwl3dno",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.1,
+        "justification": "Підготовка до глобального саміту миру на основі формули Зеленського, відмова від інших планів."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Відсутність довіри та відмова від компромісів через воєнні злочини."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Непохитність позиції щодо кордонів."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Згадка про напівформальні контакти виключно з гуманітарних питань у минулому."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cm54jjpmvn4o",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.7,
+        "justification": "Заява Кулеби: саджати Росію за стіл перемовин безглуздо, її не можна змусити діяти чесно."
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Українські солдати голодують через брак снарядів, енергосистема зруйнована."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не обговорюються."
+      },
+      "humanitarian": {
+        "score": -0.2,
+        "justification": "Важкі умови для населення через руйнування енергетики."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cq55l1r0newo",
+    "overall_sentiment": -0.9,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "Висування жорстких ультиматумів з боку Москви для початку переговорів."
+      },
+      "security": {
+        "score": -0.7,
+        "justification": "Вимога відмови від вступу до НАТО та повне виведення військ."
+      },
+      "territorial": {
+        "score": -1.0,
+        "justification": "Вимога віддати всю територію Донецької, Луганської, Херсонської та Запорізької областей."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не зачіпаються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c1lvjzrll1eo",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Заяви про готовність до перемовин і контакти з адміністрацією США."
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Вимога повної заборони на членство України в НАТО як ключова умова."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання прямо не деталізуються у заявах."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cy4mwmwzw1do",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Анонс зустрічей і переговорів між США, Україною та Росією."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Обговорення можливого перемир'я."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Згадки про те, що обидві сторони (зокрема Україна) можуть пом'якшити позицію щодо територій."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c3d5lm9zvm8o",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Зеленський заявив про готовність сісти за стіл переговорів з Путіним заради миру."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Прагнення припинити війну та не втрачати людей."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Гнучкість у переговорній позиції задля досягнення миру."
+      },
+      "humanitarian": {
+        "score": 0.4,
+        "justification": "Головна мета — зберегти життя людей та припинити вбивства."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cjw4553286wo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Анонсовано першу особисту зустріч Трампа і Путіна у Саудівській Аравії."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Очікування припинення вогню у не надто далекому майбутньому."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Конкретні територіальні умови не обговорюються в цій новині."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "ce3n33x74w9o",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Проведення перших прямих переговорів між США та Росією в Ер-Ріяді, створення переговорних груп."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Домовленість створити механізм консультацій для врегулювання конфлікту."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Сторони поки слухають одна одну, про компроміси говорити рано."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c1d4z4l1r21o",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Зустріч з командою США почалася дуже конструктивно, працюємо над наближенням справедливого і тривалого миру"
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Україна погодилась на 30-денне перемир'я, якщо на нього погодиться Росія, США відновлюють постачання зброї"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій прямо не обговорюється у цій частині переговорів"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не є ключовим фокусом цього раунду"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c625rl7ednno",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Президенти домовились і далі домовлятись, створюються експертні групи"
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Володимир Путін підтримав ідею Трампа про взаємну відмову від ударів по енергетичній інфраструктурі на 30 днів"
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Путін висуває жорсткі умови та повторює вимоги щодо припинення іноземної військової допомоги"
+      },
+      "humanitarian": {
+        "score": 0.6,
+        "justification": "Путін проінформував про обмін полоненими 175 на 175 та передачу 23 важкопоранених"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c4g7kw61w7xo",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "У Саудівській Аравії розпочались човникові перемовини між Росією, США та Україною"
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "США все ще розраховують укласти угоду про перемир'я в Україні до Великодня"
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Росія висуває максималістські вимоги навіть для тимчасового перемир'я"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти в тексті детально не розглядаються"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "clyj0dwp950o",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "США та Україна оприлюднили документ за результатами перемовин, працюють над тривалим миром"
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "Домовленість не застосовувати силу в Чорному морі та запровадити енергетичне перемир'я"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання безпосередньо не згадуються в домовленостях"
+      },
+      "humanitarian": {
+        "score": 0.8,
+        "justification": "Сполучені Штати залишаються відданими допомозі в обміні військовополоненими та поверненні дітей"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cddemvn4856o",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Переговори в Парижі та телефонна розмова з Лавровим щодо пошуку практичних рішень"
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Президент Трамп і Сполучені Штати хочуть, щоб ця війна закінчилася, передано рамковий документ"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання кордонів не є головною темою цієї ноти"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cn8zyjmlynro",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Путін покликав Україну на прямі перемовини у Стамбул цього четверга"
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Президент Росії Володимир Путін відкинув ідею оголошення 12 травня стійкого 30-денного перемир'я"
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "Він ще раз згадав про необхідність усунення першопричин війни, що означає заперечення існування України"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cy90qw8glr7o",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "У Стамбулі мають пройти мирні переговори за посередництва США"
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Сподівається, що Росія та Україна зможуть щось зробити, оскільки війна має зупинитися"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не деталізується в контексті майбутньої зустрічі"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарний аспект не підіймається"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cn4qgpnk5xqo",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Відбулась зустріч делегацій України й Росії другого раунду мирних переговорів"
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Вимоги Москви неприйнятні, перемовини можуть зайти у глухий кут, реального перемир'я немає"
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Росія вимагає вивести війська з підконтрольних частин Донецької, Херсонської, Луганської та Запорізької областей"
+      },
+      "humanitarian": {
+        "score": 0.7,
+        "justification": "Домовленість про новий масштабний обмін полонених, а також щодо повернення тіл загиблих"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cd19q9xeqzxo",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Заклики до припинення вогню та продовження переговорів задля миру"
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Аналіз припинення вогню як інструменту для зменшення насильства та сприяння переговорам"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не обговорюються теоретично"
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Згадуються приклади обміну заручників та полегшення гуманітарних криз"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c4ng93y6eyjo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Зеленський заявляє про завершення гарячої стадії війни через формулу Саміту миру та дипломатію"
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Вимагає дозволу на удари у відповідь західною зброєю для захисту"
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Це не значить, що треба відвоювати силою всі території, сила дипломатії може допомогти"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cnd075dkeklo",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Аналіз можливого мирного плану майбутньої адміністрації Трампа"
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Заклики до того, щоб війна припинилася негайно, розбудова сил оборони"
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Побоювання щодо можливої здачі територій, хоча прямих доказів немає"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарна тематика відсутня"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c2dgnrkkj5jo",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Індійський прем'єр закликав до якнайшвидшого дипломатичного діалогу України і Росії"
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання припинення вогню згадується загально"
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Індія заявила про підтримку суверенітету і територіальної цілісності України"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються"
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cvglv99xkero",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Україна стала відкритішою до переговорів через тиск союзників і виснаження"
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Важкі бої, неможливість відкинути ворога назад, тиск фронту"
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Досить важко уявити відвоювання кордонів 1991 року, суспільство виснажене"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c5y8ylmnqvlo",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Росія використовує майданчик БРІКС для створення фундаменту завершення війни на власних умовах"
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки обговорюються опосередковано через ініціативи Глобального Півдня"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не розбирається детально"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні пункти відсутні"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cm2z9eeyp4yo",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Заяви про секретні пропозиції та взаємні звинувачення в ірраціональності"
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Згадки про повітряні атаки на енергетику та судна, відмови від домовленостей"
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території не згадуються"
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються"
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c5y5j9rr9x7o",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "На фоні ескалації все частіше звучать розмови про мирні перемовини між Москвою і Києвом."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Росія застосувала нову балістичну ракету і пригрозила ударами по Європі на тлі ударів далекобійною зброєю."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Тепер Росія наполягає на визнанні захоплених територій російськими."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються у контексті переговорів."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cp9zdzkjey7o",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Призначення спеціального представника з питань України та Росії для пошуку способів закінчити війну."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Келлог виступає за жорсткі переговори, щоб забезпечити мир силою."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій детально не обговорюється в цій статті."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні в тексті."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cwydn0l8xzlo",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Президент Володимир Зеленський останніми тижнями продемонстрував більшу готовність до переговорів про припинення війни."
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Зеленський наголошує на необхідності довгострокової безпеки, запрошенні до НАТО та гарантіях безпеки."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Він прямо не сказав, що Київ погодиться наступки, але змістив фокус з негайного повернення територій на тривалий мир."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c3r49px7z9jo",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Анонсовано особисту зустріч Дональда Трампа та Володимира Путіна, Україна представила свій мирний план."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Президенти збираються обговорити перемир'я в Україні."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Зеленський заявив, що відступати від Конституції і дарувати землю окупанту українці не будуть."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні у тексті."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cev2nxy4vxmo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Спецпосланець Трампа розповів про деталі саміту та можливі поступки задля мирної угоди."
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "Досягнуто домовленості про надійні гарантії безпеки на рівні п'ятої статті НАТО та закон про ненапад."
+      },
+      "territorial": {
+        "score": -0.1,
+        "justification": "Головні компроміси у межах мирної угоди будуть щодо територій, хоча питання залишається складним."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c78zx910v34o",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Переговори Трампа та Зеленського у Вашингтоні, підготовка до особистої зустрічі Путіна та Зеленського."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Трамп пообіцяв Україні гарантії безпеки від Європи в координації зі США."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Зеленський дав зрозуміти, що територіальні питання він готовий обговорювати лише з Путіним."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти не порушуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "czerxy6gdz1o",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Зеленський наголосив, що готовий зустрітися з Путіним у нейтральній Європі чи Туреччині без особливих умов."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Обговорюються формати та майданчики для мирних перемовин щодо завершення війни."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Згадуються територіальні поступки в контексті попередніх зустрічей, без нових деталей."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c8ry76g4ddlo",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Путін заявив про порозуміння з Трампом, що відкриває шлях до миру, але є невизначеність щодо переговорів із Зеленським."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Заяви лунають на тлі одного з наймасштабніших авіаударів Росії по Україні."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій прямо не обговорюється у заявах."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cgkzmx2510po",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Європейські лідери та Україна працюють над мирною пропозицією та замороженням лінії фронту."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Сергій Лавров відкинув ідею припинення боїв по лінії зіткнення, вимагаючи довготривалого миру замість замороження."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Пропозиція передбачає зупинення бойових дій вздовж поточних ліній фронту."
+      },
+      "humanitarian": {
+        "score": 0.6,
+        "justification": "План передбачає повернення всіх депортованих дітей в Україну та обмін полоненими."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c05152e064no",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Зеленський отримав мирний план США і заявив про готовність до конструктивної, чесної та оперативної роботи."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Обговорення американського мирного плану для припинення війни."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Одним із пунктів є фактичне визнання США російського контролю над Кримом і Донбасом."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються в цій частині."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cr7lrey427xo",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Зеленський заявляє, що Україна буде спокійно працювати з партнерами і не дасть приводу звинуватити її у зриві дипломатії."
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "США пригрозили припинити обмін розвідданими та постачання зброї для примусу до угоди."
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "Важкий вибір через тиск і вимоги рамкової угоди щодо територій та компромісів."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cg7v82e0ngmo",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Представники України, ЄС, Великої Британії і США зібралися у Женеві, є значний прогрес та узгодження позицій."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Робота над мирним планом прискорилася, враховуються ключові українські пріоритети."
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Поточна редакція документа відображає більшість українських пріоритетів після консультацій."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не виділені в цій статті."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c1j9d1dk3kdo",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Переговори в Женеві принесли значний прогрес, оновлено рамковий документ про мир, сторони налаштовані оптимістично."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Продуктивні переговори щодо припинення війни та досягнення справедливого і тривалого миру."
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Сторони рухаються вперед до компромісного мирного рішення."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються безпосередньо."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c8e97g5eke1o",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Завершилися переговори у Флориді, є відчутний прогрес, заплановано поїздку до Москви для обговорення миру."
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Обговорення всіх важливих питань за підтримки США для досягнення міцного миру."
+      },
+      "territorial": {
+        "score": 0.1,
+        "justification": "Питання формулювань і територій є складним, але сторони намагаються поводитися конструктивно."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються в тексті."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cm2812p27ezo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Зустріч Зеленського з європейськими лідерами в Лондоні для координації позицій щодо мирних переговорів."
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Обговорюються гарантії безпеки для України та справедливе і тривале припинення вогню."
+      },
+      "territorial": {
+        "score": 0.1,
+        "justification": "Учасники розходяться в думках щодо територіального питання та контролю над східними регіонами."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cjrjzjwp1edo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Зустрічі тривали понад 5 годин у Берліні, Зеленський заявляє про готовність до діалогу та компромісів у мирному плані."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Обговорюються документи щодо гарантій безпеки для України після завершення війни."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Конкретних рішень щодо кордонів не оголошено, наголошується на справедливості плану."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру прямо не зачіпаються у цій статті."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cx23ze0zp8eo",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "США і Україна підготували базовий документ з 20 пунктів, сторони наблизились до фіналізації."
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "Детально пропрацьовані проєрти документів про гарантії безпеки для України від США та коаліції."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Згоди не знайшли щодо статусу ЗАЕС та можливого виведення військ з неокупованої частини Донеччини."
+      },
+      "humanitarian": {
+        "score": 0.4,
+        "justification": "Згадується можливе призупинення мобілізації або демобілізація під час перемир'я."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "ce8q9reqpmjo",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Лідери провели великі переговори у Мар-а-Лаго та розмовляли з широким колом європейських лідерів, фреймворк узгоджено на 90%."
+      },
+      "security": {
+        "score": 0.9,
+        "justification": "Гарантії безпеки між США та Україною узгоджені на 100%, а з Європою — майже узгоджені."
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Рамковий документ обговорено, хоча лишаються складні питання."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються детально в цій статті."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c17zz7nwj5lo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Пройшли перші тристоронні переговори США, України та РФ в ОАЕ, які названо конструктивними."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обговорення параметрів припинення війни та необхідності американського моніторингу."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не є головним фокусом цієї замітки про старт зустрічі."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання полонених чи біженців не піднімаються безпосередньо."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c801mv9en0yo",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Зустрічі у Вільнюсі у форматі Люблінського трикутника, обговорення результатів Абу-Дабі."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Зміцнення ППО та підтримка енергосистеми України."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Зеленський наголошує, що Україна не віддасть територій і треба шукати компроміс."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не піднімаються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c2lgwn09jzro",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Перша тристороння зустріч названа конструктивною та продуктивною, посадовці говорять про близькість зустрічі Путіна і Зеленського."
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Обговорювалися необхідні кроки з деескалації та запобігання відновленню війни."
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Сторони обговорювали російські територіальні претензії та ЗАЕС без ультиматумів."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cgm4dwjgwdno",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Анонсовано новий раунд в Абу-Дабі 1 лютого, однак позиції Росії та ЄС (оцінка Каллас) залишаються жорсткими."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Обговорення спектра військових питань для закінчення війни."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Складні політичні питання лишаються невирішеними."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарних тем немає."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "czx15jvrj78o",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Обговорюється ініціатива щодо дипломатичного простору та невикористання далекобійних можливостей."
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Досягнуто кроків до можливого енергетичного перемир'я та взаємної деескалації."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не порушується."
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Захист цивільних міст від обстрілів під час холодів."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cgk8l0peyrzo",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Продовження тристоронніх переговорів та домовленість про наступні зустрічі."
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Відновлення прямого каналу зв'язку між військовим керівництвом США та Росії/України."
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Територіальні поступки залишаються головним каменем спотикання."
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Домовлено про взаємне звільнення 157 військовополонених (перший обмін за 5 місяців)."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cp9jd8dgvlro",
+    "overall_sentiment": 0.8,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Переговори в Абу-Дабі дають відчутні результати на практиці."
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Постійна дипломатична взаємодія просуває мирні зусилля."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території не згадуються у контексті обміну."
+      },
+      "humanitarian": {
+        "score": 1.0,
+        "justification": "Успішний масштабний обмін 314 полоненими (по 157 з кожного боку), включаючи цивільних."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cd0y0g5dylno",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Стримано оптимістична оцінка переговорів WSJ, хоча складні теми залишаються невирішеними."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Обговорення режиму припинення вогню та механізмів контролю за ним."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "З найчутливішого питання контролю над Донбасом суттєвих зрушень немає."
+      },
+      "humanitarian": {
+        "score": 1.0,
+        "justification": "Успішний обмін 314 полоненими між Росією та Україною."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cjrzrqze55xo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "США пропонують графік завершення війни до літа, готується наступна зустріч у Маямі."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Обговорення енергетичного перемир'я попри порушення."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання без деталізації."
+      },
+      "humanitarian": {
+        "score": 0.6,
+        "justification": "Продовження роботи над новими обмінами полоненими."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c4g47qdgxxpo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "У Женеві проходить третій раунд тристоронніх переговорів за участі США, України та РФ."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Робота політичного та військового блоків, обговорення практичних рішень."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Фокус на безпекових та гуманітарних питаннях."
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Гуманітарні питання офіційно заявлені на порядку денному."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cx24g263l00o",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Зеленський запропонував Путіну особисту зустріч у Женеві для прямих переговорів."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Переговори тривають, але позиції запеклі."
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "Суперечки щодо відведення військ на Донбасі та неприйняття суспільством втрати територій."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання полонених не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c0lj0p8pk6wo",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Завершився третій раунд у Женеві, сторони домовилися продовжувати діалог."
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Досягнуто прогресу у військовому напрямку: військові домовилися про механізми моніторингу припинення вогню за участі США."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "По політичному напрямку прогресу поки немає, але діалог триває."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти у цій частині звіту не висвітлюються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c4gjrpydgw4o",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Перший від початку повномасштабного вторгнення раунд тристоронніх переговорів Москви, Києва та Вашингтона у Женеві."
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Обговорення технічних деталей щодо того, що має відбуватися після припинення бойових дій."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Дискусії щодо політичного рішення даються значно важче."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання у тексті не обговорюються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c2k8plq923jo",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Росія припинить мирні переговори, якщо Україна 4-5 березня не віддасть Донбас."
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Зеленський запропонував припинення вогню по нинішній лінії фронту."
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Росія готова підписати меморандум, якщо Україна погодиться вивести війська з частини Донецької області."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cgl5577y9pgo",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Про обмін домовлялись на останній тристоронній зустрічі у Женеві за участі посередників."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Успішна реалізація домовленостей про деескалацію у вигляді обміну."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання у цій статті не порушуються."
+      },
+      "humanitarian": {
+        "score": 1.0,
+        "justification": "Великий обмін полоненими у форматі 500 на 500 завершено."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cx2663gl4yyo",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Телефонні розмови лідерів США, Росії та України напередодні саміту НАТО."
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Росія продовжує масовані ракетно-дронові удари, Україна завдає ударів по енергетиці."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання кордонів напряму не обговорюється."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "clyex3n1x32o",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Зустріч Зеленського та Трампа на полях саміту НАТО в Анкарі для обговорення припинення війни."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Обговорення оборонних можливостей України та ППО."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не обговорюються."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cy0j94e550go",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Таємна зустріч колишніх німецьких посадовців із російськими чиновниками щодо шляхів припинення війни."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові аспекти напряму не обговорюються."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не порушується."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "cx2m5kk45z6o",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Підготовка до нової тристоронньої зустрічі та обговорення нових мирних ініціатив."
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Попередження про можливу ескалацію та посилення обстрілів з боку Росії."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні деталі не розглядаються."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "czxq0w75z1lo",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Зустріч Зеленського з Трампом у Білому домі, домовленість про активізацію дипломатичного процесу."
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Обговорення ліцензій на виробництво ракет для систем Patriot та оборони."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не згадуються."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c3rewvdzwq1o",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Заклик прем'єр-міністра Індії Моді до Путіна завершити нескінченну війну та перейти до мирних засобів."
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Заклики до припинення бойових дій та заморожування конфлікту."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Путін підтверджує мету контролю над усією територією Донбасу."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c5y4g02lg64o",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Путін зазначає, що Росія та Україна мають самі домовитися про кінець війни."
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Погрози новими ударами у відповідь, масовані атаки дронів."
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Вимога Москви встановити повний контроль над Донбасом."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cly4n5ekeg2o",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Візит спецпосланців США до Москви та Києва з пропозицією щодо припинення війни."
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Тимчасове взаємне припинення ударів по столицях на час переговорів."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Деталі територіального поділу в тексті не розкриваються."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c8jdgdpjkmko",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Переговори спецпредставників США з Зеленським у Києві як спроба перезавантажити мирний процес."
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Договір про призупинення ударів по столицях та обговорення постачання ППО."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не є фокусом цієї зустрічі."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "c8g49gd1r159o",
+    "overall_sentiment": -0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Адміністрація США розглядає нові стимули та економічні угоди для залучення сторін до діалогу."
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Очікування нових ударів по українській енергетичній системі."
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Путін заявляє про плани захопити весь Донбас; глухий кут у питаннях територій."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "c6783yk8401jo",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Зустрічі відбуваються, але процес застряг через ультимативні вимоги Москви."
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії не обговорюються."
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Ультиматум РФ щодо виведення української армії з неокупованих частин Донбасу."
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні."
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "cw62ml0m9l0qo",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Обговорення перших деескалаційних кроків та угод за посередництва США."
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "Україна і Росія погодилися (за заявою Трампа) не бити по енергетичних об'єктах."
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не порушуються."
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Захист продовольства, логістики та елементів базового гарантування життя."
+      }
+    },
+    "is_compromise_oriented": true
   }
 ]

@@ -15,17 +15,29 @@ Peacetalk Tracker — Streamlit UI v2
 from __future__ import annotations
 
 import html
+import os
 import sqlite3
-from datetime import date, datetime
+import sys
+import time
+from contextlib import contextmanager
+from datetime import date
 from pathlib import Path
-from typing import Tuple
 
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-DB_PATH = Path(__file__).resolve().parents[2] / "data" / "peacetalk.db"
+# Дозволяє запускати і `streamlit run src/ui/app.py`, і `python -m streamlit run ...` з кореня проєкту
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from src.errors import (  # noqa: E402
+    AccessDenied, ConflictError, NoteError, NotFoundError, TechnicalFailure, ValidationError,
+)
+from src.ops import observed, record, utc_now, utc_now_iso  # noqa: E402
+
+# Шлях до БД можна перевизначити змінною середовища (використовують тести та навчальний інцидент)
+DB_PATH = Path(os.getenv("PEACETALK_DB", str(Path(__file__).resolve().parents[2] / "data" / "peacetalk.db")))
 WAR_START = date(2022, 2, 24)
 
 CATEGORIES = ("diplomacy", "security", "territorial", "humanitarian")
@@ -45,11 +57,7 @@ OVERALL_COLOR = "#94A3B8"
 
 STATUS_BADGE = {
     "PUBLISHED": ":green-badge[Опубліковано]",
-    "APPROVED": ":green-badge[:material/verified: Схвалено]",
-    "PENDING_APPROVAL": ":orange-badge[:material/hourglass_top: На модерації]",
-    "REJECTED": ":red-badge[Відхилено]",
-    "DRAFT": ":gray-badge[Чернетка]",
-    "ARCHIVED": ":gray-badge[Архів]",
+    "ARCHIVED": ":gray-badge[:material/archive: В архіві]",
 }
 IMPORTANCE_BADGE = {
     "OFFICIALSTATEMENT": ":violet-badge[:material/campaign: Офіційна заява]",
@@ -97,7 +105,7 @@ def load_expert_notes(start_date: str | None = None, end_date: str | None = None
                       categories: tuple = (), statuses: tuple = ()) -> pd.DataFrame:
     query = """
         SELECT id, event_date, metric_category, content, author_id, importance_type, status,
-               moderated_by, moderated_at, moderator_comment, created_at, updated_at
+               created_at, updated_at
         FROM expert_notes WHERE 1=1
     """
     params: list = []
@@ -119,16 +127,12 @@ def load_expert_notes(start_date: str | None = None, end_date: str | None = None
 @st.cache_data(ttl=30, show_spinner=False)
 def get_filter_options() -> dict:
     conn = get_connection()
-    dmin, dmax = conn.execute(
-        "SELECT MIN(date), MAX(date) FROM news_articles WHERE date >= ?", (WAR_START.isoformat(),)
-    ).fetchone()
     return {
         "sources": [r[0] for r in conn.execute("SELECT DISTINCT source FROM news_articles ORDER BY source")],
         "categories": [r[0] for r in conn.execute("SELECT DISTINCT metric_category FROM assessment_records")],
-        "date_range": (
-            date.fromisoformat(dmin[:10]) if dmin else WAR_START,
-            date.fromisoformat(dmax[:10]) if dmax else date.today(),
-        ),
+        # Період фільтра: від початку війни до сьогодні (UTC). Не за датами статей: інакше
+        # замітки, створені після останньої статті, випадали б зі списку заміток.
+        "date_range": (WAR_START, utc_now().date()),
     }
 
 
@@ -139,76 +143,108 @@ def get_article_text(article_id: str) -> str:
 
 
 # ════════════════════════════════════════════════════════════════════════════
-#  Expert-note CRUD (з перевіркою прав на рівні SQL)
+#  Expert-note CRUD (v1.0): життєвий цикл PUBLISHED -> ARCHIVED
+#  Бізнес-помилки піднімаються як NoteError (ValidationError / ConflictError / AccessDenied /
+#  NotFoundError); будь-який технічний збій @observed перетворює на TechnicalFailure з request_id.
 # ════════════════════════════════════════════════════════════════════════════
-def _run(sql: str, params: tuple) -> int:
-    conn = get_connection()
-    cur = conn.execute(sql, params)
-    conn.commit()
-    return cur.rowcount
+ACTIVE = "PUBLISHED"
+ARCHIVED = "ARCHIVED"
+IMPORTANCE_TYPES = ("COMMENT", "OFFICIALSTATEMENT")
+MAX_CONTENT_LEN = 2000
 
 
-def create_note(user_id: str, event_date: str, metric_category: str,
-                content: str, importance_type: str) -> Tuple[bool, str]:
-    content = (content or "").strip()
-    if not content:
-        return False, "Зміст замітки не може бути порожнім"
-    if metric_category not in CATEGORIES:
-        return False, "Невідома категорія"
-    status = "PENDING_APPROVAL" if importance_type == "OFFICIALSTATEMENT" else "PUBLISHED"
+@contextmanager
+def _write_conn():
+    """Окреме з'єднання на кожну операцію: коректно при паралельних запитах.
+    mode=rw — не створює порожню БД, якщо файл зник (це був би прихований збій)."""
+    conn = sqlite3.connect(f"{DB_PATH.as_uri()}?mode=rw", uri=True, timeout=10)
     try:
-        _run(
-            """INSERT INTO expert_notes (event_date, metric_category, content, author_id, importance_type, status)
-               VALUES (?, ?, ?, ?, ?, ?)""",
-            (event_date, metric_category, content, user_id, importance_type, status),
-        )
-        return True, "Замітку збережено" + (" і надіслано на модерацію" if status == "PENDING_APPROVAL" else "")
-    except sqlite3.IntegrityError:
-        return False, "У вас вже є замітка на цю дату та категорію"
+        yield conn
+        conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        conn.close()
 
 
-def update_note(note_id: int, user_id: str, user_role: str, content: str) -> Tuple[bool, str]:
+def _fetch_note(conn: sqlite3.Connection, note_id: int) -> dict:
+    row = conn.execute("SELECT id, author_id, status FROM expert_notes WHERE id = ?", (int(note_id),)).fetchone()
+    if row is None:
+        raise NotFoundError("Замітку не знайдено")
+    return {"id": row[0], "author_id": row[1], "status": row[2]}
+
+
+def _require_owner_or_admin(note: dict, user_id: str, user_role: str) -> None:
+    if user_role != "Admin" and note["author_id"] != user_id:
+        raise AccessDenied("Змінювати чи архівувати можна лише власні замітки")
+
+
+def _clean_content(content: str) -> str:
     content = (content or "").strip()
     if not content:
-        return False, "Зміст замітки не може бути порожнім"
-    now = datetime.now().isoformat()
-    if user_role == "Admin":
-        n = _run("UPDATE expert_notes SET content = ?, updated_at = ? WHERE id = ?", (content, now, int(note_id)))
-    else:
-        n = _run(
-            """UPDATE expert_notes
-               SET content = ?, updated_at = ?,
-                   status = CASE WHEN importance_type = 'OFFICIALSTATEMENT'
-                                 THEN 'PENDING_APPROVAL' ELSE status END
-               WHERE id = ? AND author_id = ?""",
-            (content, now, int(note_id), user_id),
-        )
-    return (True, "Оновлено") if n > 0 else (False, "Немає прав або замітка не знайдена")
+        raise ValidationError("Зміст замітки не може бути порожнім")
+    if len(content) > MAX_CONTENT_LEN:
+        raise ValidationError(f"Зміст не може перевищувати {MAX_CONTENT_LEN} символів")
+    return content
 
 
-def delete_note(note_id: int, user_id: str, user_role: str) -> Tuple[bool, str]:
-    if user_role == "Admin":
-        n = _run("DELETE FROM expert_notes WHERE id = ?", (int(note_id),))
-    else:
-        n = _run("DELETE FROM expert_notes WHERE id = ? AND author_id = ?", (int(note_id), user_id))
-    return (True, "Видалено") if n > 0 else (False, "Немає прав або замітка не знайдена")
+def _validate_new_note(event_date: str, metric_category: str, importance_type: str) -> None:
+    if metric_category not in CATEGORIES:
+        raise ValidationError("Невідома категорія")
+    if importance_type not in IMPORTANCE_TYPES:
+        raise ValidationError("Невідомий тип замітки")
+    try:
+        parsed = date.fromisoformat(event_date)
+    except (TypeError, ValueError):
+        raise ValidationError("Дата має бути у форматі РРРР-ММ-ДД") from None
+    if not (WAR_START <= parsed <= utc_now().date()):
+        raise ValidationError(f"Дата події має бути між {WAR_START:%d.%m.%Y} і сьогодні (UTC)")
 
 
-def moderate_note(note_id: int, admin_id: str, user_role: str, action: str,
-                  comment: str = "") -> Tuple[bool, str]:
-    if user_role != "Admin":
-        return False, "Модерація доступна лише Admin"
-    new_status = "APPROVED" if action == "approve" else "REJECTED"
-    now = datetime.now().isoformat()
-    n = _run(
-        """UPDATE expert_notes
-           SET status = ?, moderated_by = ?, moderated_at = ?, moderator_comment = ?, updated_at = ?
-           WHERE id = ? AND status = 'PENDING_APPROVAL'""",
-        (new_status, admin_id, now, (comment or "").strip() or None, now, int(note_id)),
-    )
-    if n > 0:
-        return True, "Схвалено" if action == "approve" else "Відхилено"
-    return False, "Замітка не очікує модерації"
+@observed("create_note")
+def create_note(user_id: str, event_date: str, metric_category: str,
+                content: str, importance_type: str = "COMMENT") -> int:
+    """Створює активну замітку. Повертає її id. Дубль активної замітки -> ConflictError."""
+    content = _clean_content(content)
+    _validate_new_note(event_date, metric_category, importance_type)
+    now = utc_now_iso()
+    try:
+        with _write_conn() as conn:
+            cur = conn.execute(
+                """INSERT INTO expert_notes
+                   (event_date, metric_category, content, author_id, importance_type, status, created_at, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                (event_date, metric_category, content, user_id, importance_type, ACTIVE, now, now),
+            )
+            return cur.lastrowid
+    except sqlite3.IntegrityError:
+        raise ConflictError("У вас вже є активна замітка на цю дату та категорію") from None
+
+
+@observed("update_note")
+def update_note(note_id: int, user_id: str, user_role: str, content: str) -> None:
+    """Змінює текст активної замітки (автор або Admin)."""
+    content = _clean_content(content)
+    with _write_conn() as conn:
+        note = _fetch_note(conn, note_id)
+        _require_owner_or_admin(note, user_id, user_role)
+        if note["status"] != ACTIVE:
+            raise ConflictError("Архівну замітку не можна редагувати")
+        conn.execute("UPDATE expert_notes SET content = ?, updated_at = ? WHERE id = ?",
+                     (content, utc_now_iso(), int(note_id)))
+
+
+@observed("archive_note")
+def archive_note(note_id: int, user_id: str, user_role: str) -> None:
+    """Знімає замітку з графіка (status = ARCHIVED) і звільняє слот. Автор або Admin."""
+    with _write_conn() as conn:
+        note = _fetch_note(conn, note_id)
+        _require_owner_or_admin(note, user_id, user_role)
+        cur = conn.execute("UPDATE expert_notes SET status = ?, updated_at = ? WHERE id = ? AND status = ?",
+                           (ARCHIVED, utc_now_iso(), int(note_id), ACTIVE))
+        if cur.rowcount == 0:
+            raise ConflictError("Замітка вже в архіві")
 
 
 # ════════════════════════════════════════════════════════════════════════════
@@ -258,24 +294,24 @@ def empty_state() -> None:
 # ════════════════════════════════════════════════════════════════════════════
 #  Sidebar: користувач + фільтри
 # ════════════════════════════════════════════════════════════════════════════
+ACCOUNTS = {
+    "analyst_1": {"id": "analyst_1", "name": "Дослідник А", "role": "Analyst"},
+    "analyst_2": {"id": "analyst_2", "name": "Дослідник Б", "role": "Analyst"},
+    "admin_1": {"id": "admin_1", "name": "Адміністратор", "role": "Admin"},
+}
+
+
 def sidebar_user() -> dict:
-    if "user" not in st.session_state:
-        st.session_state.user = {"id": "analyst_1", "role": "Analyst", "name": "Дослідник 1"}
-    user = st.session_state.user
+    """Підготовлені навчальні облікові записи (реєстрація й паролі не входять в обсяг v1.0)."""
     with st.sidebar:
-        st.markdown("##### :material/person: Користувач")
-        role = st.segmented_control(
-            "Роль", ["Analyst", "Admin"], default=user["role"], key="role_select",
-            label_visibility="collapsed",
-        ) or user["role"]
-        if role != user["role"]:
-            user.update(
-                role=role,
-                id="admin_1" if role == "Admin" else "analyst_1",
-                name="Головний редактор" if role == "Admin" else "Дослідник 1",
-            )
-            st.rerun()
-        st.caption(f"{user['name']} · `{user['id']}`")
+        st.markdown("##### :material/person: Обліковий запис")
+        key = st.selectbox(
+            "Обліковий запис", list(ACCOUNTS), key="account_select", label_visibility="collapsed",
+            format_func=lambda k: f"{ACCOUNTS[k]['name']} · {ACCOUNTS[k]['role']}",
+        )
+        user = ACCOUNTS[key]
+        st.caption(f"id: `{user['id']}`")
+    st.session_state.user = user
     return user
 
 
@@ -410,7 +446,7 @@ def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame) -> 
 def dashboard_page() -> None:
     f = ctx()["filters"]
     df, arts = current_filtered_data()
-    notes = load_expert_notes(f["start"], f["end"], f["categories"], ("PUBLISHED", "APPROVED"))
+    notes = load_expert_notes(f["start"], f["end"], f["categories"], (ACTIVE,))
 
     st.title("🕊️ Peacetalk Tracker")
     st.caption("Діахронічний аналіз динаміки мирних переговорів Україна–Росія · 2022–2026")
@@ -434,7 +470,7 @@ def dashboard_page() -> None:
               delta=None if dc is None else f"{dc:+.0f} п.п.", chart_data=m_comp.tolist(), chart_type="area",
               border=True)
     k4.metric("Експертних заміток", len(notes), border=True,
-              help="Опубліковані та схвалені замітки в обраному періоді.")
+              help="Активні (опубліковані) замітки в обраному періоді.")
 
     trend_section(df, arts, notes)
 
@@ -557,59 +593,62 @@ def articles_page() -> None:
 # ════════════════════════════════════════════════════════════════════════════
 #  Сторінка 3: Експертні замітки
 # ════════════════════════════════════════════════════════════════════════════
-@st.dialog("Нова експертна замітка")
-def new_note_dialog(user: dict) -> None:
-    with st.form("new_note_form", border=False):
-        c1, c2 = st.columns(2)
-        event_date = c1.date_input("Дата події", value=date.today(), min_value=WAR_START,
-                                   max_value=date.today(), format="DD.MM.YYYY")
-        cat = c2.selectbox("Категорія", CATEGORIES, format_func=CAT_LABEL.get)
-        imp = st.segmented_control(
-            "Тип", ["COMMENT", "OFFICIALSTATEMENT"], default="COMMENT",
-            format_func=lambda x: "Коментар" if x == "COMMENT" else "Офіційна заява (на модерацію)",
-        ) or "COMMENT"
-        content = st.text_area("Зміст", height=140, placeholder="Що сталося і чому це важливо для динаміки переговорів…")
-        submitted = st.form_submit_button("Зберегти", type="primary", icon=":material/save:")
-    if submitted:
-        ok, msg = create_note(user["id"], event_date.isoformat(), cat, content, imp)
-        if ok:
-            st.cache_data.clear()
-            flash(msg)
-            st.rerun()
-        else:
-            st.error(msg)
+def fmt_utc(ts) -> str:
+    """2026-10-10T12:30:00Z -> '2026-10-10 12:30 UTC' (час зберігається й показується в UTC)."""
+    text = str(ts or "")
+    return f"{text[:10]} {text[11:16]} UTC" if len(text) >= 16 else "—"
+
+
+def _run_action(action, *args, ok_msg: str, icon: str = "✅") -> None:
+    """Виконує операцію й показує результат.
+    Очікувана відмова (NoteError) -> попередження; технічний збій -> помилка з кодом для журналу."""
+    try:
+        action(*args)
+    except NoteError as exc:
+        st.warning(str(exc), icon=":material/block:")
+        return
+    except TechnicalFailure as exc:
+        st.error(str(exc), icon=":material/error:")
+        return
+    st.cache_data.clear()
+    flash(ok_msg, icon)
+    st.rerun()
+
+
+def new_note_form(user: dict) -> None:
+    today = utc_now().date()
+    with st.expander("Нова замітка", icon=":material/add:"):
+        with st.form("new_note_form", border=False, clear_on_submit=True):
+            c1, c2 = st.columns(2)
+            event_date = c1.date_input("Дата події (UTC)", value=today, min_value=WAR_START,
+                                       max_value=today, format="DD.MM.YYYY", key="nn_date")
+            cat = c2.selectbox("Категорія", CATEGORIES, format_func=CAT_LABEL.get, key="nn_cat")
+            imp = st.segmented_control(
+                "Тип", list(IMPORTANCE_TYPES), default="COMMENT", key="nn_imp",
+                format_func=lambda x: "Коментар" if x == "COMMENT" else "Офіційна заява",
+            ) or "COMMENT"
+            content = st.text_area("Зміст", height=120, max_chars=MAX_CONTENT_LEN, key="nn_content",
+                                   placeholder="Що сталося і чому це важливо для динаміки переговорів…")
+            submitted = st.form_submit_button("Додати замітку", type="primary", icon=":material/save:")
+        if submitted:
+            _run_action(create_note, user["id"], event_date.isoformat(), cat, content, imp,
+                        ok_msg="Замітку збережено")
 
 
 def _note_actions(note: pd.Series, user: dict) -> None:
-    """Кнопки редагування / видалення / модерації під карткою замітки."""
+    """Редагування й архівація (лише для активних заміток автора або Admin)."""
+    if note["status"] != ACTIVE:
+        return
     nid = int(note["id"])
-    a1, a2, a3, _ = st.columns([1, 1, 1, 3])
+    a1, a2, _ = st.columns([1, 1, 4])
     with a1.popover("Редагувати", icon=":material/edit:"):
-        new_text = st.text_area("Текст", value=note["content"], key=f"edit_text_{nid}")
-        if st.button("Зберегти", key=f"edit_save_{nid}", type="primary"):
-            _apply(update_note(nid, user["id"], user["role"], new_text))
-    with a2.popover("Видалити", icon=":material/delete:"):
-        st.write("Видалити замітку назавжди?")
-        if st.button("Так, видалити", key=f"del_{nid}", type="primary"):
-            _apply(delete_note(nid, user["id"], user["role"]), icon="🗑️")
-    if user["role"] == "Admin" and note["status"] == "PENDING_APPROVAL":
-        with a3.popover("Модерація", icon=":material/gavel:"):
-            comment = st.text_input("Коментар модератора", key=f"mod_c_{nid}")
-            b1, b2 = st.columns(2)
-            if b1.button("Схвалити", key=f"mod_approve_{nid}", type="primary"):
-                _apply(moderate_note(nid, user["id"], user["role"], "approve", comment), icon="⚖️")
-            if b2.button("Відхилити", key=f"mod_reject_{nid}"):
-                _apply(moderate_note(nid, user["id"], user["role"], "reject", comment), icon="⚖️")
-
-
-def _apply(result: Tuple[bool, str], icon: str = "✅") -> None:
-    """Успіх → скинути кеш, показати toast і перезапустити; помилка → показати повідомлення."""
-    ok, msg = result
-    if ok:
-        st.cache_data.clear()
-        flash(msg, icon)
-        st.rerun()
-    st.error(msg)
+        new_text = st.text_area("Текст", value=note["content"], key=f"edit_text_{nid}", max_chars=MAX_CONTENT_LEN)
+        if st.button("Зберегти зміни", key=f"edit_save_{nid}", type="primary"):
+            _run_action(update_note, nid, user["id"], user["role"], new_text, ok_msg="Замітку оновлено")
+    with a2.popover("Архівувати", icon=":material/archive:"):
+        st.write("Зняти замітку з графіка? Слот буде звільнено.")
+        if st.button("Так, архівувати", key=f"archive_{nid}", type="primary"):
+            _run_action(archive_note, nid, user["id"], user["role"], ok_msg="Замітку архівовано", icon="📦")
 
 
 def _note_card(note: pd.Series, user: dict) -> None:
@@ -620,9 +659,7 @@ def _note_card(note: pd.Series, user: dict) -> None:
             f"{IMPORTANCE_BADGE.get(note['importance_type'], '')} {STATUS_BADGE.get(note['status'], note['status'])}"
         )
         st.write(note["content"])
-        st.caption(f":material/person: {note['author_id']} · оновлено {str(note['updated_at'])[:16]}")
-        if pd.notna(note["moderator_comment"]) and note["moderator_comment"]:
-            st.caption(f":material/gavel: {note['moderated_by']}: {note['moderator_comment']}")
+        st.caption(f":material/person: {note['author_id']} · оновлено {fmt_utc(note['updated_at'])}")
         if note["author_id"] == user["id"] or user["role"] == "Admin":
             _note_actions(note, user)
 
@@ -630,35 +667,27 @@ def _note_card(note: pd.Series, user: dict) -> None:
 def notes_page() -> None:
     user = ctx()["user"]
     f = ctx()["filters"]
-    head, btn = st.columns([5, 1], vertical_alignment="center")
-    head.title(":material/edit_note: Експертні замітки")
-    if btn.button("Нова замітка", icon=":material/add:", type="primary", width="stretch"):
-        new_note_dialog(user)
+    st.title(":material/edit_note: Експертні замітки")
+    new_note_form(user)
 
     notes = load_expert_notes(f["start"], f["end"], f["categories"])
     is_admin = user["role"] == "Admin"
-    visible = notes[
-        notes["status"].isin(["PUBLISHED", "APPROVED"]) | (notes["author_id"] == user["id"]) | is_admin
-    ]
-
-    scopes = ["Усі", "Мої"] + (["На модерації"] if is_admin else [])
-    counts = {
-        "Усі": len(visible),
-        "Мої": int((visible["author_id"] == user["id"]).sum()),
-        "На модерації": int((visible["status"] == "PENDING_APPROVAL").sum()),
+    # Активні бачать усі; архівні — лише автор (та Admin)
+    visible = notes[(notes["status"] == ACTIVE) | (notes["author_id"] == user["id"]) | is_admin]
+    scopes = {
+        "Усі": visible[visible["status"] == ACTIVE],
+        "Мої": visible[visible["author_id"] == user["id"]],
+        "В архіві": visible[visible["status"] == ARCHIVED],
     }
-    scope = st.segmented_control("Показати", scopes, default="Усі", key="notes_scope",
-                                 format_func=lambda s: f"{s} · {counts[s]}") or "Усі"
-    if scope == "Мої":
-        visible = visible[visible["author_id"] == user["id"]]
-    elif scope == "На модерації":
-        visible = visible[visible["status"] == "PENDING_APPROVAL"]
+    scope = st.segmented_control("Показати", list(scopes), default="Усі", key="notes_scope",
+                                 format_func=lambda s: f"{s} · {len(scopes[s])}") or "Усі"
+    shown = scopes[scope]
 
-    st.caption("Застосовано фільтри періоду й категорій із бічної панелі.")
-    if visible.empty:
-        st.info("Заміток немає. Натисніть «Нова замітка», щоб додати першу.", icon=":material/inbox:")
+    st.caption("Застосовано фільтри періоду й категорій із бічної панелі. Час змін — UTC.")
+    if shown.empty:
+        st.info("Заміток немає. Відкрийте «Нова замітка», щоб додати першу.", icon=":material/inbox:")
         return
-    for _, note in visible.iterrows():
+    for _, note in shown.iterrows():
         _note_card(note, user)
 
 
@@ -709,18 +738,34 @@ def summary_page() -> None:
 # ════════════════════════════════════════════════════════════════════════════
 #  Entry point
 # ════════════════════════════════════════════════════════════════════════════
-def bootstrap() -> None:
-    """Перевірка БД, сайдбар (користувач + фільтри), контекст для сторінок."""
-    if not DB_PATH.exists():
-        st.error(f"Базу даних не знайдено: {DB_PATH}\n\nСтворіть її та завантажте дані (з кореня проєкту):\n\n"
-                 "`python -m scripts.load_to_db`")
+def _healthcheck() -> None:
+    """Перевіряє доступність БД, пише подію healthcheck у журнал; при збої зупиняє сторінку з кодом."""
+    started = time.perf_counter()
+    try:
+        if not DB_PATH.exists():
+            raise FileNotFoundError("файл БД не знайдено")
+        get_connection().execute("SELECT 1 FROM expert_notes LIMIT 1").fetchone()
+    except (OSError, sqlite3.Error) as exc:
+        rid = record("healthcheck", "error", (time.perf_counter() - started) * 1000, type(exc).__name__)
+        st.error(
+            f"База даних недоступна ({type(exc).__name__}). Код для пошуку в журналі: `{rid}`.\n\n"
+            f"Файл: `{DB_PATH}`. Створіть БД і завантажте дані (з кореня проєкту): "
+            "`python -m scripts.load_to_db`",
+            icon=":material/error:",
+        )
         st.stop()
+    record("healthcheck", "ok", (time.perf_counter() - started) * 1000)
+
+
+def bootstrap() -> None:
+    """Перевірка БД, сайдбар (обліковий запис + фільтри), контекст для сторінок."""
+    _healthcheck()
     user = sidebar_user()
     filters = sidebar_filters(get_filter_options())
     st.session_state["_ctx"] = {"user": user, "filters": filters}
     with st.sidebar:
         st.divider()
-        st.caption(f"Peacetalk Tracker v2 · БД: `{DB_PATH.name}`")
+        st.caption(f"Peacetalk Tracker v1.0 · БД: `{DB_PATH.name}`")
         st.caption("Agent 1: Analyst ✅ · Agent 2: Synthesizer ⏳")
     show_flash()
 

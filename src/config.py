@@ -13,6 +13,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 # Моделі винесені в .env, щоб не правити код при зміні версії.
 ANALYST_MODEL = os.getenv("ANALYST_MODEL", "gemini-3.5-flash-lite")
 SELECTOR_MODEL = os.getenv("SELECTOR_MODEL", "gemini-3.8-flash")
+SYNTHESIZER_MODEL = os.getenv("SYNTHESIZER_MODEL", "gemini-3.5-flash-lite")
 
 _PLACEHOLDERS = ("ваш_справжній_ключ", "your_gemini_api_key_here")
 

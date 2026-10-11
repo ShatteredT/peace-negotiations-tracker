@@ -1,7 +1,7 @@
 import logging
 import os
 
-# Створюємо директорію для логів, якщо вона відсутня
+# Створюється директорія для логів, якщо вона відсутня
 os.makedirs("logs", exist_ok=True)
 
 logging.basicConfig(

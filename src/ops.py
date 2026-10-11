@@ -29,7 +29,7 @@ TS_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 _lock = threading.Lock()
 
 
-# ---------------------------------------------------------------- час (UTC)
+# час (UTC)
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
@@ -43,7 +43,7 @@ def parse_ts(value: str) -> datetime:
     return datetime.strptime(value, TS_FORMAT).replace(tzinfo=timezone.utc)
 
 
-# ---------------------------------------------------------------- запис
+# запис
 def new_request_id() -> str:
     return uuid.uuid4().hex[:8]
 
@@ -92,7 +92,7 @@ def observed(op: str):
     return decorator
 
 
-# ---------------------------------------------------------------- читання й метрики
+# читання й метрики
 def read_events(path: Optional[Path] = None) -> list:
     path = Path(path or LOG_PATH)
     if not path.exists():

@@ -5,7 +5,7 @@ from src import config
 from src.agents.analyst_schemas import ArticleAnalysis, CategoryScore
 
 
-# ---------- config: тести не залежать від наявності реального ключа ----------
+# config: тести не залежать від наявності реального ключа
 def test_validate_config_raises_without_key(monkeypatch):
     monkeypatch.setattr(config, "GEMINI_API_KEY", None)
     with pytest.raises(ValueError):
@@ -23,7 +23,7 @@ def test_validate_config_accepts_real_looking_key(monkeypatch):
     config.validate_config()  # не має кидати виняток
 
 
-# ---------- schemas ----------
+# schemas
 def test_category_score_boundary_valid():
     cat = CategoryScore(score=0.75, justification="Готовність до поступок")
     assert cat.score == 0.75

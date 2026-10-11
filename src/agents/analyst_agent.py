@@ -42,7 +42,7 @@ class AnalystAgent:
         self.batch_size = 15
         self.output_file = Path(output_file)
 
-    # ---------- prompt ----------
+    # prompt
     @staticmethod
     def _create_batch_prompt(articles: list) -> str:
         parts = []
@@ -55,7 +55,7 @@ class AnalystAgent:
             parts.append("")
         return "\n".join(parts)
 
-    # ---------- LLM ----------
+    # LLM
     def _call_llm_batch(self, prompt: str, max_retries: int = 5) -> BatchAnalysis:
         for attempt in range(1, max_retries + 1):
             try:
@@ -84,7 +84,7 @@ class AnalystAgent:
                     raise
         raise RuntimeError("unreachable")  # цикл завжди повертає або піднімає виняток
 
-    # ---------- storage ----------
+    # storage
     def _load_existing_results(self) -> list:
         if self.output_file.exists():
             try:
@@ -104,7 +104,7 @@ class AnalystAgent:
         tmp.replace(self.output_file)  # атомарно: файл не буде напівзаписаним
         logger.info("Saved %d results to %s", len(results), self.output_file)
 
-    # ---------- main loop ----------
+    # main loop
     def analyze_batch(self, articles: list, delay_seconds: int = 30) -> list:
         results = self._load_existing_results()
         processed_ids = {item["article_id"] for item in results}
@@ -136,7 +136,7 @@ class AnalystAgent:
 
             missing = batch_ids - processed_ids
             if missing:
-                # не губимо мовчки: ці статті підуть у наступний запуск (resume)
+                # ці статті підуть у наступний запуск (resume)
                 logger.warning("Model skipped %d article(s): %s", len(missing), sorted(missing))
 
             self._save_results(results)

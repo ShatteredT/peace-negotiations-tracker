@@ -1,13 +1,3 @@
-"""Ініціалізація SQLite-бази Peacetalk Tracker (схема v1.0).
-
-Запуск з кореня проєкту:  python -m scripts.init_db
-
-Схема v1.0 НЕ містить модерації заміток: колонки review_status / reviewed_by / reviewed_at
-і нові статуси додаються міграцією у v2.0 (PT-41…PT-44).
-
-Час зберігається в UTC у форматі ISO 8601 з суфіксом Z (2026-10-10T12:00:00Z).
-event_date — календарна дата події без часу (YYYY-MM-DD).
-"""
 import logging
 import sqlite3
 from pathlib import Path

@@ -1,17 +1,3 @@
-"""Звіт про метрики операцій і перевірка правила сповіщення (вимога 8.2 лабораторної).
-
-Запуск з кореня проєкту:
-    python -m scripts.ops_report                       # метрики за весь журнал + перевірка ALERT
-    python -m scripts.ops_report --probe               # спершу перевірити БД (healthcheck), потім звіт
-    python -m scripts.ops_report --window 5 --max-errors 3
-
-Правило сповіщення: ALERT, якщо технічних збоїв (result = error) за останні --window хвилин
-не менше ніж --max-errors. Код завершення: 0 — норма, 2 — ALERT.
-
-Як простежити невдалу операцію: у UI при технічному збої показується «Код для пошуку в
-журналі: <request_id>» -> знайдіть цей request_id у logs/ops.jsonl (рядок містить час,
-операцію, клас помилки й тривалість).
-"""
 import argparse
 import sqlite3
 import sys

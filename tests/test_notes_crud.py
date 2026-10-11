@@ -37,7 +37,7 @@ def make(user="analyst_1", date=DATE, cat="diplomacy", text="note", imp="COMMENT
     return app.create_note(user, date, cat, text, imp)
 
 
-# ---------------------------------------------------------------- валідація
+# валідація
 @pytest.mark.parametrize("kwargs", [
     {"text": ""},
     {"text": "   "},
@@ -58,7 +58,7 @@ def test_boundary_dates_are_accepted(db):
     assert make(date=utc_now().date().isoformat(), cat="territorial")
 
 
-# ---------------------------------------------------------------- створення
+# створення
 def test_create_returns_id_and_stores_active_note_with_utc_timestamps(db):
     note_id = make(text="  Перший контакт  ")
     status, content, created, updated = row(db, note_id)
@@ -79,7 +79,7 @@ def test_archive_frees_slot_for_new_note(db):
     assert second != first and row(db, second)[0] == "PUBLISHED"
 
 
-# ---------------------------------------------------------------- архівація й права (FR-04)
+# архівація й права (FR-04)
 def test_author_archives_own_note(db):
     note_id = make()
     app.archive_note(note_id, "analyst_1", "Analyst")
@@ -114,7 +114,7 @@ def test_second_archive_is_conflict_not_silent_success(db):
         app.archive_note(note_id, "analyst_1", "Analyst")
 
 
-# ---------------------------------------------------------------- редагування
+# редагування
 def test_update_changes_text_and_updated_at(db):
     note_id = make()
     app.update_note(note_id, "analyst_1", "Analyst", "new text")
@@ -134,7 +134,7 @@ def test_update_rejects_empty_text(db):
         app.update_note(note_id, "analyst_1", "Analyst", "  ")
 
 
-# ---------------------------------------------------------------- бізнес-помилка ≠ технічний збій
+# бізнес-помилка не реєструється як технічний збій
 def test_technical_failure_is_distinct_from_business_errors(tmp_path, monkeypatch):
     monkeypatch.setattr(app, "DB_PATH", tmp_path / "missing.db")
     with pytest.raises(TechnicalFailure) as exc_info:

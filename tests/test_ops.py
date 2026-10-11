@@ -1,4 +1,4 @@
-"""Журнал операцій, метрики та правило сповіщення (вимога 8.2)."""
+"""Журнал операцій, метрики та правило сповіщення"""
 import json
 from datetime import timedelta
 
@@ -23,7 +23,7 @@ def db(tmp_path, monkeypatch):
     return path
 
 
-# ---------------------------------------------------------------- декоратор і журнал
+# декоратор і журнал
 def test_successful_operation_is_logged_as_ok(db):
     app.create_note("analyst_1", "2024-01-15", "diplomacy", "text")
     (event,) = events()
@@ -61,7 +61,7 @@ def test_corrupted_log_line_does_not_break_reading(db):
     assert len(events()) == 1
 
 
-# ---------------------------------------------------------------- метрики
+# метрики
 def make_event(result="ok", ms=1.0, op="create_note", ago_minutes=0):
     ts = (ops.utc_now() - timedelta(minutes=ago_minutes)).strftime(ops.TS_FORMAT)
     return {"ts": ts, "op": op, "result": result, "error": None, "ms": ms, "request_id": "r"}
@@ -81,7 +81,7 @@ def test_summary_counts_results_and_durations():
     assert s["error_rate"] == 0.25 and s["max_ms"] == 40
 
 
-# ---------------------------------------------------------------- правило сповіщення
+# правило сповіщення
 def test_alert_fires_at_threshold_and_not_below():
     two = [make_event("error"), make_event("error")]
     three = two + [make_event("error")]
@@ -94,7 +94,7 @@ def test_alert_ignores_old_failures_and_business_refusals():
     assert ops.evaluate_alert(data, window_minutes=5, max_errors=3) == (False, 0)
 
 
-# ---------------------------------------------------------------- CLI-звіт і healthcheck
+# CLI-звіт і healthcheck
 def write_log(path, items):
     path.write_text("\n".join(json.dumps(i) for i in items) + "\n", encoding="utf-8")
 

@@ -1,17 +1,3 @@
-"""
-Peacetalk Tracker — Streamlit UI v2
-
-Сучасні можливості Streamlit, які тут використано:
-  • st.navigation(position="top") + st.Page — багатосторінкова навігація в одному файлі
-  • st.fragment — графік перемальовується окремо, без перезапуску всієї сторінки
-  • st.dialog — модальне вікно створення замітки
-  • st.metric з sparkline (chart_data) та дельтою
-  • st.pills / st.segmented_control — швидкі фільтри
-  • st.dataframe(on_select=...) — вибір рядка → деталі статті
-  • кольорові бейджі (:green-badge[...]), st.popover, st.toast, st.link_button
-
-Запуск (з кореня проєкту):  streamlit run src/ui/app.py
-"""
 from __future__ import annotations
 
 import html
@@ -65,9 +51,7 @@ IMPORTANCE_BADGE = {
 }
 
 
-# ════════════════════════════════════════════════════════════════════════════
-#  DB
-# ════════════════════════════════════════════════════════════════════════════
+# DB
 @st.cache_resource
 def get_connection():
     return sqlite3.connect(DB_PATH, check_same_thread=False)
@@ -76,7 +60,6 @@ def get_connection():
 @st.cache_data(ttl=30, show_spinner=False)
 def load_assessments(start_date: str, end_date: str, categories: tuple,
                      sources: tuple, min_confidence: float) -> pd.DataFrame:
-    """Оцінки (по рядку на статтю×категорію). Записи без confidence (старі дані) не відсіюються."""
     query = """
         SELECT a.id AS article_id, a.source, a.title, a.date, a.url,
                ar.metric_category, ar.score, ar.justification, ar.confidence,
@@ -142,11 +125,6 @@ def get_article_text(article_id: str) -> str:
     return (row[0] if row and row[0] else "")
 
 
-# ════════════════════════════════════════════════════════════════════════════
-#  Expert-note CRUD (v1.0): життєвий цикл PUBLISHED -> ARCHIVED
-#  Бізнес-помилки піднімаються як NoteError (ValidationError / ConflictError / AccessDenied /
-#  NotFoundError); будь-який технічний збій @observed перетворює на TechnicalFailure з request_id.
-# ════════════════════════════════════════════════════════════════════════════
 ACTIVE = "PUBLISHED"
 ARCHIVED = "ARCHIVED"
 IMPORTANCE_TYPES = ("COMMENT", "OFFICIALSTATEMENT")
@@ -156,7 +134,7 @@ MAX_CONTENT_LEN = 2000
 @contextmanager
 def _write_conn():
     """Окреме з'єднання на кожну операцію: коректно при паралельних запитах.
-    mode=rw — не створює порожню БД, якщо файл зник (це був би прихований збій)."""
+    mode=rw не створює порожню БД, якщо файл зник """
     conn = sqlite3.connect(f"{DB_PATH.as_uri()}?mode=rw", uri=True, timeout=10)
     try:
         yield conn
@@ -247,9 +225,7 @@ def archive_note(note_id: int, user_id: str, user_role: str) -> None:
             raise ConflictError("Замітка вже в архіві")
 
 
-# ════════════════════════════════════════════════════════════════════════════
 #  Helpers
-# ════════════════════════════════════════════════════════════════════════════
 def flash(msg: str, icon: str = "✅") -> None:
     """Повідомлення, що переживає st.rerun() (toast одразу перед rerun зникає)."""
     st.session_state["_flash"] = (msg, icon)
@@ -291,18 +267,14 @@ def empty_state() -> None:
             icon=":material/filter_alt_off:")
 
 
-# ════════════════════════════════════════════════════════════════════════════
 #  Sidebar: користувач + фільтри
-# ════════════════════════════════════════════════════════════════════════════
 ACCOUNTS = {
     "analyst_1": {"id": "analyst_1", "name": "Дослідник А", "role": "Analyst"},
     "analyst_2": {"id": "analyst_2", "name": "Дослідник Б", "role": "Analyst"},
     "admin_1": {"id": "admin_1", "name": "Адміністратор", "role": "Admin"},
 }
 
-
 def sidebar_user() -> dict:
-    """Підготовлені навчальні облікові записи (реєстрація й паролі не входять в обсяг v1.0)."""
     with st.sidebar:
         st.markdown("##### :material/person: Обліковий запис")
         key = st.selectbox(
@@ -353,9 +325,7 @@ def sidebar_filters(options: dict) -> dict:
     }
 
 
-# ════════════════════════════════════════════════════════════════════════════
 #  Сторінка 1: Огляд
-# ════════════════════════════════════════════════════════════════════════════
 def _delta_recent(series: pd.Series) -> float | None:
     """Різниця між останніми k місяцями та k попередніми."""
     s = series.dropna()
@@ -519,9 +489,7 @@ def dashboard_page() -> None:
                                     f":{score_color(r['overall_sentiment'])}-badge[{r['overall_sentiment']:+.2f}]")
 
 
-# ════════════════════════════════════════════════════════════════════════════
 #  Сторінка 2: Статті
-# ════════════════════════════════════════════════════════════════════════════
 def articles_page() -> None:
     st.title(":material/article: Статті та оцінки")
     df, arts = current_filtered_data()
@@ -590,9 +558,7 @@ def articles_page() -> None:
             st.link_button("Відкрити оригінал", row["url"], icon=":material/open_in_new:")
 
 
-# ════════════════════════════════════════════════════════════════════════════
 #  Сторінка 3: Експертні замітки
-# ════════════════════════════════════════════════════════════════════════════
 def fmt_utc(ts) -> str:
     """2026-10-10T12:30:00Z -> '2026-10-10 12:30 UTC' (час зберігається й показується в UTC)."""
     text = str(ts or "")
@@ -691,9 +657,7 @@ def notes_page() -> None:
         _note_card(note, user)
 
 
-# ════════════════════════════════════════════════════════════════════════════
 #  Сторінка 4: Підсумки
-# ════════════════════════════════════════════════════════════════════════════
 def summary_page() -> None:
     st.title(":material/summarize: Аналітичні підсумки")
     st.info("Agent 2 (Synthesizer) ще не реалізований, тому нижче — статистичне зведення за піврічними "
@@ -718,9 +682,12 @@ def summary_page() -> None:
     table = table.rename(columns={"period": "Період", "articles": "Статей", "avg_tone": "Середній тон",
                                   "compromise_pct": "% компромісних"})
 
+    period_order = sorted(table["Період"].unique())
     figb = px.bar(table, x="Період", y="Середній тон", color=table["Середній тон"] >= 0,
-                  color_discrete_map={True: "#22C55E", False: "#EF4444"}, text_auto=".2f")
-    figb.update_layout(height=320, showlegend=False, margin=dict(l=10, r=10, t=10, b=10), yaxis_range=[-1, 1])
+        color_discrete_map={True: "#22C55E", False: "#EF4444"},
+        text_auto=".2f",
+        category_orders={"Період": period_order})
+    figb.update_layout(height=320, showlegend=False, margin=dict(l=10, r=10, t=10, b=10), yaxis_range=[-1, 1],)
     st.plotly_chart(figb, width="stretch", config={"displaylogo": False})
 
     cfg = {
@@ -735,9 +702,7 @@ def summary_page() -> None:
                        "peacetalk_summary.csv", "text/csv", icon=":material/download:")
 
 
-# ════════════════════════════════════════════════════════════════════════════
 #  Entry point
-# ════════════════════════════════════════════════════════════════════════════
 def _healthcheck() -> None:
     """Перевіряє доступність БД, пише подію healthcheck у журнал; при збої зупиняє сторінку з кодом."""
     started = time.perf_counter()

@@ -254,7 +254,7 @@ class OptimizedSelectorAgent:
             self._save_selected(selected)
             chosen.append(selected)
 
-        # Усі remaining вже розглянуті моделлю → позначаємо їх оброблені,
+        # якщо усі remaining вже розглянуті моделлю - позначаємо їх оброблені,
         # інакше resume повторював би той самий запит.
         processed.update(a["_orig_idx"] for a in remaining)
         self._save_checkpoint(source, target_period, processed, selected_count + len(chosen))

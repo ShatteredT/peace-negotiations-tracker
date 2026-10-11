@@ -1,13 +1,3 @@
-"""Завантажує результати конвеєра (JSON) у SQLite, звідки їх читає Streamlit-UI.
-
-Запуск з кореня проєкту:
-    python -m scripts.load_to_db
-    python -m scripts.load_to_db --db data/peacetalk.db --articles data/found_articles.json \
-                                 --analyses data/analyzed_articles.json
-
-Скрипт ідемпотентний: повторний запуск оновлює записи, а не дублює їх.
-Якщо в оцінці немає confidence (старі дані) — у БД пишеться NULL, а не вигадане число.
-"""
 import argparse
 import json
 import sqlite3

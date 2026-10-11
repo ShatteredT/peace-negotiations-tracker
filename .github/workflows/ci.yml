@@ -2,10 +2,13 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, feature/**]
+    branches: [main, feature/**, streamlit-mvp]
   pull_request:
     branches: [main]
-  workflow_dispatch:  # allow manual runs
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 env:
   PYTHON_VERSION: '3.11'
@@ -56,12 +59,10 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Initialize database
-        run: |
-          python scripts/init_db.py
+        run: python scripts/init_db.py
 
       - name: Run tests
-        run: |
-          pytest tests/ -v --tb=short --cov=src --cov-report=term-missing --cov-report=xml
+        run: pytest tests/ -v --tb=short --cov=src --cov-report=term-missing --cov-report=xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v4
@@ -93,8 +94,7 @@ jobs:
         run: |
           python -c "
           from src.agents.analyst_schemas import ArticleAnalysis, CategoryScore
-          import json
-          # Test valid data
+
           test = ArticleAnalysis(
               article_id='test',
               overall_sentiment=0.5,
@@ -107,11 +107,11 @@ jobs:
               }
           )
           print('Schema validation: OK')
-          # Test boundary validation
+
           try:
               CategoryScore(score=1.5, justification='invalid')
-              print('ERROR: Should have failed')
-          except Exception as e:
+              raise AssertionError('Boundary validation failed: score 1.5 was accepted')
+          except ValueError:
               print('Boundary validation: OK')
           "
 
@@ -134,8 +134,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run DB init and verify
-        run: |
-          python scripts/init_db.py
+        run: python scripts/init_db.py
 
   build:
     name: Build Artifact
@@ -174,16 +173,23 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true
 
-      - name: Create tag
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create and push tag
         run: |
           VERSION=$(date +'v%Y.%m.%d-%H%M')
-          git tag $VERSION
-          git push origin $VERSION
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git tag "$VERSION"
+          git push origin "$VERSION"

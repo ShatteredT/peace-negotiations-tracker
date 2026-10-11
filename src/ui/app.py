@@ -11,19 +11,17 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-# Дозволяє запускати і `streamlit run src/ui/app.py`, і `python -m streamlit run ...` з кореня проєкту
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from src.errors import (  # noqa: E402
+from src.errors import (
     AccessDenied, ConflictError, NoteError, NotFoundError, TechnicalFailure, ValidationError,
 )
-from src.ops import observed, record, utc_now, utc_now_iso  # noqa: E402
-from src.ui.charts import (  # noqa: E402
+from src.ops import observed, record, utc_now, utc_now_iso
+from src.ui.charts import (
     CAT_LABEL, CATEGORIES, VIEW_CATEGORIES, VIEW_OVERALL, heatmap_figure, period_tone_figure, trend_figure,
     year_share_figure, year_violin_figure,
 )
 
-# Шлях до БД можна перевизначити змінною середовища (використовують тести та навчальний інцидент)
 DB_PATH = Path(os.getenv("PEACETALK_DB", str(Path(__file__).resolve().parents[2] / "data" / "peacetalk.db")))
 WAR_START = date(2022, 2, 24)
 
@@ -288,6 +286,7 @@ ACCOUNTS = {
     "analyst_2": {"id": "analyst_2", "name": "Дослідник Б", "role": "Analyst"},
     "admin_1": {"id": "admin_1", "name": "Адміністратор", "role": "Admin"},
 }
+
 
 def sidebar_user() -> dict:
     with st.sidebar:
@@ -663,13 +662,6 @@ def _stats_summary() -> None:
     table = table.rename(columns={"period": "Період", "articles": "Статей", "avg_tone": "Середній тон",
                                   "compromise_pct": "% компромісних"})
 
-    period_order = sorted(table["Період"].unique())
-    figb = px.bar(table, x="Період", y="Середній тон", color=table["Середній тон"] >= 0,
-        color_discrete_map={True: "#22C55E", False: "#EF4444"},
-        text_auto=".2f",
-        category_orders={"Період": period_order})
-    figb.update_layout(height=320, showlegend=False, margin=dict(l=10, r=10, t=10, b=10), yaxis_range=[-1, 1],)
-    st.plotly_chart(figb, width="stretch", config={"displaylogo": False})
     st.caption("Середній загальний тон статей за піврічними періодами: −1 ескалація, +1 компроміс.")
     st.plotly_chart(period_tone_figure(table), width="stretch", config={"displaylogo": False})
 

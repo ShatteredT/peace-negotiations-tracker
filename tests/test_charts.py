@@ -77,3 +77,10 @@ def test_heatmap_uses_ukrainian_labels(data):
     fig = charts.heatmap_figure(data[0])
     assert list(fig.data[0].y) == [charts.CAT_LABEL[c] for c in CATS]
     assert fig.data[0].colorbar.title.text == "Оцінка"
+
+
+def test_period_bars_follow_chronological_order_even_if_rows_are_shuffled():
+    table = pd.DataFrame({"Період": ["2024-H1", "2022-H2", "2023-H1", "2022-H1"],
+                          "Середній тон": [0.2, -0.1, 0.3, 0.0]})
+    fig = charts.period_tone_figure(table)
+    assert list(fig.layout.xaxis.categoryarray) == ["2022-H1", "2022-H2", "2023-H1", "2024-H1"]

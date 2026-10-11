@@ -177,6 +177,7 @@ def year_violin_figure(arts: pd.DataFrame) -> go.Figure:
 
 def period_tone_figure(table: pd.DataFrame) -> go.Figure:
     fig = px.bar(table, x="Період", y="Середній тон", color=table["Середній тон"] >= 0,
-                 color_discrete_map={True: "#22C55E", False: "#EF4444"}, text_auto=".2f")
+                 color_discrete_map={True: "#22C55E", False: "#EF4444"}, text_auto=".2f",
+                 category_orders={"Період": sorted(table["Період"].unique())})
     fig.update_layout(showlegend=False, yaxis_range=[-1, 1], xaxis_title=None)
     return _tidy(fig, height=320)

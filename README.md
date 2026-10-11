@@ -14,7 +14,7 @@
 | Оцінок у БД | 600 (4 категорії × 150) |
 | Agent 1 — Analyst | ✅ готовий |
 | Agent 0 — Selector | ✅ готовий (корпус BBC береться з `data/BBC/filtered.json` або з git) |
-| Agent 2 — Synthesizer | ⏳ не реалізований (вкладка «Підсумки» — статистичне зведення без LLM) |
+| Agent 2 — Synthesizer | ✅ резюме й анотації за піврічними періодами (вкладка «Підсумки», маркери на графіку) |
 | Автентифікація | навчальні облікові записи без реєстрації (див. «Облікові записи») |
 | Модерація заміток | ⏳ запланована на v2.0 (PT-60, PT-43); у v1.0 замітки публікуються одразу |
 
@@ -38,10 +38,29 @@ streamlit run src/ui/app.py
 | 1. Відбір статей (Selector) | `python -m src.agents.selector_optimized` | `data/filtered_corpus_optimized.json` |
 | 2. Аналіз (Analyst) | `python -m src.agents.analyst_agent` | `data/analyzed_articles.json` |
 | 3. Завантаження в БД | `python -m scripts.load_to_db` | `data/peacetalk.db` |
+| 3a. Резюме (Synthesizer) | `python -m src.agents.synthesizer_agent` | таблиці `period_summaries`, `summary_annotations` |
 | 4. Інтерфейс | `streamlit run src/ui/app.py` | — |
 
 Analyst обробляє статті пачками по 15 і підтримує resume: повторний запуск оцінює лише ще не оброблені статті.
 Завантажувач ідемпотентний. Якщо в оцінці немає `confidence` (старі дані), у БД пишеться `NULL`, а не вигадане число.
+
+## Агент-Синтезатор
+
+```bash
+python -m src.agents.synthesizer_agent                      # резюме для періодів, яких ще немає в БД
+python -m src.agents.synthesizer_agent --period 2024-H1     # окремий період (можна кілька разів)
+python -m src.agents.synthesizer_agent --force              # перегенерувати наявні
+python -m src.agents.synthesizer_agent --delay 5            # пауза між періодами, секунд
+```
+
+Для кожного піврічного періоду агент отримує оцінки статей і опубліковані експертні замітки та повертає
+тенденцію (`escalation / compromise / stable / mixed`), резюме та анотації до двох піків і двох спадів тону.
+Піки й спади визначає код, модель лише пояснює їх. Модель задається `SYNTHESIZER_MODEL`
+(за замовчуванням `gemini-3.5-flash-lite`).
+
+Помилки 503 / 429 повторюються з паузою **20 секунд** (до 5 спроб). Збережені періоди повторно не
+генеруються, тому після збою достатньо запустити команду ще раз. Таблиці створюються самим агентом
+(`CREATE TABLE IF NOT EXISTS`), версія схеми `user_version` не змінюється.
 
 ## Облікові записи (v1.0)
 
@@ -96,7 +115,7 @@ python -m scripts.ops_report --probe       # + перевірка доступн
 
 ```
 src/
-  agents/        analyst_agent.py, analyst_schemas.py, selector_optimized.py
+  agents/        analyst_agent.py, synthesizer_agent.py (+ schemas), selector_optimized.py
   ui/app.py      Streamlit: Огляд · Статті · Замітки · Підсумки
   errors.py      типи помилок (бізнес-помилки та технічний збій)
   ops.py         журнал операцій, метрики, правило сповіщення, час у UTC

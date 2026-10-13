@@ -58,7 +58,7 @@ python -m src.agents.synthesizer_agent --delay 5            # пауза між 
 Піки й спади визначає код, модель лише пояснює їх. Модель задається `SYNTHESIZER_MODEL`
 (за замовчуванням `gemini-3.5-flash-lite`).
 
-Помилки 503 / 429 повторюються з паузою **20 секунд** (до 5 спроб). Збережені періоди повторно не
+При помилках 503 / 429 запити повторюються з паузою **20 секунд** (до 5 спроб). Збережені періоди повторно не
 генеруються, тому після збою достатньо запустити команду ще раз. Таблиці створюються самим агентом
 (`CREATE TABLE IF NOT EXISTS`), версія схеми `user_version` не змінюється.
 
@@ -116,13 +116,13 @@ python -m scripts.ops_report --probe       # + перевірка доступн
 ```
 src/
   agents/        analyst_agent.py, synthesizer_agent.py (+ schemas), selector_optimized.py
-  ui/app.py      Streamlit: Огляд · Статті · Замітки · Підсумки
+  ui/            app.py (Streamlit): Огляд · Статті · Замітки · Підсумки; charts.py: побудова графіків
   errors.py      типи помилок (бізнес-помилки та технічний збій)
   ops.py         журнал операцій, метрики, правило сповіщення, час у UTC
   config.py      шляхи, GEMINI_API_KEY, назви моделей
   logger.py
 scripts/         init_db.py, load_to_db.py, ops_report.py, export_gemini_full.py
-tests/           схеми, обмеження БД, завантажувач, конфіг
+tests/           схеми, обмеження БД, завантажувач, конфіг, коректність графіків
 data/            локальні дані (у .gitignore!): JSON, peacetalk.db, gemini_export_full/
 .github/workflows/ci.yml   flake8 + pytest
 ```

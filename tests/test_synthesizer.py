@@ -80,7 +80,7 @@ def query(db, sql, params=()):
         return conn.execute(sql, params).fetchall()
 
 
-# ---------------------------------------------------------------- допоміжні функції
+# допоміжні функції
 def test_period_helpers():
     assert period_of("2023-06-30") == "2023-H1" and period_of("2023-07-01") == "2023-H2"
     assert period_bounds("2023-H1") == ("2023-01-01", "2023-06-30")
@@ -101,7 +101,7 @@ def test_schema_accepts_valid_and_rejects_unknown_trend():
         PeriodSynthesis(trend="chaos", summary="x", annotations=[])
 
 
-# ---------------------------------------------------------------- збереження (PT-23)
+# збереження (PT-23)
 def test_run_saves_summaries_and_annotations_for_each_period(db):
     client = make_client()
     report = SynthesizerAgent(db, client=client).run()
@@ -132,7 +132,7 @@ def test_prompt_contains_only_period_data_and_published_notes(db):
     assert "АРХІВНА-ЗАМІТКА" not in prompt and "a5" not in prompt
 
 
-# ---------------------------------------------------------------- resume / force
+# resume / force
 def test_second_run_skips_existing_summaries_without_calling_model(db):
     client = make_client()
     agent = SynthesizerAgent(db, client=client)
@@ -152,7 +152,7 @@ def test_force_regenerates_without_duplicates(db):
     assert query(db, "SELECT COUNT(*) FROM summary_annotations WHERE period = '2023-H1'") == [(4,)]
 
 
-# ---------------------------------------------------------------- повтори на 503 (PT-22)
+# повтори на 503 (PT-22)
 def test_503_is_retried_after_exactly_20_seconds(db, sleeps):
     err = Exception("503 UNAVAILABLE. The model is overloaded")
     client = make_client(err, err)
@@ -188,7 +188,7 @@ def test_invalid_model_json_is_a_failure_not_a_crash(db, sleeps):
     assert report["failed"] == ["2023-H1"] and sleeps == []
 
 
-# ---------------------------------------------------------------- середовище й CLI
+# середовище й CLI
 def test_missing_db_raises_and_is_not_created(tmp_path):
     missing = tmp_path / "gone.db"
     with pytest.raises(FileNotFoundError):

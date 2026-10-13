@@ -64,6 +64,24 @@ CREATE INDEX IF NOT EXISTS idx_expert_notes_date ON expert_notes(event_date);
 def init_db(db_path=DB_PATH):
     db_path = Path(db_path)
     db_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with sqlite3.connect(db_path) as conn:
+        notes_table_exists = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'expert_notes'"
+        ).fetchone() is not None
+        if notes_table_exists:
+            columns = {
+                row[1] for row in conn.execute("PRAGMA table_info(expert_notes)")
+            }
+        else:
+            columns = set()
+
+    moderation_columns = {"review_status", "reviewed_by", "reviewed_at"}
+    if notes_table_exists and not moderation_columns <= columns:
+        from scripts.migrate_v2 import migrate_database
+
+        migrate_database(db_path)
+
     with sqlite3.connect(db_path) as conn:
         conn.executescript(SCHEMA_SQL)
         conn.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")

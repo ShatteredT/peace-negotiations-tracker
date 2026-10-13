@@ -1,91 +1,66 @@
 import sqlite3
-import os
 import sys
+from pathlib import Path
 
-# Додаємо корінь проєкту до шляху пошуку модулів
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from src.config import DB_PATH
 
-def migrate_database():
-    """
-    Скрипт міграції бази даних для v2.0 (PT-43, PT-44).
-    Додає колонки модерації до таблиці експертних заміток
-    та встановлює значення за замовчуванням для існуючих записів.
-    """
-    db_path = str(DB_PATH)
-    print(f"[*] Початок міграції бази даних за шляхом: {db_path}")
+SCHEMA_VERSION = 2
+MODERATION_COLUMNS = (
+    ("review_status", "TEXT DEFAULT 'APPROVED'"),
+    ("reviewed_by", "TEXT DEFAULT NULL"),
+    ("reviewed_at", "TEXT DEFAULT NULL"),
+)
+V1_NOTE_COLUMNS = {
+    "id",
+    "event_date",
+    "metric_category",
+    "content",
+    "author_id",
+    "importance_type",
+    "status",
+    "created_at",
+    "updated_at",
+}
 
-    if not os.path.exists(db_path):
-        print(f"[!] Увага: Файл бази даних не знайдено за шляхом {db_path}. Створюється нова структура.")
-        os.makedirs(os.path.dirname(db_path), exist_ok=True)
-        conn = sqlite3.connect(db_path)
-        conn.close()
 
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
+def migrate_database(db_path=DB_PATH):
+    """Migrate an existing v1.0 database to the v2.0 moderation schema."""
+    db_path = Path(db_path)
+    if not db_path.is_file():
+        raise FileNotFoundError(f"Database does not exist: {db_path}")
 
-    # Перевіримо, які таблиці існують у БД
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    tables = [row[0] for row in cursor.fetchall()]
-    print(f"[*] Знайдені таблиці в БД: {tables}")
+    with sqlite3.connect(db_path) as conn:
+        tables = {
+            row[0]
+            for row in conn.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+        }
+        if "expert_notes" not in tables:
+            raise RuntimeError("Cannot migrate database: expert_notes table is missing")
 
-    target_table = None
-    for t in ['expert_notes', 'notes', 'analyses', 'articles']:
-        if t in tables:
-            target_table = t
-            break
+        version = conn.execute("PRAGMA user_version").fetchone()[0]
+        if version > SCHEMA_VERSION:
+            raise RuntimeError(f"Database schema version {version} is newer than supported version 2")
 
-    if not target_table:
-        print("[*] Таблиць для заміток не знайдено. Створюємо базову таблицю expert_notes для демонстрації міграції.")
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS expert_notes (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                author TEXT NOT NULL,
-                category TEXT NOT NULL,
-                content TEXT NOT NULL,
-                status TEXT DEFAULT 'PUBLISHED',
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-        target_table = 'expert_notes'
+        columns = {row[1] for row in conn.execute("PRAGMA table_info(expert_notes)")}
+        missing_v1_columns = V1_NOTE_COLUMNS - columns
+        if missing_v1_columns:
+            missing = ", ".join(sorted(missing_v1_columns))
+            raise RuntimeError(f"Cannot migrate expert_notes: required v1 columns are missing: {missing}")
 
-    print(f"[*] Використовуємо цільову таблицю для міграції: {target_table}")
+        conn.execute("BEGIN IMMEDIATE")
+        for column_name, definition in MODERATION_COLUMNS:
+            if column_name not in columns:
+                conn.execute(f"ALTER TABLE expert_notes ADD COLUMN {column_name} {definition}")
 
-    # Отримуємо список існуючих колонок у таблиці
-    cursor.execute(f"PRAGMA table_info({target_table});")
-    columns = [row[1] for row in cursor.fetchall()]
-    print(f"[*] Існуючі колонки: {columns}")
+        conn.execute(
+            "UPDATE expert_notes SET review_status = 'APPROVED' WHERE review_status IS NULL"
+        )
+        conn.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
 
-    # Додаємо колонки review_status, reviewed_by, reviewed_at, якщо їх ще немає
-    columns_to_add = [
-        ("review_status", "TEXT DEFAULT 'APPROVED'"),
-        ("reviewed_by", "TEXT DEFAULT NULL"),
-        ("reviewed_at", "TEXT DEFAULT NULL")
-    ]
+    print(f"[+] Database migrated to schema v{SCHEMA_VERSION}: {db_path}")
 
-    for col_name, col_definition in columns_to_add:
-        if col_name not in columns:
-            try:
-                cursor.execute(f"ALTER TABLE {target_table} ADD COLUMN {col_name} {col_definition};")
-                print(f"[+] Успішно додано колонку: {col_name}")
-            except sqlite3.OperationalError as e:
-                print(f"[!] Помилка при додаванні колонки {col_name}: {e}")
-        else:
-            print(f"[*] Колонка {col_name} вже існує.")
-
-    # PT-44: Міграція наявних записів (встановлення review_status = 'APPROVED' для старих записів)
-    cursor.execute(f"UPDATE {target_table} SET review_status = 'APPROVED' WHERE review_status IS NULL;")
-    conn.commit()
-    print("[+] Міграція наявних записів завершена: старі записи отримали статус 'APPROVED'.")
-
-    # Перевірка результату міграції
-    cursor.execute(f"SELECT id, review_status FROM {target_table} LIMIT 5;")
-    sample_rows = cursor.fetchall()
-    print(f"[*] Зразки записів після міграції (id, review_status): {sample_rows}")
-
-    conn.close()
-    print("[✓] Базу даних успішно оновлено та перевірено до версії v2.0!")
 
 if __name__ == "__main__":
     migrate_database()

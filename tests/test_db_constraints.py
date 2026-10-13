@@ -104,7 +104,7 @@ class TestArticlesAndAssessments:
             conn.execute(ASSESSMENT_SQL, ("art1", "diplomacy", 1.5, "Test", 0.8, 0.3, 1))
 
 
-class TestSchemaV1:
+class TestSchemaV2:
     def test_timestamps_default_to_utc_iso(self, conn):
         add_note(conn, "2024-01-15", "diplomacy", "user1")
         created, updated = conn.execute("SELECT created_at, updated_at FROM expert_notes").fetchone()
@@ -115,10 +115,19 @@ class TestSchemaV1:
                      "VALUES ('2024-01-15', 'diplomacy', 'x', 'user1')")
         assert conn.execute("SELECT status FROM expert_notes").fetchone()[0] == "PUBLISHED"
 
-    def test_v1_schema_has_no_moderation_columns(self, conn):
-        """v1.0 без модерації: колонки review_* додає міграція v2.0 (PT-43)."""
+    def test_v2_schema_has_moderation_columns(self, conn):
         columns = {row[1] for row in conn.execute("PRAGMA table_info(expert_notes)")}
-        assert not columns & {"review_status", "reviewed_by", "reviewed_at", "moderated_by"}
+        assert {"review_status", "reviewed_by", "reviewed_at"} <= columns
 
-    def test_schema_version_is_1(self, conn):
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 1
+    def test_legacy_notes_default_to_approved(self, conn):
+        conn.execute(
+            "INSERT INTO expert_notes (event_date, metric_category, content, author_id) "
+            "VALUES ('2024-01-15', 'diplomacy', 'legacy note', 'user1')"
+        )
+        review_status, reviewed_by, reviewed_at = conn.execute(
+            "SELECT review_status, reviewed_by, reviewed_at FROM expert_notes"
+        ).fetchone()
+        assert (review_status, reviewed_by, reviewed_at) == ("APPROVED", None, None)
+
+    def test_schema_version_is_2(self, conn):
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2

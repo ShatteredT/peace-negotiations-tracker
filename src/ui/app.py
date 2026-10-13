@@ -33,6 +33,23 @@ IMPORTANCE_BADGE = {
     "OFFICIALSTATEMENT": ":violet-badge[:material/campaign: Офіційна заява]",
     "COMMENT": ":blue-badge[:material/chat: Коментар]",
 }
+TREND_BADGE = {
+    "escalation": ":red-badge[Ескалація]",
+    "compromise": ":green-badge[Компроміс]",
+    "stable": ":gray-badge[Стабільно]",
+    "mixed": ":orange-badge[Змішано]",
+}
+REVIEW_BADGE = {
+    "APPROVED": ":green-badge[Схвалено]",
+    "PENDING_APPROVAL": ":orange-badge[На розгляді]",
+    "REJECTED": ":red-badge[Відхилено]",
+}
+TREND_BADGE = {
+    "escalation": ":red-badge[Ескалація]",
+    "compromise": ":green-badge[Компроміс]",
+    "stable": ":gray-badge[Стабільно]",
+    "mixed": ":orange-badge[Змішано]",
+}
 
 
 # DB
@@ -72,7 +89,7 @@ def load_expert_notes(start_date: str | None = None, end_date: str | None = None
                       categories: tuple = (), statuses: tuple = ()) -> pd.DataFrame:
     query = """
         SELECT id, event_date, metric_category, content, author_id, importance_type, status,
-               created_at, updated_at
+               created_at, updated_at, review_status, reviewed_by, reviewed_at
         FROM expert_notes WHERE 1=1
     """
     params: list = []
@@ -92,13 +109,23 @@ def load_expert_notes(start_date: str | None = None, end_date: str | None = None
 
 
 @st.cache_data(ttl=30, show_spinner=False)
+def load_pending_notes() -> pd.DataFrame:
+    query = """
+        SELECT id, event_date, metric_category, content, author_id, importance_type, status,
+               created_at, updated_at, review_status
+        FROM expert_notes 
+        WHERE status = 'PUBLISHED' AND review_status = 'PENDING_APPROVAL'
+        ORDER BY created_at DESC
+    """
+    return pd.read_sql_query(query, get_connection())
+
+
+@st.cache_data(ttl=30, show_spinner=False)
 def get_filter_options() -> dict:
     conn = get_connection()
     return {
         "sources": [r[0] for r in conn.execute("SELECT DISTINCT source FROM news_articles ORDER BY source")],
         "categories": [r[0] for r in conn.execute("SELECT DISTINCT metric_category FROM assessment_records")],
-        # Період фільтра: від початку війни до сьогодні (UTC). Не за датами статей: інакше
-        # замітки, створені після останньої статті, випадали б зі списку заміток.
         "date_range": (WAR_START, utc_now().date()),
     }
 
@@ -146,8 +173,7 @@ MAX_CONTENT_LEN = 2000
 
 @contextmanager
 def _write_conn():
-    """Окреме з'єднання на кожну операцію: коректно при паралельних запитах.
-    mode=rw не створює порожню БД, якщо файл зник """
+    """Окреме з'єднання на кожну операцію: коректно при паралельних запитах."""
     conn = sqlite3.connect(f"{DB_PATH.as_uri()}?mode=rw", uri=True, timeout=10)
     try:
         yield conn
@@ -160,10 +186,13 @@ def _write_conn():
 
 
 def _fetch_note(conn: sqlite3.Connection, note_id: int) -> dict:
-    row = conn.execute("SELECT id, author_id, status FROM expert_notes WHERE id = ?", (int(note_id),)).fetchone()
+    row = conn.execute(
+        "SELECT id, author_id, status, review_status FROM expert_notes WHERE id = ?",
+        (int(note_id),),
+    ).fetchone()
     if row is None:
         raise NotFoundError("Замітку не знайдено")
-    return {"id": row[0], "author_id": row[1], "status": row[2]}
+    return {"id": row[0], "author_id": row[1], "status": row[2], "review_status": row[3]}
 
 
 def _require_owner_or_admin(note: dict, user_id: str, user_role: str) -> None:
@@ -196,17 +225,20 @@ def _validate_new_note(event_date: str, metric_category: str, importance_type: s
 @observed("create_note")
 def create_note(user_id: str, event_date: str, metric_category: str,
                 content: str, importance_type: str = "COMMENT") -> int:
-    """Створює активну замітку. Повертає її id. Дубль активної замітки -> ConflictError."""
+    """Створює замітку; офіційні заяви очікують схвалення адміністратора."""
     content = _clean_content(content)
     _validate_new_note(event_date, metric_category, importance_type)
+
+    review_status = "PENDING_APPROVAL" if importance_type == "OFFICIALSTATEMENT" else "APPROVED"
+
     now = utc_now_iso()
     try:
         with _write_conn() as conn:
             cur = conn.execute(
                 """INSERT INTO expert_notes
-                   (event_date, metric_category, content, author_id, importance_type, status, created_at, updated_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                (event_date, metric_category, content, user_id, importance_type, ACTIVE, now, now),
+                   (event_date, metric_category, content, author_id, importance_type, status, created_at, updated_at, review_status)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (event_date, metric_category, content, user_id, importance_type, ACTIVE, now, now, review_status),
             )
             return cur.lastrowid
     except sqlite3.IntegrityError:
@@ -238,9 +270,46 @@ def archive_note(note_id: int, user_id: str, user_role: str) -> None:
             raise ConflictError("Замітка вже в архіві")
 
 
+@observed("approve_note")
+def approve_note(note_id: int, admin_id: str, admin_role: str) -> None:
+    """Схвалює замітку (Admin only)."""
+    if admin_role != "Admin":
+        raise AccessDenied("Доступ лише для адміна")
+    with _write_conn() as conn:
+        note = _fetch_note(conn, note_id)
+        if note["review_status"] != "PENDING_APPROVAL":
+            raise ConflictError("На розгляд очікують лише замітки зі статусом «На розгляді»")
+        cur = conn.execute(
+            """UPDATE expert_notes
+               SET review_status = 'APPROVED', reviewed_by = ?, reviewed_at = ?
+               WHERE id = ? AND review_status = 'PENDING_APPROVAL'""",
+            (admin_id, utc_now_iso(), int(note_id)),
+        )
+        if cur.rowcount == 0:
+            raise ConflictError("Замітку вже розглянуто")
+
+
+@observed("reject_note")
+def reject_note(note_id: int, admin_id: str, admin_role: str) -> None:
+    """Відхиляє замітку (Admin only)."""
+    if admin_role != "Admin":
+        raise AccessDenied("Доступ лише для адміна")
+    with _write_conn() as conn:
+        note = _fetch_note(conn, note_id)
+        if note["review_status"] != "PENDING_APPROVAL":
+            raise ConflictError("На розгляд очікують лише замітки зі статусом «На розгляді»")
+        cur = conn.execute(
+            """UPDATE expert_notes
+               SET review_status = 'REJECTED', reviewed_by = ?, reviewed_at = ?
+               WHERE id = ? AND review_status = 'PENDING_APPROVAL'""",
+            (admin_id, utc_now_iso(), int(note_id)),
+        )
+        if cur.rowcount == 0:
+            raise ConflictError("Замітку вже розглянуто")
+
+
 #  Helpers
 def flash(msg: str, icon: str = "✅") -> None:
-    """Повідомлення, що переживає st.rerun() (toast одразу перед rerun зникає)."""
     st.session_state["_flash"] = (msg, icon)
 
 
@@ -259,7 +328,6 @@ def score_color(score: float) -> str:
 
 
 def article_level(df: pd.DataFrame) -> pd.DataFrame:
-    """Одна стаття = один рядок (overall_sentiment однаковий для всіх її категорій)."""
     return df.drop_duplicates("article_id")[
         ["article_id", "date", "month", "source", "title", "url", "overall_sentiment", "is_compromise_oriented"]
     ]
@@ -341,7 +409,6 @@ def sidebar_filters(options: dict) -> dict:
 
 #  Сторінка 1: Огляд
 def _delta_recent(series: pd.Series) -> float | None:
-    """Різниця між останніми k місяцями та k попередніми."""
     s = series.dropna()
     if len(s) < 4:
         return None
@@ -356,7 +423,6 @@ def _visible_annotations(arts: pd.DataFrame) -> pd.DataFrame:
 
 @st.fragment
 def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, annotations: pd.DataFrame) -> None:
-    """Фрагмент: зміна згладжування/режиму перемальовує лише цей блок."""
     st.subheader("Динаміка готовності до компромісу")
     c1, c2, c3, c4 = st.columns([3, 2, 2, 2], vertical_alignment="bottom")
     with c1:
@@ -375,7 +441,10 @@ def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, ann
 def dashboard_page() -> None:
     f = ctx()["filters"]
     df, arts = current_filtered_data()
+    # Показуємо тільки схвалені замітки
     notes = load_expert_notes(f["start"], f["end"], f["categories"], (ACTIVE,))
+    # Додатковий фільтр по схваленню: review_status must be APPROVED
+    notes = notes[notes['review_status'] == 'APPROVED']
 
     st.title(":material/monitoring: Огляд")
     st.caption("Peacetalk Tracker · діахронічний аналіз динаміки мирних переговорів Україна–Росія · 2022–2026")
@@ -407,13 +476,10 @@ def dashboard_page() -> None:
                                          ":material/swap_vert: Екстремуми"])
     with t_heat:
         st.plotly_chart(heatmap_figure(df), width="stretch", config={"displaylogo": False})
-        st.caption("Червоний — ескалація, зелений — компроміс. Порожні клітинки — місяці без оцінених статей.")
-
     with t_year:
         ca, cb = st.columns(2)
         ca.plotly_chart(year_share_figure(arts), width="stretch", config={"displaylogo": False})
         cb.plotly_chart(year_violin_figure(arts), width="stretch", config={"displaylogo": False})
-
     with t_extreme:
         neg = arts.nsmallest(5, "overall_sentiment")
         pos = arts.nlargest(5, "overall_sentiment")
@@ -429,7 +495,6 @@ def dashboard_page() -> None:
                                     f":{score_color(r['overall_sentiment'])}-badge[{r['overall_sentiment']:+.2f}]")
 
 
-#  Сторінка 2: Статті
 def articles_page() -> None:
     st.title(":material/article: Статті та оцінки")
     df, arts = current_filtered_data()
@@ -456,9 +521,8 @@ def articles_page() -> None:
         view = view[view["is_compromise_oriented"]]
     view = view.sort_values("date", ascending=False).reset_index(drop=True)
 
-    st.caption(f"Знайдено **{len(view)}** із {len(wide)} · клікніть рядок, щоб побачити обґрунтування оцінок")
-    prog = lambda label: st.column_config.ProgressColumn(  # noqa: E731
-        label, min_value=-1.0, max_value=1.0, format="%.2f")
+    st.caption(f"Знайдено **{len(view)}** із {len(wide)}")
+    prog = lambda label: st.column_config.ProgressColumn(label, min_value=-1.0, max_value=1.0, format="%.2f")
     config = {
         "date": st.column_config.DateColumn("Дата", format="DD.MM.YYYY", width="small"),
         "source": st.column_config.TextColumn("Джерело", width="small"),
@@ -498,9 +562,7 @@ def articles_page() -> None:
             st.link_button("Відкрити оригінал", row["url"], icon=":material/open_in_new:")
 
 
-#  Сторінка 3: Експертні замітки
 def fmt_utc(ts) -> str:
-    """2026-10-10T12:30:00Z -> '10.10.2026 12:30 UTC' (час зберігається й показується в UTC)."""
     text = str(ts or "")
     if len(text) < 16:
         return "—"
@@ -508,8 +570,6 @@ def fmt_utc(ts) -> str:
 
 
 def _run_action(action, *args, ok_msg: str, icon: str = "✅") -> None:
-    """Виконує операцію й показує результат.
-    Очікувана відмова (NoteError) -> попередження; технічний збій -> помилка з кодом для журналу."""
     try:
         action(*args)
     except NoteError as exc:
@@ -544,7 +604,6 @@ def new_note_form(user: dict) -> None:
 
 
 def _note_actions(note: pd.Series, user: dict) -> None:
-    """Редагування й архівація (лише для активних заміток автора або Admin)."""
     if note["status"] != ACTIVE:
         return
     nid = int(note["id"])
@@ -554,7 +613,6 @@ def _note_actions(note: pd.Series, user: dict) -> None:
         if st.button("Зберегти зміни", key=f"edit_save_{nid}", type="primary"):
             _run_action(update_note, nid, user["id"], user["role"], new_text, ok_msg="Замітку оновлено")
     with a2.popover("Архівувати", icon=":material/archive:"):
-        st.write("Зняти замітку з графіка? Слот буде звільнено.")
         if st.button("Так, архівувати", key=f"archive_{nid}", type="primary"):
             _run_action(archive_note, nid, user["id"], user["role"], ok_msg="Замітку архівовано", icon="📦")
 
@@ -564,7 +622,8 @@ def _note_card(note: pd.Series, user: dict) -> None:
         st.markdown(
             f"**{pd.to_datetime(note['event_date']):%d.%m.%Y}** &nbsp; "
             f":gray-badge[{CAT_LABEL.get(note['metric_category'], note['metric_category'])}] "
-            f"{IMPORTANCE_BADGE.get(note['importance_type'], '')} {STATUS_BADGE.get(note['status'], note['status'])}"
+            f"{IMPORTANCE_BADGE.get(note['importance_type'], '')} {STATUS_BADGE.get(note['status'], note['status'])} "
+            f"{REVIEW_BADGE.get(note['review_status'], '')}"
         )
         st.write(note["content"])
         st.caption(f":material/person: {note['author_id']} · оновлено {fmt_utc(note['updated_at'])}")
@@ -572,40 +631,81 @@ def _note_card(note: pd.Series, user: dict) -> None:
             _note_actions(note, user)
 
 
+def _moderation_page(user: dict) -> None:
+    st.subheader(":material/fact_check: Модерація")
+    pending = load_pending_notes()
+    if pending.empty:
+        st.info("Нових заміток на перевірку немає.")
+        return
+
+    for _, note in pending.iterrows():
+        with st.container(border=True):
+            st.markdown(f"**{note['author_id']}** · {note['metric_category']} · {note['event_date']}")
+            st.write(note["content"])
+            c1, c2 = st.columns(2)
+            if c1.button("Схвалити", key=f"approve_{note['id']}", type="primary"):
+                _run_action(approve_note, note['id'], user['id'], user['role'], ok_msg="Замітку схвалено")
+            if c2.button("Відхилити", key=f"reject_{note['id']}", type="secondary"):
+                _run_action(reject_note, note['id'], user['id'], user['role'], ok_msg="Замітку відхилено")
+
+
 def notes_page() -> None:
     user = ctx()["user"]
     f = ctx()["filters"]
     st.title(":material/edit_note: Експертні замітки")
-    new_note_form(user)
+    
+    tabs = [":material/list: Усі замітки"]
+    if user["role"] == "Admin":
+        tabs.append(":material/fact_check: Модерація")
+    
+    selected_tab = st.tabs(tabs)
+    
+    with selected_tab[0]:
+        new_note_form(user)
+        notes = load_expert_notes(f["start"], f["end"], f["categories"])
+        is_admin = user["role"] == "Admin"
+        # Активні бачать усі; архівні — лише автор (та Admin)
+        visible = notes[(notes["status"] == ACTIVE) | (notes["author_id"] == user["id"]) | is_admin]
+        published = visible[
+            (visible["status"] == ACTIVE) & (visible["review_status"] == "APPROVED")
+        ]
+        scopes = {
+            "Усі": published,
+            "Мої": visible[visible["author_id"] == user["id"]],
+            "В архіві": visible[visible["status"] == ARCHIVED],
+        }
+        scope = st.segmented_control("Показати", list(scopes), default="Усі", key="notes_scope",
+                                     format_func=lambda s: f"{s} · {len(scopes[s])}") or "Усі"
+        shown = scopes[scope]
 
-    notes = load_expert_notes(f["start"], f["end"], f["categories"])
-    is_admin = user["role"] == "Admin"
-    # Активні бачать усі; архівні — лише автор (та Admin)
-    visible = notes[(notes["status"] == ACTIVE) | (notes["author_id"] == user["id"]) | is_admin]
-    scopes = {
-        "Усі": visible[visible["status"] == ACTIVE],
-        "Мої": visible[visible["author_id"] == user["id"]],
-        "В архіві": visible[visible["status"] == ARCHIVED],
-    }
-    scope = st.segmented_control("Показати", list(scopes), default="Усі", key="notes_scope",
-                                 format_func=lambda s: f"{s} · {len(scopes[s])}") or "Усі"
-    shown = scopes[scope]
+        if shown.empty:
+            st.info("Заміток немає.", icon=":material/inbox:")
+        else:
+            for _, note in shown.iterrows():
+                _note_card(note, user)
 
-    st.caption("Застосовано фільтри періоду й категорій із бічної панелі. Час змін — UTC.")
-    if shown.empty:
-        st.info("Заміток немає. Відкрийте «Нова замітка», щоб додати першу.", icon=":material/inbox:")
+    if user["role"] == "Admin" and len(selected_tab) > 1:
+        with selected_tab[1]:
+            _moderation_page(user)
+
+
+def summary_page() -> None:
+    st.title(":material/summarize: Аналітичні підсумки")
+    tab_agent, tab_stats = st.tabs([":material/auto_awesome: Резюме агента", ":material/table_chart: Статистика"])
+    with tab_agent:
+        _agent_summaries()
+    with tab_stats:
+        _stats_summary()
+
+
+def _agent_summaries() -> None:
+    summaries = load_summaries()
+    if summaries.empty:
+        st.info("Резюме ще не згенеровано.", icon=":material/info:")
         return
-    for _, note in shown.iterrows():
-        _note_card(note, user)
-
-
-#  Сторінка 4: Підсумки
-TREND_BADGE = {
-    "escalation": ":red-badge[Ескалація]",
-    "compromise": ":green-badge[Компроміс]",
-    "stable": ":gray-badge[Стабільно]",
-    "mixed": ":orange-badge[Змішано]",
-}
+    annotations = load_annotations()
+    for _, row in summaries.iterrows():
+        _summary_card(row, annotations[annotations["period"] == row["period"]])
 
 
 def _summary_card(row: pd.Series, annotations: pd.DataFrame) -> None:
@@ -616,29 +716,6 @@ def _summary_card(row: pd.Series, annotations: pd.DataFrame) -> None:
             mark = ":green[▲ пік]" if a["kind"] == "peak" else ":red[▼ спад]"
             st.markdown(f"{mark} **{a['date']:%d.%m.%Y}** · [{a['title']}]({a['url']}) "
                         f"({a['overall_sentiment']:+.2f})  \n{a['text']}")
-        st.caption(f"{row['articles_count']} статей · середній тон {row['avg_sentiment']:+.2f} · "
-                   f"{row['model']} · {fmt_utc(row['created_at'])}")
-
-
-def _agent_summaries() -> None:
-    summaries = load_summaries()
-    if summaries.empty:
-        st.info("Резюме ще не згенеровано. Запустіть агента: `python -m src.agents.synthesizer_agent`",
-                icon=":material/info:")
-        return
-    st.caption("Резюме створює Агент-Синтезатор за оцінками й замітками періоду. Час — UTC.")
-    annotations = load_annotations()
-    for _, row in summaries.iterrows():
-        _summary_card(row, annotations[annotations["period"] == row["period"]])
-
-
-def summary_page() -> None:
-    st.title(":material/summarize: Аналітичні підсумки")
-    tab_agent, tab_stats = st.tabs([":material/auto_awesome: Резюме агента", ":material/table_chart: Статистика"])
-    with tab_agent:
-        _agent_summaries()
-    with tab_stats:
-        _stats_summary()
 
 
 def _stats_summary() -> None:
@@ -654,59 +731,26 @@ def _stats_summary() -> None:
         avg_tone=("overall_sentiment", "mean"),
         compromise_pct=("is_compromise_oriented", lambda s: s.mean() * 100),
     )
-    d2 = df.merge(arts[["article_id", "period"]], on="article_id")
-    per_cat = d2.pivot_table(index="period", columns="metric_category", values="score").rename(columns=CAT_LABEL)
-    hi = arts.loc[arts.groupby("period")["overall_sentiment"].idxmax()].set_index("period")["title"].rename("Найпозитивніша")
-    lo = arts.loc[arts.groupby("period")["overall_sentiment"].idxmin()].set_index("period")["title"].rename("Найнегативніша")
-    table = base.join(per_cat).join(hi).join(lo).reset_index()
-    table = table.rename(columns={"period": "Період", "articles": "Статей", "avg_tone": "Середній тон",
+    table = base.reset_index().rename(columns={"period": "Період", "articles": "Статей", "avg_tone": "Середній тон",
                                   "compromise_pct": "% компромісних"})
-
-    st.caption("Середній загальний тон статей за піврічними періодами: −1 ескалація, +1 компроміс.")
     st.plotly_chart(period_tone_figure(table), width="stretch", config={"displaylogo": False})
-
-    cfg = {
-        "Середній тон": st.column_config.ProgressColumn(min_value=-1.0, max_value=1.0, format="%.2f"),
-        "% компромісних": st.column_config.ProgressColumn(min_value=0, max_value=100, format="%.0f%%"),
-        **{CAT_LABEL[c]: st.column_config.NumberColumn(format="%.2f") for c in CATEGORIES},
-        "Найпозитивніша": st.column_config.TextColumn(width="large"),
-        "Найнегативніша": st.column_config.TextColumn(width="large"),
-    }
-    st.dataframe(table, hide_index=True, width="stretch", column_config=cfg)
-    st.download_button("Завантажити CSV", table.to_csv(index=False).encode("utf-8-sig"),
-                       "peacetalk_summary.csv", "text/csv", icon=":material/download:")
+    st.dataframe(table, hide_index=True, width="stretch")
 
 
-#  Entry point
 def _healthcheck() -> None:
-    """Перевіряє доступність БД, пише подію healthcheck у журнал; при збої зупиняє сторінку з кодом."""
-    started = time.perf_counter()
     try:
-        if not DB_PATH.exists():
-            raise FileNotFoundError("файл БД не знайдено")
+        if not DB_PATH.exists(): raise FileNotFoundError("файл БД не знайдено")
         get_connection().execute("SELECT 1 FROM expert_notes LIMIT 1").fetchone()
     except (OSError, sqlite3.Error) as exc:
-        rid = record("healthcheck", "error", (time.perf_counter() - started) * 1000, type(exc).__name__)
-        st.error(
-            f"База даних недоступна ({type(exc).__name__}). Код для пошуку в журналі: `{rid}`.\n\n"
-            f"Файл: `{DB_PATH}`. Створіть БД і завантажте дані (з кореня проєкту): "
-            "`python -m scripts.load_to_db`",
-            icon=":material/error:",
-        )
+        st.error(f"База даних недоступна: {type(exc).__name__}", icon=":material/error:")
         st.stop()
-    record("healthcheck", "ok", (time.perf_counter() - started) * 1000)
 
 
 def bootstrap() -> None:
-    """Перевірка БД, сайдбар (обліковий запис + фільтри), контекст для сторінок."""
     _healthcheck()
     user = sidebar_user()
     filters = sidebar_filters(get_filter_options())
     st.session_state["_ctx"] = {"user": user, "filters": filters}
-    with st.sidebar:
-        st.divider()
-        st.caption(f"Peacetalk Tracker v1.0 · БД: `{DB_PATH.name}`")
-        st.caption("Агенти: Аналітик ✅ · Синтезатор ✅")
     show_flash()
 
 

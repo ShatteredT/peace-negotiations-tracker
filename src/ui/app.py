@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hmac
 import os
 import sqlite3
 import sys
@@ -13,6 +14,7 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from src.runtime_db import prepare_demo_database
 from src.errors import (
     AccessDenied, ConflictError, NoteError, NotFoundError, TechnicalFailure, ValidationError,
 )
@@ -22,7 +24,23 @@ from src.ui.charts import (
     year_share_figure, year_violin_figure,
 )
 
-DB_PATH = Path(os.getenv("PEACETALK_DB", str(Path(__file__).resolve().parents[2] / "data" / "peacetalk.db")))
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+
+def _setting(name: str, default: str = "") -> str:
+    value = os.getenv(name)
+    if value is not None:
+        return value
+    try:
+        return str(st.secrets[name])
+    except (KeyError, FileNotFoundError):
+        return default
+
+
+DEMO_MODE = _setting("PEACETALK_DEMO_MODE").strip().lower() in {"1", "true", "yes"}
+DB_PATH = Path(os.getenv("PEACETALK_DB", str(BASE_DIR / "data" / "peacetalk.db")))
+if DEMO_MODE:
+    DB_PATH = prepare_demo_database(BASE_DIR / "data" / "demo" / "peacetalk_demo.db")
 WAR_START = date(2022, 2, 24)
 
 STATUS_BADGE = {
@@ -356,14 +374,45 @@ ACCOUNTS = {
 }
 
 
+def _admin_password() -> str:
+    return _setting("PEACETALK_ADMIN_PASSWORD").strip()
+
+
 def sidebar_user() -> dict:
     with st.sidebar:
         st.markdown("##### :material/person: Обліковий запис")
         key = st.selectbox(
-            "Обліковий запис", list(ACCOUNTS), key="account_select", label_visibility="collapsed",
+            "Обліковий запис", ("analyst_1", "analyst_2"), key="account_select",
+            label_visibility="collapsed",
             format_func=lambda k: f"{ACCOUNTS[k]['name']} · {ACCOUNTS[k]['role']}",
         )
         user = ACCOUNTS[key]
+
+        if st.session_state.get("_admin_authenticated", False):
+            st.divider()
+            st.success("Адміністратор")
+            if st.button("Вийти з режиму адміністратора", key="admin_logout"):
+                st.session_state["_admin_authenticated"] = False
+                st.rerun()
+            user = ACCOUNTS["admin_1"]
+        else:
+            with st.form("admin_login_form"):
+                password = st.text_input(
+                    "Пароль адміністратора", type="password", key="admin_password_input"
+                )
+                submitted = st.form_submit_button(
+                    "Увійти як адміністратор", disabled=not _admin_password()
+                )
+            if not _admin_password():
+                st.caption("Вхід адміністратора вимкнений: налаштуйте секрет PEACETALK_ADMIN_PASSWORD.")
+            elif submitted:
+                if hmac.compare_digest(
+                    password.encode("utf-8"), _admin_password().encode("utf-8")
+                ):
+                    st.session_state["_admin_authenticated"] = True
+                    st.rerun()
+                else:
+                    st.error("Неправильний пароль адміністратора.")
         st.caption(f"id: `{user['id']}`")
     st.session_state.user = user
     return user

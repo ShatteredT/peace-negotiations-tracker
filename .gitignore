@@ -17,6 +17,7 @@ __pycache__/
 # Database and logs
 *.db
 *.sqlite3
+!data/demo/peacetalk_demo.db
 logs/
 
 # Local data (not committed)

@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import html
 import os
 import sqlite3
 import sys
@@ -10,36 +9,21 @@ from datetime import date
 from pathlib import Path
 
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 
-# Дозволяє запускати і `streamlit run src/ui/app.py`, і `python -m streamlit run ...` з кореня проєкту
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from src.errors import (  # noqa: E402
+from src.errors import (
     AccessDenied, ConflictError, NoteError, NotFoundError, TechnicalFailure, ValidationError,
 )
-from src.ops import observed, record, utc_now, utc_now_iso  # noqa: E402
+from src.ops import observed, record, utc_now, utc_now_iso
+from src.ui.charts import (
+    CAT_LABEL, CATEGORIES, VIEW_CATEGORIES, VIEW_OVERALL, heatmap_figure, period_tone_figure, trend_figure,
+    year_share_figure, year_violin_figure,
+)
 
-# Шлях до БД можна перевизначити змінною середовища (використовують тести та навчальний інцидент)
 DB_PATH = Path(os.getenv("PEACETALK_DB", str(Path(__file__).resolve().parents[2] / "data" / "peacetalk.db")))
 WAR_START = date(2022, 2, 24)
-
-CATEGORIES = ("diplomacy", "security", "territorial", "humanitarian")
-CAT_LABEL = {
-    "diplomacy": "Дипломатія",
-    "security": "Безпека",
-    "territorial": "Території",
-    "humanitarian": "Гуманітарне",
-}
-CAT_COLOR = {
-    "diplomacy": "#3B82F6",
-    "security": "#F59E0B",
-    "territorial": "#8B5CF6",
-    "humanitarian": "#14B8A6",
-}
-OVERALL_COLOR = "#94A3B8"
 
 STATUS_BADGE = {
     "PUBLISHED": ":green-badge[Опубліковано]",
@@ -123,6 +107,35 @@ def get_filter_options() -> dict:
 def get_article_text(article_id: str) -> str:
     row = get_connection().execute("SELECT text FROM news_articles WHERE id = ?", (article_id,)).fetchone()
     return (row[0] if row and row[0] else "")
+
+
+SUMMARY_COLUMNS = ["period", "trend", "summary", "articles_count", "avg_sentiment", "model", "created_at"]
+ANNOTATION_COLUMNS = ["period", "article_id", "kind", "text", "date", "title", "url", "overall_sentiment"]
+
+
+@st.cache_data(ttl=30, show_spinner=False)
+def load_summaries() -> pd.DataFrame:
+    try:
+        return pd.read_sql_query(f"SELECT {', '.join(SUMMARY_COLUMNS)} FROM period_summaries ORDER BY period DESC",
+                                 get_connection())
+    except (sqlite3.OperationalError, pd.errors.DatabaseError):
+        return pd.DataFrame(columns=SUMMARY_COLUMNS)
+
+
+@st.cache_data(ttl=30, show_spinner=False)
+def load_annotations() -> pd.DataFrame:
+    query = """
+        SELECT s.period, s.article_id, s.kind, s.text, a.date, a.title, a.url,
+               (SELECT MAX(overall_sentiment) FROM assessment_records WHERE article_id = a.id) AS overall_sentiment
+        FROM summary_annotations s JOIN news_articles a ON a.id = s.article_id
+        ORDER BY a.date
+    """
+    try:
+        df = pd.read_sql_query(query, get_connection())
+    except (sqlite3.OperationalError, pd.errors.DatabaseError):
+        return pd.DataFrame(columns=ANNOTATION_COLUMNS)
+    df["date"] = pd.to_datetime(df["date"])
+    return df
 
 
 ACTIVE = "PUBLISHED"
@@ -274,6 +287,7 @@ ACCOUNTS = {
     "admin_1": {"id": "admin_1", "name": "Адміністратор", "role": "Admin"},
 }
 
+
 def sidebar_user() -> dict:
     with st.sidebar:
         st.markdown("##### :material/person: Обліковий запис")
@@ -316,8 +330,8 @@ def sidebar_filters(options: dict) -> dict:
                         format_func=str.upper, key="f_srcs") or srcs_all
 
         min_conf = st.slider(
-            "Мін. confidence", 0.0, 1.0, 0.0, 0.05, key="f_conf",
-            help="Оцінки без confidence (старі дані, до появи цього поля) показуються завжди.",
+            "Мін. впевненість моделі", 0.0, 1.0, 0.0, 0.05, key="f_conf",
+            help="Оцінки без значення впевненості (старі дані) показуються завжди.",
         )
     return {
         "start": start.isoformat(), "end": end.isoformat(),
@@ -335,81 +349,26 @@ def _delta_recent(series: pd.Series) -> float | None:
     return float(s.iloc[-k:].mean() - s.iloc[-2 * k:-k].mean())
 
 
+def _visible_annotations(arts: pd.DataFrame) -> pd.DataFrame:
+    ann = load_annotations()
+    return ann[ann["article_id"].isin(arts["article_id"])]
+
+
 @st.fragment
-def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame) -> None:
+def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, annotations: pd.DataFrame) -> None:
     """Фрагмент: зміна згладжування/режиму перемальовує лише цей блок."""
     st.subheader("Динаміка готовності до компромісу")
-    c1, c2, c3 = st.columns([3, 2, 2], vertical_alignment="bottom")
+    c1, c2, c3, c4 = st.columns([3, 2, 2, 2], vertical_alignment="bottom")
     with c1:
-        view = st.segmented_control("Показати", ["Загальний тон", "За категоріями"],
-                                    default="Загальний тон", key="trend_view") or "Загальний тон"
+        view = st.segmented_control("Показати", [VIEW_OVERALL, VIEW_CATEGORIES],
+                                    default=VIEW_OVERALL, key="trend_view") or VIEW_OVERALL
     with c2:
         window = st.select_slider("Згладжування, міс.", [1, 2, 3, 6], value=3, key="trend_smooth")
     with c3:
         show_notes = st.toggle("Експертні замітки", value=True, key="trend_notes")
-
-    months = pd.date_range(arts["month"].min(), arts["month"].max(), freq="MS")
-    overall_raw = arts.groupby("month")["overall_sentiment"].mean().reindex(months)
-    cat_raw = df.groupby(["month", "metric_category"])["score"].mean().unstack().reindex(months)
-
-    def smooth(s: pd.Series) -> pd.Series:
-        return s.rolling(window, min_periods=1).mean()
-
-    fig = go.Figure()
-    fig.add_hrect(y0=0.5, y1=1, fillcolor="#22C55E", opacity=0.07, line_width=0)
-    fig.add_hrect(y0=-1, y1=-0.5, fillcolor="#EF4444", opacity=0.07, line_width=0)
-    fig.add_hline(y=0, line_dash="dash", opacity=0.35)
-
-    if view == "Загальний тон":
-        base = smooth(overall_raw)
-        fig.add_trace(go.Scatter(
-            x=months, y=overall_raw, mode="markers", name="Середнє за місяць",
-            marker=dict(size=6, opacity=0.35, color=OVERALL_COLOR),
-            hovertemplate="%{y:+.2f}<extra>за місяць</extra>"))
-        fig.add_trace(go.Scatter(
-            x=months, y=base, mode="lines", name=f"Тренд ({window} міс.)", connectgaps=True,
-            line=dict(width=3.5, color=OVERALL_COLOR, shape="spline"),
-            hovertemplate="%{y:+.2f}<extra>тренд</extra>"))
-        lookup = lambda month, cat: base.get(month)  # noqa: E731
-    else:
-        sm_cat = cat_raw.apply(smooth)
-        for cat in cat_raw.columns:
-            fig.add_trace(go.Scatter(
-                x=months, y=sm_cat[cat], mode="lines+markers", name=CAT_LABEL.get(cat, cat),
-                connectgaps=True, line=dict(width=2.5, color=CAT_COLOR.get(cat), shape="spline"),
-                marker=dict(size=4), hovertemplate="%{y:+.2f}<extra>" + CAT_LABEL.get(cat, cat) + "</extra>"))
-        lookup = lambda month, cat: (sm_cat[cat].get(month) if cat in sm_cat else None)  # noqa: E731
-
-    if show_notes and not notes.empty:
-        n = notes.copy()
-        n["event_date"] = pd.to_datetime(n["event_date"])
-        n = n[(n["event_date"] >= months.min()) & (n["event_date"] < months.max() + pd.offsets.MonthBegin(1))]
-        if not n.empty:
-            n["y"] = [
-                (v if (v := lookup(d.to_period("M").to_timestamp(), c)) is not None and pd.notna(v) else 0.0)
-                for d, c in zip(n["event_date"], n["metric_category"])
-            ]
-            fig.add_trace(go.Scatter(
-                x=n["event_date"], y=n["y"], mode="markers", name="Експертні замітки",
-                marker=dict(symbol="diamond", size=13, color="#EC4899", line=dict(width=1.5, color="white")),
-                customdata=[[html.escape(a), CAT_LABEL.get(c, c), html.escape(t[:180])]
-                            for a, c, t in zip(n["author_id"], n["metric_category"], n["content"])],
-                hovertemplate="<b>%{customdata[0]}</b> · %{customdata[1]}<br>%{customdata[2]}"
-                              "<extra>%{x|%d.%m.%Y}</extra>"))
-
-    fig.update_layout(
-        height=520, hovermode="x unified", margin=dict(l=10, r=10, t=30, b=10),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
-        yaxis=dict(range=[-1.05, 1.05], title="−1 ескалація → +1 компроміс", zeroline=False),
-        xaxis=dict(
-            rangeslider=dict(visible=True, thickness=0.06),
-            rangeselector=dict(buttons=[
-                dict(count=6, label="6 міс.", step="month", stepmode="backward"),
-                dict(count=1, label="1 рік", step="year", stepmode="backward"),
-                dict(step="all", label="Усе"),
-            ]),
-        ),
-    )
+    with c4:
+        show_ann = st.toggle("Анотації агента", value=True, key="trend_ann")
+    fig = trend_figure(df, arts, notes, annotations, view, window, show_notes, show_ann)
     st.plotly_chart(fig, width="stretch", config={"displaylogo": False})
 
 
@@ -418,8 +377,8 @@ def dashboard_page() -> None:
     df, arts = current_filtered_data()
     notes = load_expert_notes(f["start"], f["end"], f["categories"], (ACTIVE,))
 
-    st.title("🕊️ Peacetalk Tracker")
-    st.caption("Діахронічний аналіз динаміки мирних переговорів Україна–Росія · 2022–2026")
+    st.title(":material/monitoring: Огляд")
+    st.caption("Peacetalk Tracker · діахронічний аналіз динаміки мирних переговорів Україна–Росія · 2022–2026")
     if df.empty:
         empty_state()
         return
@@ -442,37 +401,18 @@ def dashboard_page() -> None:
     k4.metric("Експертних заміток", len(notes), border=True,
               help="Активні (опубліковані) замітки в обраному періоді.")
 
-    trend_section(df, arts, notes)
+    trend_section(df, arts, notes, _visible_annotations(arts))
 
     t_heat, t_year, t_extreme = st.tabs([":material/grid_on: Теплова карта", ":material/bar_chart: По роках",
                                          ":material/swap_vert: Екстремуми"])
     with t_heat:
-        piv = df.groupby(["metric_category", "month"])["score"].mean().unstack("month")
-        piv = piv.reindex([c for c in CATEGORIES if c in piv.index])
-        fig = go.Figure(go.Heatmap(
-            z=piv.values, x=piv.columns, y=[CAT_LABEL[c] for c in piv.index],
-            colorscale="RdYlGn", zmid=0, zmin=-1, zmax=1, xgap=1, ygap=1,
-            colorbar=dict(title="Скор"), hovertemplate="%{y}<br>%{x|%m.%Y}: %{z:+.2f}<extra></extra>"))
-        fig.update_layout(height=280, margin=dict(l=10, r=10, t=10, b=10), yaxis=dict(autorange="reversed"))
-        st.plotly_chart(fig, width="stretch", config={"displaylogo": False})
+        st.plotly_chart(heatmap_figure(df), width="stretch", config={"displaylogo": False})
         st.caption("Червоний — ескалація, зелений — компроміс. Порожні клітинки — місяці без оцінених статей.")
 
     with t_year:
-        y = arts.assign(year=arts["date"].dt.year.astype(str))
         ca, cb = st.columns(2)
-        share = y.groupby("year")["is_compromise_oriented"].mean().mul(100).reset_index()
-        figb = px.bar(share, x="year", y="is_compromise_oriented", text_auto=".0f",
-                      labels={"year": "Рік", "is_compromise_oriented": "% компромісних"},
-                      title="Частка статей, орієнтованих на компроміс")
-        figb.update_traces(marker_color="#3B82F6")
-        figb.update_layout(height=360, margin=dict(l=10, r=10, t=50, b=10))
-        ca.plotly_chart(figb, width="stretch", config={"displaylogo": False})
-        figv = px.violin(y, x="year", y="overall_sentiment", box=True, points="all",
-                         labels={"year": "Рік", "overall_sentiment": "Загальний тон"},
-                         title="Розподіл загального тону")
-        figv.update_traces(marker_color="#8B5CF6", marker_size=4)
-        figv.update_layout(height=360, margin=dict(l=10, r=10, t=50, b=10), yaxis_range=[-1.05, 1.05])
-        cb.plotly_chart(figv, width="stretch", config={"displaylogo": False})
+        ca.plotly_chart(year_share_figure(arts), width="stretch", config={"displaylogo": False})
+        cb.plotly_chart(year_violin_figure(arts), width="stretch", config={"displaylogo": False})
 
     with t_extreme:
         neg = arts.nsmallest(5, "overall_sentiment")
@@ -560,9 +500,11 @@ def articles_page() -> None:
 
 #  Сторінка 3: Експертні замітки
 def fmt_utc(ts) -> str:
-    """2026-10-10T12:30:00Z -> '2026-10-10 12:30 UTC' (час зберігається й показується в UTC)."""
+    """2026-10-10T12:30:00Z -> '10.10.2026 12:30 UTC' (час зберігається й показується в UTC)."""
     text = str(ts or "")
-    return f"{text[:10]} {text[11:16]} UTC" if len(text) >= 16 else "—"
+    if len(text) < 16:
+        return "—"
+    return f"{text[8:10]}.{text[5:7]}.{text[:4]} {text[11:16]} UTC"
 
 
 def _run_action(action, *args, ok_msg: str, icon: str = "✅") -> None:
@@ -658,10 +600,48 @@ def notes_page() -> None:
 
 
 #  Сторінка 4: Підсумки
+TREND_BADGE = {
+    "escalation": ":red-badge[Ескалація]",
+    "compromise": ":green-badge[Компроміс]",
+    "stable": ":gray-badge[Стабільно]",
+    "mixed": ":orange-badge[Змішано]",
+}
+
+
+def _summary_card(row: pd.Series, annotations: pd.DataFrame) -> None:
+    with st.container(border=True):
+        st.markdown(f"### {row['period']} &nbsp; {TREND_BADGE.get(row['trend'], row['trend'])}")
+        st.write(row["summary"])
+        for _, a in annotations.iterrows():
+            mark = ":green[▲ пік]" if a["kind"] == "peak" else ":red[▼ спад]"
+            st.markdown(f"{mark} **{a['date']:%d.%m.%Y}** · [{a['title']}]({a['url']}) "
+                        f"({a['overall_sentiment']:+.2f})  \n{a['text']}")
+        st.caption(f"{row['articles_count']} статей · середній тон {row['avg_sentiment']:+.2f} · "
+                   f"{row['model']} · {fmt_utc(row['created_at'])}")
+
+
+def _agent_summaries() -> None:
+    summaries = load_summaries()
+    if summaries.empty:
+        st.info("Резюме ще не згенеровано. Запустіть агента: `python -m src.agents.synthesizer_agent`",
+                icon=":material/info:")
+        return
+    st.caption("Резюме створює Агент-Синтезатор за оцінками й замітками періоду. Час — UTC.")
+    annotations = load_annotations()
+    for _, row in summaries.iterrows():
+        _summary_card(row, annotations[annotations["period"] == row["period"]])
+
+
 def summary_page() -> None:
     st.title(":material/summarize: Аналітичні підсумки")
-    st.info("Agent 2 (Synthesizer) ще не реалізований, тому нижче — статистичне зведення за піврічними "
-            "періодами без LLM-інтерпретації.", icon=":material/info:")
+    tab_agent, tab_stats = st.tabs([":material/auto_awesome: Резюме агента", ":material/table_chart: Статистика"])
+    with tab_agent:
+        _agent_summaries()
+    with tab_stats:
+        _stats_summary()
+
+
+def _stats_summary() -> None:
     df, arts = current_filtered_data()
     if df.empty:
         empty_state()
@@ -682,13 +662,8 @@ def summary_page() -> None:
     table = table.rename(columns={"period": "Період", "articles": "Статей", "avg_tone": "Середній тон",
                                   "compromise_pct": "% компромісних"})
 
-    period_order = sorted(table["Період"].unique())
-    figb = px.bar(table, x="Період", y="Середній тон", color=table["Середній тон"] >= 0,
-        color_discrete_map={True: "#22C55E", False: "#EF4444"},
-        text_auto=".2f",
-        category_orders={"Період": period_order})
-    figb.update_layout(height=320, showlegend=False, margin=dict(l=10, r=10, t=10, b=10), yaxis_range=[-1, 1],)
-    st.plotly_chart(figb, width="stretch", config={"displaylogo": False})
+    st.caption("Середній загальний тон статей за піврічними періодами: −1 ескалація, +1 компроміс.")
+    st.plotly_chart(period_tone_figure(table), width="stretch", config={"displaylogo": False})
 
     cfg = {
         "Середній тон": st.column_config.ProgressColumn(min_value=-1.0, max_value=1.0, format="%.2f"),
@@ -731,7 +706,7 @@ def bootstrap() -> None:
     with st.sidebar:
         st.divider()
         st.caption(f"Peacetalk Tracker v1.0 · БД: `{DB_PATH.name}`")
-        st.caption("Agent 1: Analyst ✅ · Agent 2: Synthesizer ⏳")
+        st.caption("Агенти: Аналітик ✅ · Синтезатор ✅")
     show_flash()
 
 

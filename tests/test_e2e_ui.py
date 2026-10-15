@@ -117,6 +117,7 @@ def test_admin_can_archive_any_note(ui, monkeypatch):
     add_note(at)
     monkeypatch.setenv("PEACETALK_ADMIN_PASSWORD", "test-admin-password")
     at.run()
+    at = switch_account(at, "admin_1")
     at.text_input(key="admin_password_input").set_value("test-admin-password")
     next(b for b in at.button if b.label == "Увійти як адміністратор").click()
     at = at.run()
@@ -129,6 +130,7 @@ def test_admin_login_requires_configured_password(ui, monkeypatch):
     at, _ = ui
     monkeypatch.setenv("PEACETALK_ADMIN_PASSWORD", "test-admin-password")
     at.run()
+    at = switch_account(at, "admin_1")
     at.text_input(key="admin_password_input").set_value("wrong-password")
     next(b for b in at.button if b.label == "Увійти як адміністратор").click()
     at = at.run()
@@ -136,15 +138,17 @@ def test_admin_login_requires_configured_password(ui, monkeypatch):
     assert not any("Адміністратор" == e.value for e in at.success)
 
 
-def test_admin_account_is_not_selectable_from_account_list(ui, monkeypatch):
+def test_admin_password_field_is_shown_only_for_admin(ui, monkeypatch):
     at, _ = ui
     monkeypatch.delenv("PEACETALK_ADMIN_PASSWORD", raising=False)
-    at.run()
-
-    assert "admin_1" not in at.selectbox(key="account_select").options
-    assert next(
-        b for b in at.button if b.label == "Увійти як адміністратор"
-    ).disabled
+    at = switch_account(at, "analyst_1")
+    assert not any(item.key == "admin_password_input" for item in at.text_input)
+    at = switch_account(at, "analyst_2")
+    assert not any(item.key == "admin_password_input" for item in at.text_input)
+    at = switch_account(at, "admin_1")
+    assert any(item.key == "admin_password_input" for item in at.text_input)
+    login_button = next(b for b in at.button if b.label == "Увійти як адміністратор")
+    assert login_button.disabled
 
 
 def test_empty_text_is_validation_message_not_technical_error(ui):

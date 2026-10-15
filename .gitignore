@@ -27,3 +27,6 @@ helpers/
 .pytest_cache/
 .coverage
 coverage.xml
+
+# Streamlit secrets
+secrets.toml

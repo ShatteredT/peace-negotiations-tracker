@@ -8,6 +8,7 @@ import time
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
+from dotenv import load_dotenv
 
 import pandas as pd
 import streamlit as st
@@ -25,6 +26,7 @@ from src.ui.charts import (
 )
 
 BASE_DIR = Path(__file__).resolve().parents[2]
+load_dotenv(BASE_DIR / ".env")
 
 
 def _setting(name: str, default: str = "") -> str:

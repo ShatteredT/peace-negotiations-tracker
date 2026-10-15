@@ -40,10 +40,20 @@ def _setting(name: str, default: str = "") -> str:
 
 
 DEMO_MODE = _setting("PEACETALK_DEMO_MODE").strip().lower() in {"1", "true", "yes"}
+
+@st.cache_resource
+def _get_demo_db_path() -> Path:
+    """Створює тимчасову демобазу один раз на процес."""
+    # Після кожної дії НЕ створюється нова тимчасова БД
+    return prepare_demo_database(BASE_DIR / "data" / "demo" / "peacetalk_demo.db")
+
 DB_PATH = Path(os.getenv("PEACETALK_DB", str(BASE_DIR / "data" / "peacetalk.db")))
+
 if DEMO_MODE:
-    DB_PATH = prepare_demo_database(BASE_DIR / "data" / "demo" / "peacetalk_demo.db")
+    DB_PATH = _get_demo_db_path()
+
 WAR_START = date(2022, 2, 24)
+
 
 STATUS_BADGE = {
     "PUBLISHED": ":green-badge[Опубліковано]",

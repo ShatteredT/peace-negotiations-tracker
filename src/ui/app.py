@@ -394,38 +394,63 @@ def sidebar_user() -> dict:
     with st.sidebar:
         st.markdown("##### :material/person: Обліковий запис")
         key = st.selectbox(
-            "Обліковий запис", ("analyst_1", "analyst_2"), key="account_select",
+            "Обліковий запис", ("analyst_1", "analyst_2", "admin_1"), key="account_select",
             label_visibility="collapsed",
-            format_func=lambda k: f"{ACCOUNTS[k]['name']} · {ACCOUNTS[k]['role']}",
-        )
+            format_func=lambda k: f"{ACCOUNTS[k]['name']} · {ACCOUNTS[k]['role']}",)
+
+        previous_key = st.session_state.get("_previous_account_key")
+        if previous_key != key:
+            st.session_state["_admin_authenticated"] = False
+            st.session_state["_previous_account_key"] = key
+
         user = ACCOUNTS[key]
 
-        if st.session_state.get("_admin_authenticated", False):
-            st.divider()
-            st.success("Адміністратор")
-            if st.button("Вийти з режиму адміністратора", key="admin_logout"):
-                st.session_state["_admin_authenticated"] = False
-                st.rerun()
-            user = ACCOUNTS["admin_1"]
-        else:
-            with st.form("admin_login_form"):
-                password = st.text_input(
-                    "Пароль адміністратора", type="password", key="admin_password_input"
-                )
-                submitted = st.form_submit_button(
-                    "Увійти як адміністратор", disabled=not _admin_password()
-                )
-            if not _admin_password():
-                st.caption("Вхід адміністратора вимкнений: налаштуйте секрет PEACETALK_ADMIN_PASSWORD.")
-            elif submitted:
-                if hmac.compare_digest(
-                    password.encode("utf-8"), _admin_password().encode("utf-8")
-                ):
-                    st.session_state["_admin_authenticated"] = True
+        if key == "admin_1":
+            if st.session_state.get("_admin_authenticated", False):
+                st.divider()
+                st.success("Адміністратор")
+
+                if st.button("Вийти з режиму адміністратора", key="admin_logout"):
+                    st.session_state["_admin_authenticated"] = False
                     st.rerun()
-                else:
-                    st.error("Неправильний пароль адміністратора.")
+
+                # доступ адміна надається лише після автентифікації
+                user = ACCOUNTS["admin_1"]
+
+            else:
+                with st.form("admin_login_form"):
+                    password = st.text_input(
+                        "Пароль адміністратора",
+                        type="password",
+                        key="admin_password_input",
+                    )
+                    submitted = st.form_submit_button(
+                        "Увійти як адміністратор",
+                        disabled=not _admin_password(),
+                    )
+
+                expected_password = _admin_password()
+
+                if not expected_password:
+                    st.caption(
+                        "Вхід адміністратора вимкнений: "
+                        "налаштуйте секрет PEACETALK_ADMIN_PASSWORD."
+                    )
+                elif submitted:
+                    if hmac.compare_digest(
+                        password.encode("utf-8"),
+                        expected_password.encode("utf-8"),
+                    ):
+                        st.session_state["_admin_authenticated"] = True
+                        st.rerun()
+                    else:
+                        st.error("Неправильний пароль адміністратора.")
+
+                # не повертати адміна як авторизованого користувача до входу
+                user = ACCOUNTS["analyst_1"] # analyst_1 за замовчуванням
+
         st.caption(f"id: `{user['id']}`")
+
     st.session_state.user = user
     return user
 
@@ -794,6 +819,8 @@ def _stats_summary() -> None:
     )
     table = base.reset_index().rename(columns={"period": "Період", "articles": "Статей", "avg_tone": "Середній тон",
                                   "compromise_pct": "% компромісних"})
+    table[["Середній тон", "% компромісних"]] = (table[["Середній тон", "% компромісних"]].round(2))
+
     st.plotly_chart(period_tone_figure(table), width="stretch", config={"displaylogo": False})
     st.dataframe(table, hide_index=True, width="stretch")
 

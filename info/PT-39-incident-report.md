@@ -38,6 +38,9 @@
   [38865115953](https://github.com/ShatteredT/peace-negotiations-tracker/actions/runs/38865115953)
   завершився успішно: `Tests (pytest)`, `Lint (flake8)`, `Schema Validation`, `DB Migration Test`
   і `Build Artifact` пройшли.
+- Після додавання цього звіту коміт `cc71a58` також пройшов CI:
+  [run 38865508651](https://github.com/ShatteredT/peace-negotiations-tracker/actions/runs/38865508651)
+  завершився успішно для тестів, lint, schema validation, DB migration та build.
 - Локальні цільові перевірки після виправлення: 8 тестів backup/UI пройшли.
 - Повний локальний набір після виправлення: 112 тестів пройшли; flake8 і `git diff --check`
   успішні.

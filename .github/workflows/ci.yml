@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, feature/**, streamlit-mvp]
+    branches: [main, feature/**, exercise/**, streamlit-mvp]
   pull_request:
     branches: [main]
   workflow_dispatch:

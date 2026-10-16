@@ -112,13 +112,43 @@ def test_other_user_sees_note_but_cannot_change_it(ui):
     assert db_notes(db) == [(1, "analyst_1", "PUBLISHED")]
 
 
-def test_admin_can_archive_any_note(ui):
+def test_admin_can_archive_any_note(ui, monkeypatch):
     at, db = ui
     add_note(at)
+    monkeypatch.setenv("PEACETALK_ADMIN_PASSWORD", "test-admin-password")
+    at.run()
     at = switch_account(at, "admin_1")
+    at.text_input(key="admin_password_input").set_value("test-admin-password")
+    next(b for b in at.button if b.label == "Увійти як адміністратор").click()
+    at = at.run()
     next(b for b in at.button if b.key == "archive_1").click()
     at.run()
     assert db_notes(db) == [(1, "analyst_1", "ARCHIVED")]
+
+
+def test_admin_login_requires_configured_password(ui, monkeypatch):
+    at, _ = ui
+    monkeypatch.setenv("PEACETALK_ADMIN_PASSWORD", "test-admin-password")
+    at.run()
+    at = switch_account(at, "admin_1")
+    at.text_input(key="admin_password_input").set_value("wrong-password")
+    next(b for b in at.button if b.label == "Увійти як адміністратор").click()
+    at = at.run()
+    assert any("Неправильний пароль" in e.value for e in at.error)
+    assert not any("Адміністратор" == e.value for e in at.success)
+
+
+def test_admin_password_field_is_shown_only_for_admin(ui, monkeypatch):
+    at, _ = ui
+    monkeypatch.delenv("PEACETALK_ADMIN_PASSWORD", raising=False)
+    at = switch_account(at, "analyst_1")
+    assert not any(item.key == "admin_password_input" for item in at.text_input)
+    at = switch_account(at, "analyst_2")
+    assert not any(item.key == "admin_password_input" for item in at.text_input)
+    at = switch_account(at, "admin_1")
+    assert any(item.key == "admin_password_input" for item in at.text_input)
+    login_button = next(b for b in at.button if b.label == "Увійти як адміністратор")
+    assert login_button.disabled
 
 
 def test_empty_text_is_validation_message_not_technical_error(ui):

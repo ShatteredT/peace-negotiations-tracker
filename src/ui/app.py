@@ -15,7 +15,7 @@ import streamlit as st
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from src.runtime_db import prepare_demo_database
+from src.runtime_db import create_database_backup, prepare_demo_database
 from src.errors import (
     AccessDenied, ConflictError, NoteError, NotFoundError, TechnicalFailure, ValidationError,
 )
@@ -51,6 +51,12 @@ DB_PATH = Path(os.getenv("PEACETALK_DB", str(BASE_DIR / "data" / "peacetalk.db")
 
 if DEMO_MODE:
     DB_PATH = _get_demo_db_path()
+
+
+@st.cache_resource
+def _backup_database_before_ui(db_path: str) -> Path:
+    return create_database_backup(Path(db_path))
+
 
 WAR_START = date(2022, 2, 24)
 
@@ -835,6 +841,15 @@ def _healthcheck() -> None:
 
 
 def bootstrap() -> None:
+    if not DEMO_MODE and DB_PATH.exists():
+        try:
+            _backup_database_before_ui(str(DB_PATH))
+        except (OSError, sqlite3.Error) as exc:
+            st.error(
+                f"Базу даних не перевірено та резервну копію не створено: {type(exc).__name__}",
+                icon=":material/error:",
+            )
+            st.stop()
     _healthcheck()
     user = sidebar_user()
     filters = sidebar_filters(get_filter_options())

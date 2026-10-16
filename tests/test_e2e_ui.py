@@ -73,6 +73,17 @@ def db_notes(db):
         return conn.execute("SELECT id, author_id, status FROM expert_notes ORDER BY id").fetchall()
 
 
+def test_ui_startup_creates_verified_database_backup(ui):
+    at, db = ui
+    assert not at.exception
+
+    backups = list((db.parent / "backups").glob("e2e_before_ui_*.db"))
+    assert len(backups) == 1
+    with sqlite3.connect(backups[0]) as conn:
+        assert conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
+        assert conn.execute("SELECT COUNT(*) FROM news_articles").fetchone()[0] == 1
+
+
 def test_full_flow_create_view_archive(ui):
     at, db = ui
 

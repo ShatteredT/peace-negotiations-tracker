@@ -88,30 +88,57 @@ def get_connection():
     return sqlite3.connect(DB_PATH, check_same_thread=False)
 
 
+def _assessment_scope(start_date: str, end_date: str, categories: tuple, sources: tuple) -> tuple[str, list]:
+    """WHERE-умова за датою, категоріями й джерелами (без порогу впевненості) + її параметри."""
+    where = "a.date >= ? AND a.date <= ?"
+    params: list = [start_date, end_date]
+    if categories:
+        where += f" AND ar.metric_category IN ({','.join('?' * len(categories))})"
+        params += list(categories)
+    if sources:
+        where += f" AND a.source IN ({','.join('?' * len(sources))})"
+        params += list(sources)
+    return where, params
+
+
+# Усі аргументи (зокрема min_confidence) входять у ключ кешу st.cache_data, тому інший поріг
+# дає окремий запис кешу, а не застарілий результат (PT-74).
 @st.cache_data(ttl=30, show_spinner=False)
 def load_assessments(start_date: str, end_date: str, categories: tuple,
                      sources: tuple, min_confidence: float) -> pd.DataFrame:
-    query = """
+    where, params = _assessment_scope(start_date, end_date, categories, sources)
+    query = f"""
         SELECT a.id AS article_id, a.source, a.title, a.date, a.url,
                ar.metric_category, ar.score, ar.justification, ar.confidence,
                ar.overall_sentiment, ar.is_compromise_oriented
         FROM assessment_records ar
         JOIN news_articles a ON ar.article_id = a.id
         WHERE (ar.confidence IS NULL OR ar.confidence >= ?)
-          AND a.date >= ? AND a.date <= ?
+          AND {where}
     """
-    params: list = [min_confidence, start_date, end_date]
-    if categories:
-        query += f" AND ar.metric_category IN ({','.join('?' * len(categories))})"
-        params += list(categories)
-    if sources:
-        query += f" AND a.source IN ({','.join('?' * len(sources))})"
-        params += list(sources)
-    df = pd.read_sql_query(query + " ORDER BY a.date", get_connection(), params=params)
+    df = pd.read_sql_query(query + " ORDER BY a.date", get_connection(), params=[min_confidence, *params])
     df["date"] = pd.to_datetime(df["date"])
     df["month"] = df["date"].dt.to_period("M").dt.to_timestamp()
     df["is_compromise_oriented"] = df["is_compromise_oriented"].astype(bool)
     return df
+
+
+@st.cache_data(ttl=30, show_spinner=False)
+def count_hidden_assessments(start_date: str, end_date: str, categories: tuple,
+                             sources: tuple, min_confidence: float) -> tuple[int, int]:
+    """(приховано, усього) оцінок за поточними фільтрами. Приховані — ті, що нижчі за поріг."""
+    where, params = _assessment_scope(start_date, end_date, categories, sources)
+    row = get_connection().execute(
+        f"""
+        SELECT COUNT(*),
+               COALESCE(SUM(ar.confidence IS NOT NULL AND ar.confidence < ?), 0)
+        FROM assessment_records ar
+        JOIN news_articles a ON ar.article_id = a.id
+        WHERE {where}
+        """,
+        [min_confidence, *params],
+    ).fetchone()
+    return int(row[1]), int(row[0])
 
 
 @st.cache_data(ttl=30, show_spinner=False)
@@ -487,9 +514,18 @@ def sidebar_filters(options: dict) -> dict:
             "Мін. впевненість моделі", 0.0, 1.0, 0.0, 0.05, key="f_conf",
             help="Оцінки без значення впевненості (старі дані) показуються завжди.",
         )
+        # round: слайдер із кроком 0.05 може дати 0.15000000000000002, і оцінка 0.15 «випала б»
+        min_conf = round(float(min_conf), 2)
+        hidden, total = count_hidden_assessments(
+            start.isoformat(), end.isoformat(), tuple(cats), tuple(srcs), min_conf,
+        )
+        note = f"Приховано **{hidden}** із **{total}** оцінок"
+        if total and hidden == total:
+            note += " — усі приховано, зменште поріг"
+        st.caption(note)
     return {
         "start": start.isoformat(), "end": end.isoformat(),
-        "categories": tuple(cats), "sources": tuple(srcs), "min_confidence": float(min_conf),
+        "categories": tuple(cats), "sources": tuple(srcs), "min_confidence": min_conf,
     }
 
 

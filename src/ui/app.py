@@ -21,8 +21,8 @@ from src.errors import (
 )
 from src.ops import observed, record, utc_now, utc_now_iso
 from src.ui.charts import (
-    CAT_LABEL, CATEGORIES, VIEW_CATEGORIES, VIEW_OVERALL, heatmap_figure, period_tone_figure, trend_figure,
-    year_share_figure, year_violin_figure,
+    CAT_LABEL, CATEGORIES, VIEW_CATEGORIES, VIEW_OVERALL, articles_for_cell, cell_from_event, heatmap_figure,
+    period_tone_figure, trend_figure, year_share_figure, year_violin_figure,
 )
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -560,6 +560,62 @@ def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, ann
     st.plotly_chart(fig, width="stretch", config={"displaylogo": False})
 
 
+@st.fragment
+def heatmap_section(df: pd.DataFrame) -> None:
+    """Теплова карта: клік по клітинці (або вибір категорії й місяця нижче) показує її статті."""
+    selected = None
+    if st.session_state.get("heat_cat") and st.session_state.get("heat_month") is not None:
+        selected = (st.session_state["heat_cat"], st.session_state["heat_month"])
+    st.plotly_chart(
+        heatmap_figure(df, selected_cell=selected), width="stretch", config={"displaylogo": False},
+        key="heatmap", on_select=_heatmap_selection_changed, selection_mode="points",
+    )
+    cats = [c for c in CATEGORIES if c in set(df["metric_category"])]
+    months = sorted(pd.to_datetime(df["month"].unique()))
+
+    for key, options in (("heat_cat", cats), ("heat_month", months)):
+        if key in st.session_state and st.session_state[key] not in options:
+            st.session_state[key] = None  # фільтри змінились, і вибраної клітинки вже немає
+
+    c1, c2 = st.columns(2)
+    cat = c1.selectbox("Категорія", cats, index=None, key="heat_cat", format_func=lambda c: CAT_LABEL[c],
+                       placeholder="Клікніть клітинку на карті або оберіть тут")
+    month = c2.selectbox("Місяць", months, index=None, key="heat_month", format_func=lambda m: f"{m:%m.%Y}",
+                         placeholder="Клікніть клітинку на карті або оберіть тут")
+    if not (cat and month):
+        st.caption("Клікніть клітинку, щоб побачити статті, з яких складено її колір.")
+        return
+
+    rows = articles_for_cell(df, cat, month)
+    if rows.empty:
+        st.info("У цій клітинці немає статей за поточними фільтрами.", icon=":material/filter_alt_off:")
+        return
+    avg = float(rows["score"].mean())
+    st.markdown(f"**{CAT_LABEL[cat]} · {month:%m.%Y}**: статей {len(rows)}, середня оцінка "
+                f":{score_color(avg)}-badge[{avg:+.2f}] (колір клітинки)")
+    for _, r in rows.iterrows():
+        with st.container(border=True):
+            st.markdown(f"[{r['title']}]({r['url']})")
+            conf = "" if pd.isna(r["confidence"]) else f" :gray-badge[впевненість {r['confidence']:.2f}]"
+            st.markdown(f":gray-badge[{r['date']:%d.%m.%Y}] :gray-badge[{r['source'].upper()}] "
+                        f":{score_color(r['score'])}-badge[{r['score']:+.2f}]{conf}")
+            if r["justification"]:
+                st.caption(r["justification"])
+
+
+def _apply_heatmap_selection(event) -> None:
+    clicked = cell_from_event(event)
+    if clicked is None:
+        st.session_state.pop("_heat_applied", None)
+    elif clicked != st.session_state.get("_heat_applied"):
+        st.session_state["_heat_applied"] = clicked
+        st.session_state["heat_cat"], st.session_state["heat_month"] = clicked
+
+
+def _heatmap_selection_changed() -> None:
+    _apply_heatmap_selection(st.session_state.get("heatmap"))
+
+
 def dashboard_page() -> None:
     f = ctx()["filters"]
     df, arts = current_filtered_data()
@@ -597,7 +653,7 @@ def dashboard_page() -> None:
     t_heat, t_year, t_extreme = st.tabs([":material/grid_on: Теплова карта", ":material/bar_chart: По роках",
                                          ":material/swap_vert: Екстремуми"])
     with t_heat:
-        st.plotly_chart(heatmap_figure(df), width="stretch", config={"displaylogo": False})
+        heatmap_section(df)
     with t_year:
         ca, cb = st.columns(2)
         ca.plotly_chart(year_share_figure(arts), width="stretch", config={"displaylogo": False})

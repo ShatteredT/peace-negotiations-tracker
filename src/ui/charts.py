@@ -142,14 +142,129 @@ def trend_figure(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, anno
     return fig
 
 
-def heatmap_figure(df: pd.DataFrame) -> go.Figure:
+def _month_start(value) -> pd.Timestamp | None:
+    """Перший день місяця для Timestamp / datetime / рядка («2023-03-01», «2023-03-01 00:00:00»)."""
+    try:
+        ts = pd.Timestamp(value)
+    except (ValueError, TypeError):
+        return None
+    return None if pd.isna(ts) else ts.to_period("M").to_timestamp()
+
+
+CELL_COLUMNS = ["article_id", "date", "source", "title", "url", "score", "confidence", "justification"]
+
+
+def articles_for_cell(df: pd.DataFrame, category: str, month) -> pd.DataFrame:
+    """Оцінки, з яких складено одну клітинку теплової карти (категорія × місяць).
+
+    Це ті самі рядки df, які heatmap_figure усереднює в колір клітинки, тому середнє `score`
+    результату дорівнює значенню клітинки. Не залежить від Streamlit. Порожня клітинка дає порожній
+    DataFrame (із тими самими колонками).
+    """
+    cols = [c for c in CELL_COLUMNS if c in df.columns]
+    start = _month_start(month)
+    if start is None:
+        return df.iloc[0:0][cols].reset_index(drop=True)
+    sel = df[(df["metric_category"] == category) & (df["month"] == start)]
+    order = [c for c in ("date", "article_id") if c in sel.columns]
+    return sel.sort_values(order)[cols].reset_index(drop=True)
+
+
+def cell_from_point(point: dict) -> tuple[str, pd.Timestamp] | None:
+    """(категорія, місяць) клітинки за точкою події кліку; None, якщо клітинку визначити не вдалося.
+
+    Основний шлях — `customdata` [категорія, місяць], який кладе heatmap_figure. Запасний — підписи
+    осей клітинки (y — українська назва категорії, x — дата місяця).
+    """
+    cd = point.get("customdata")
+    if isinstance(cd, (list, tuple)) and len(cd) >= 2 and cd[0] in CATEGORIES:
+        month = _month_start(cd[1])
+        if month is not None:
+            return cd[0], month
+    category = {label: key for key, label in CAT_LABEL.items()}.get(point.get("y"))
+    month = _month_start(point.get("x")) if point.get("x") is not None else None
+    return (category, month) if category and month is not None else None
+
+
+def cell_from_event(event) -> tuple[str, pd.Timestamp] | None:
+    """Клітинка з результату st.plotly_chart(..., on_select=...); None, якщо нічого не вибрано."""
+    try:
+        points = event["selection"]["points"]
+    except (KeyError, TypeError):
+        return None
+    return cell_from_point(points[0]) if points else None
+
+
+def _add_pressed_cell(fig: go.Figure, piv: pd.DataFrame, selected_cell) -> None:
+    """Накладає втиснуту тінь на всю площу вибраної клітинки, а не на центральний маркер."""
+    if not selected_cell or piv.empty or len(piv.columns) == 0:
+        return
+    category, month_value = selected_cell
+    if category not in piv.index:
+        return
+    month = _month_start(month_value)
+    if month is None or month not in piv.columns:
+        return
+
+    row = list(piv.index).index(category)
+    col = list(piv.columns).index(month)
+    centers = [pd.Timestamp(v) for v in piv.columns]
+    if len(centers) == 1:
+        left, right = centers[0] - pd.Timedelta(days=15), centers[0] + pd.Timedelta(days=15)
+    else:
+        left = centers[col] - (centers[1] - centers[0]) / 2 if col == 0 else centers[col - 1] + (centers[col] - centers[col - 1]) / 2
+        right = centers[col] + (centers[-1] - centers[-2]) / 2 if col == len(centers) - 1 else centers[col] + (centers[col + 1] - centers[col]) / 2
+
+    x0, x1 = pd.Timestamp(left).to_pydatetime(), pd.Timestamp(right).to_pydatetime()
+    y0, y1 = row - 0.5, row + 0.5
+    # Базове затемнення займає всю клітинку; тонкі краї створюють саме ефект втиснення.
+    fig.add_shape(type="rect", x0=x0, x1=x1, y0=y0, y1=y1,
+                  xref="x", yref="y", layer="above",
+                  line=dict(width=0), fillcolor="rgba(15, 23, 42, 0.16)")
+    dx = (right - left) * 0.025
+    dy = 0.045
+    # Верхній/лівий краї темніші, нижній/правий — світліші; це не рамка, а внутрішній рельєф.
+    for xa, xb, ya, yb, color in (
+        (x0, (left + dx).to_pydatetime(), y0, y1, "rgba(15, 23, 42, 0.28)"),
+        ((right - dx).to_pydatetime(), x1, y0, y1, "rgba(255, 255, 255, 0.30)"),
+        (x0, x1, y0, y0 + dy, "rgba(15, 23, 42, 0.24)"),
+        (x0, x1, y1 - dy, y1, "rgba(255, 255, 255, 0.32)"),
+    ):
+        fig.add_shape(type="rect", x0=xa, x1=xb, y0=ya, y1=yb,
+                      xref="x", yref="y", layer="above", line=dict(width=0), fillcolor=color)
+
+
+def heatmap_figure(df: pd.DataFrame, selected_cell=None) -> go.Figure:
     piv = df.groupby(["metric_category", "month"])["score"].mean().unstack("month")
     piv = piv.reindex([c for c in CATEGORIES if c in piv.index])
+    # customdata[i][j] = [категорія, місяць] клітинки: за ним клік повертає, яку клітинку вибрано
+    customdata = [[[cat, month.strftime("%Y-%m-%d")] for month in piv.columns] for cat in piv.index]
+    labels = [CAT_LABEL[c] for c in piv.index]
     fig = go.Figure(go.Heatmap(
-        z=piv.values, x=piv.columns, y=[CAT_LABEL[c] for c in piv.index],
+        z=piv.values, x=piv.columns, y=labels, customdata=customdata,
         colorscale="RdYlGn", zmid=0, zmin=-1, zmax=1, xgap=1, ygap=1,
-        colorbar=dict(title="Оцінка"), hovertemplate="%{y}<br>%{x|%m.%Y}: %{z:+.2f}<extra></extra>"))
-    fig.update_layout(yaxis=dict(autorange="reversed"), xaxis=dict(tickformat="%m.%Y"))
+        colorbar=dict(title="Оцінка"), hoverinfo="skip"))
+    # Прозорі центри приймають кліки, включно з порожніми клітинками. Вони НЕ малюють виділення.
+    values = [v for row in piv.values for v in row]
+    fig.add_trace(go.Scatter(
+        x=[m for _ in labels for m in piv.columns], y=[lab for lab in labels for _ in piv.columns],
+        customdata=[[*cell, "немає даних" if pd.isna(v) else f"{v:+.2f}"]
+                    for cell, v in zip((c for row in customdata for c in row), values)],
+        mode="markers", showlegend=False,
+        hovertemplate="%{y}<br>%{x|%m.%Y}: %{customdata[2]}<extra></extra>",
+        marker=dict(symbol="square", size=6, color="#111827", opacity=0),
+        selected=dict(marker=dict(opacity=0, size=6, color="#111827")),
+        unselected=dict(marker=dict(opacity=0, size=6, color="#111827")),
+    ))
+    xaxis = dict(tickformat="%m.%Y")
+    if len(piv.columns) > 1:
+        first, last = piv.columns[0], piv.columns[-1]
+        lo = first - (piv.columns[1] - first) / 2
+        hi = last + (last - piv.columns[-2]) / 2
+        xaxis["range"] = [lo.strftime("%Y-%m-%d %H:%M:%S"), hi.strftime("%Y-%m-%d %H:%M:%S")]
+    fig.update_layout(yaxis=dict(range=[len(labels) - 0.5, -0.5]), xaxis=xaxis,
+                      hoverdistance=-1, clickmode="event+select")
+    _add_pressed_cell(fig, piv, selected_cell)
     return _tidy(fig, height=300)
 
 

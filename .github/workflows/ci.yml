@@ -100,16 +100,16 @@ jobs:
               overall_sentiment=0.5,
               is_compromise_oriented=True,
               categories={
-                  'diplomacy': {'score': 0.5, 'justification': 'test'},
-                  'security': {'score': 0.0, 'justification': 'test'},
-                  'territorial': {'score': -0.2, 'justification': 'test'},
-                  'humanitarian': {'score': 0.8, 'justification': 'test'}
+                  'diplomacy':    {'score': 0.5,  'justification': 'test', 'confidence': 0.9},
+                  'security':     {'score': 0.0,  'justification': 'test', 'confidence': 0.1},
+                  'territorial':  {'score': -0.2, 'justification': 'test', 'confidence': 0.5},
+                  'humanitarian': {'score': 0.8,  'justification': 'test', 'confidence': 1.0},
               }
           )
           print('Schema validation: OK')
 
           try:
-              CategoryScore(score=1.5, justification='invalid')
+              CategoryScore(score=1.5, justification='invalid', confidence=0.5)
               raise AssertionError('Boundary validation failed: score 1.5 was accepted')
           except ValueError:
               print('Boundary validation: OK')

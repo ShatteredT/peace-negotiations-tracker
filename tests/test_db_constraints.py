@@ -1,8 +1,3 @@
-"""PT-16: обмеження цілісності БД (схема v1.0).
-
-Кожен тест працює з власною тимчасовою БД (tmp_path), тому не залежить від
-`python scripts/init_db.py` і не чіпає робочу data/peacetalk.db.
-"""
 import re
 import sqlite3
 

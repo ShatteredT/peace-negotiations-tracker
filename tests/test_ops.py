@@ -1,4 +1,3 @@
-"""Журнал операцій, метрики та правило сповіщення"""
 import json
 from datetime import timedelta
 

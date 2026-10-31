@@ -11,12 +11,12 @@ class CategoryScore(BaseModel):
         description="Оцінка риторики: від -1.0 (ескалація) до +1.0 (мир/компроміс)",
     )
     justification: str = Field(..., description="Цитата чи аргументація з тексту")
-    confidence: Optional[float] = Field(
-        default=None,
+    confidence: float = Field(
+        ...,
         ge=0.0,
         le=1.0,
-        description="Впевненість моделі в оцінці: 0.0 (здогад) … 1.0 (однозначно). "
-        "Для старих записів може бути відсутня.",
+        description="Обов'язкове. Впевненість моделі в оцінці: 0.0 — текст не дає підстав "
+        "для оцінки (здогад), 1.0 — пряма заява в тексті.",
     )
 
 
@@ -37,6 +37,24 @@ class ArticleAnalysis(BaseModel):
     )
     categories: Categories = Field(..., description="Оцінки за 4 обов'язковими категоріями")
     is_compromise_oriented: bool
+
+
+# Сумісність із даними v1.0/v2.0, де confidence немає: цю модель використовує лише
+# завантажувач (scripts/load_to_db.py). Відповідь LLM (BatchAnalysis) завжди сувора.
+# Видалити разом з переходом на confidence NOT NULL (PT-86).
+class LegacyCategoryScore(CategoryScore):
+    confidence: Optional[float] = Field(default=None, ge=0.0, le=1.0)
+
+
+class LegacyCategories(Categories):
+    diplomacy: LegacyCategoryScore
+    security: LegacyCategoryScore
+    territorial: LegacyCategoryScore
+    humanitarian: LegacyCategoryScore
+
+
+class LegacyArticleAnalysis(ArticleAnalysis):
+    categories: LegacyCategories
 
 
 class BatchAnalysis(BaseModel):

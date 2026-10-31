@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Export FULL BBC corpus by half-year periods (900+ articles per half-year)
-for Gemini web interface analysis.
-"""
 import json
 import subprocess
 from pathlib import Path

@@ -21,8 +21,8 @@ from src.errors import (
 )
 from src.ops import observed, record, utc_now, utc_now_iso
 from src.ui.charts import (
-    CAT_LABEL, CATEGORIES, VIEW_CATEGORIES, VIEW_OVERALL, heatmap_figure, period_tone_figure, trend_figure,
-    year_share_figure, year_violin_figure,
+    CAT_LABEL, CATEGORIES, VIEW_CATEGORIES, VIEW_OVERALL, articles_for_cell, cell_from_event, heatmap_figure,
+    period_tone_figure, trend_figure, year_share_figure, year_violin_figure,
 )
 
 BASE_DIR = Path(__file__).resolve().parents[2]
@@ -88,30 +88,57 @@ def get_connection():
     return sqlite3.connect(DB_PATH, check_same_thread=False)
 
 
+def _assessment_scope(start_date: str, end_date: str, categories: tuple, sources: tuple) -> tuple[str, list]:
+    """WHERE-умова за датою, категоріями й джерелами (без порогу впевненості) + її параметри."""
+    where = "a.date >= ? AND a.date <= ?"
+    params: list = [start_date, end_date]
+    if categories:
+        where += f" AND ar.metric_category IN ({','.join('?' * len(categories))})"
+        params += list(categories)
+    if sources:
+        where += f" AND a.source IN ({','.join('?' * len(sources))})"
+        params += list(sources)
+    return where, params
+
+
+# Усі аргументи (зокрема min_confidence) входять у ключ кешу st.cache_data, тому інший поріг
+# дає окремий запис кешу, а не застарілий результат (PT-74).
 @st.cache_data(ttl=30, show_spinner=False)
 def load_assessments(start_date: str, end_date: str, categories: tuple,
                      sources: tuple, min_confidence: float) -> pd.DataFrame:
-    query = """
+    where, params = _assessment_scope(start_date, end_date, categories, sources)
+    query = f"""
         SELECT a.id AS article_id, a.source, a.title, a.date, a.url,
                ar.metric_category, ar.score, ar.justification, ar.confidence,
                ar.overall_sentiment, ar.is_compromise_oriented
         FROM assessment_records ar
         JOIN news_articles a ON ar.article_id = a.id
         WHERE (ar.confidence IS NULL OR ar.confidence >= ?)
-          AND a.date >= ? AND a.date <= ?
+          AND {where}
     """
-    params: list = [min_confidence, start_date, end_date]
-    if categories:
-        query += f" AND ar.metric_category IN ({','.join('?' * len(categories))})"
-        params += list(categories)
-    if sources:
-        query += f" AND a.source IN ({','.join('?' * len(sources))})"
-        params += list(sources)
-    df = pd.read_sql_query(query + " ORDER BY a.date", get_connection(), params=params)
+    df = pd.read_sql_query(query + " ORDER BY a.date", get_connection(), params=[min_confidence, *params])
     df["date"] = pd.to_datetime(df["date"])
     df["month"] = df["date"].dt.to_period("M").dt.to_timestamp()
     df["is_compromise_oriented"] = df["is_compromise_oriented"].astype(bool)
     return df
+
+
+@st.cache_data(ttl=30, show_spinner=False)
+def count_hidden_assessments(start_date: str, end_date: str, categories: tuple,
+                             sources: tuple, min_confidence: float) -> tuple[int, int]:
+    """(приховано, усього) оцінок за поточними фільтрами. Приховані — ті, що нижчі за поріг."""
+    where, params = _assessment_scope(start_date, end_date, categories, sources)
+    row = get_connection().execute(
+        f"""
+        SELECT COUNT(*),
+               COALESCE(SUM(ar.confidence IS NOT NULL AND ar.confidence < ?), 0)
+        FROM assessment_records ar
+        JOIN news_articles a ON ar.article_id = a.id
+        WHERE {where}
+        """,
+        [min_confidence, *params],
+    ).fetchone()
+    return int(row[1]), int(row[0])
 
 
 @st.cache_data(ttl=30, show_spinner=False)
@@ -487,9 +514,18 @@ def sidebar_filters(options: dict) -> dict:
             "Мін. впевненість моделі", 0.0, 1.0, 0.0, 0.05, key="f_conf",
             help="Оцінки без значення впевненості (старі дані) показуються завжди.",
         )
+        # round: слайдер із кроком 0.05 може дати 0.15000000000000002, і оцінка 0.15 «випала б»
+        min_conf = round(float(min_conf), 2)
+        hidden, total = count_hidden_assessments(
+            start.isoformat(), end.isoformat(), tuple(cats), tuple(srcs), min_conf,
+        )
+        note = f"Приховано **{hidden}** із **{total}** оцінок"
+        if total and hidden == total:
+            note += " — усі приховано, зменште поріг"
+        st.caption(note)
     return {
         "start": start.isoformat(), "end": end.isoformat(),
-        "categories": tuple(cats), "sources": tuple(srcs), "min_confidence": float(min_conf),
+        "categories": tuple(cats), "sources": tuple(srcs), "min_confidence": min_conf,
     }
 
 
@@ -522,6 +558,62 @@ def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, ann
         show_ann = st.toggle("Анотації агента", value=True, key="trend_ann")
     fig = trend_figure(df, arts, notes, annotations, view, window, show_notes, show_ann)
     st.plotly_chart(fig, width="stretch", config={"displaylogo": False})
+
+
+@st.fragment
+def heatmap_section(df: pd.DataFrame) -> None:
+    """Теплова карта: клік по клітинці (або вибір категорії й місяця нижче) показує її статті."""
+    selected = None
+    if st.session_state.get("heat_cat") and st.session_state.get("heat_month") is not None:
+        selected = (st.session_state["heat_cat"], st.session_state["heat_month"])
+    st.plotly_chart(
+        heatmap_figure(df, selected_cell=selected), width="stretch", config={"displaylogo": False},
+        key="heatmap", on_select=_heatmap_selection_changed, selection_mode="points",
+    )
+    cats = [c for c in CATEGORIES if c in set(df["metric_category"])]
+    months = sorted(pd.to_datetime(df["month"].unique()))
+
+    for key, options in (("heat_cat", cats), ("heat_month", months)):
+        if key in st.session_state and st.session_state[key] not in options:
+            st.session_state[key] = None  # фільтри змінились, і вибраної клітинки вже немає
+
+    c1, c2 = st.columns(2)
+    cat = c1.selectbox("Категорія", cats, index=None, key="heat_cat", format_func=lambda c: CAT_LABEL[c],
+                       placeholder="Клікніть клітинку на карті або оберіть тут")
+    month = c2.selectbox("Місяць", months, index=None, key="heat_month", format_func=lambda m: f"{m:%m.%Y}",
+                         placeholder="Клікніть клітинку на карті або оберіть тут")
+    if not (cat and month):
+        st.caption("Клікніть клітинку, щоб побачити статті, з яких складено її колір.")
+        return
+
+    rows = articles_for_cell(df, cat, month)
+    if rows.empty:
+        st.info("У цій клітинці немає статей за поточними фільтрами.", icon=":material/filter_alt_off:")
+        return
+    avg = float(rows["score"].mean())
+    st.markdown(f"**{CAT_LABEL[cat]} · {month:%m.%Y}**: статей {len(rows)}, середня оцінка "
+                f":{score_color(avg)}-badge[{avg:+.2f}] (колір клітинки)")
+    for _, r in rows.iterrows():
+        with st.container(border=True):
+            st.markdown(f"[{r['title']}]({r['url']})")
+            conf = "" if pd.isna(r["confidence"]) else f" :gray-badge[впевненість {r['confidence']:.2f}]"
+            st.markdown(f":gray-badge[{r['date']:%d.%m.%Y}] :gray-badge[{r['source'].upper()}] "
+                        f":{score_color(r['score'])}-badge[{r['score']:+.2f}]{conf}")
+            if r["justification"]:
+                st.caption(r["justification"])
+
+
+def _apply_heatmap_selection(event) -> None:
+    clicked = cell_from_event(event)
+    if clicked is None:
+        st.session_state.pop("_heat_applied", None)
+    elif clicked != st.session_state.get("_heat_applied"):
+        st.session_state["_heat_applied"] = clicked
+        st.session_state["heat_cat"], st.session_state["heat_month"] = clicked
+
+
+def _heatmap_selection_changed() -> None:
+    _apply_heatmap_selection(st.session_state.get("heatmap"))
 
 
 def dashboard_page() -> None:
@@ -561,7 +653,7 @@ def dashboard_page() -> None:
     t_heat, t_year, t_extreme = st.tabs([":material/grid_on: Теплова карта", ":material/bar_chart: По роках",
                                          ":material/swap_vert: Екстремуми"])
     with t_heat:
-        st.plotly_chart(heatmap_figure(df), width="stretch", config={"displaylogo": False})
+        heatmap_section(df)
     with t_year:
         ca, cb = st.columns(2)
         ca.plotly_chart(year_share_figure(arts), width="stretch", config={"displaylogo": False})

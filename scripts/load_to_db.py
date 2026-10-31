@@ -6,7 +6,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from scripts.init_db import DB_PATH, init_db
-from src.agents.analyst_schemas import ArticleAnalysis
+from src.agents.analyst_schemas import LegacyArticleAnalysis
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 CATEGORIES = ("diplomacy", "security", "territorial", "humanitarian")
@@ -48,7 +48,7 @@ def load_assessments(conn: sqlite3.Connection, analyses: list[dict], agent_versi
     rows = skipped = 0
     for raw in analyses:
         try:
-            item = ArticleAnalysis.model_validate(raw)
+            item = LegacyArticleAnalysis.model_validate(raw)
         except ValidationError as e:
             print(f"  ! оцінка {raw.get('article_id', '?')} невалідна: {e.error_count()} помилок")
             skipped += 1

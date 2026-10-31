@@ -19,7 +19,7 @@ except ImportError:
 logger = get_logger("selector_optimized")
 
 WAR_START = "2022-02-24"
-TARGET_PER_PERIOD = 20  # ~20 статей за 6 місяців
+TARGET_PER_PERIOD = 15  # ~15 статей за 6 місяців
 PERIOD_MONTHS = 6  # період в місяцях
 
 SELECTOR_PROMPT = """
@@ -317,6 +317,19 @@ def load_bbc_articles() -> list[dict]:
     return data
 
 
+def load_radio_svoboda_articles() -> list[dict]:
+    """Load the filtered Radio Svoboda corpus committed to the repository."""
+    local = DATA_DIR / "RadioSvoboda" / "filtered_articles.json"
+    if not local.exists():
+        raise FileNotFoundError(f"Не знайдено корпус Радіо Свобода: {local}")
+    data = json.loads(local.read_text(encoding="utf-8"))
+    if not isinstance(data, list):
+        raise ValueError(f"Очікувався список статей у {local}")
+    for article in data:
+        article["source"] = "radio_svoboda"
+    return data
+
+
 def list_periods(articles: list[dict]):
     """Show available periods and stats."""
     WAR_START = "2022-02-24"
@@ -355,23 +368,32 @@ if __name__ == "__main__":
 
     agent = OptimizedSelectorAgent()
 
-    # BBC
-    print("\nLoading BBC articles...")
-    bbc = load_bbc_articles()
-    print(f"Total BBC: {len(bbc)}")
+    loaders = {
+        "bbc": load_bbc_articles,
+        "radio_svoboda": load_radio_svoboda_articles,
+    }
+    if args.source not in loaders:
+        parser.error(f"Unsupported source {args.source!r}; choose from: {', '.join(loaders)}")
+
+    print(f"\nLoading {args.source} articles...")
+    articles = loaders[args.source]()
+    print(f"Total {args.source}: {len(articles)}")
 
     if args.list:
-        list_periods(bbc)
+        list_periods(articles)
         exit(0)
 
     if args.period:
         print(f"\nProcessing single period: {args.period}")
-        selected = agent.select_single_period(bbc, args.source, args.period)
+        selected = agent.select_single_period(articles, args.source, args.period)
         print(f"\nPeriod {args.period}: selected {len(selected)} articles")
     else:
         print("\nProcessing ALL periods...")
-        selected = agent.select_from_source(bbc, args.source)
+        selected = agent.select_from_source(articles, args.source)
         print(f"\nTotal selected: {len(selected)}")
 
-    agent.export_results(str(DATA_DIR / "filtered_corpus_optimized.json"))
-    print("Done! Check data/filtered_corpus_optimized.json")
+    output = DATA_DIR / f"filtered_corpus_{args.source}_optimized.json"
+    if args.source == "bbc":
+        output = DATA_DIR / "filtered_corpus_optimized.json"
+    agent.export_results(str(output))
+    print(f"Done! Check {output}")

@@ -1,3 +1,4 @@
+import hashlib
 import re
 import numpy as np
 import pandas as pd
@@ -10,6 +11,12 @@ TITLE_LOGIC = "any"   # "any" = хоча б одне слово зі списк�
 TAG_LOGIC   = "any"
 
 flags = 0 if CASE_SENSITIVE else re.IGNORECASE
+
+
+def article_id_from_url(url: str) -> str:
+  digest = hashlib.sha256(url.strip().encode("utf-8")).hexdigest()
+  return f"radio-svoboda-{digest}"
+
 
 def words_mask(series, words, logic):
     """Булева маска: рядок містить будь-яке з words (logic='any') або всі (logic='all')."""
@@ -58,11 +65,13 @@ def filter_by_date(df, date):
     return df[dates >= pd.to_datetime(date)]
 
 def save_to_file(filtered, path='filtered_articles'):
+  filtered = filtered.copy()
   if "date_dt" in filtered.columns:
     filtered = filtered.drop(columns=["date_dt"])
   elif "text_preview" in filtered.columns:
     filtered = filtered.drop(columns=["text_preview"])
 
+  filtered["id"] = filtered["url"].map(article_id_from_url)
   filtered["tags"] = filtered["tags"].apply(list)
   filtered.to_json(f"{path}.json", orient="records", force_ascii=False, indent=2)
   print('Файл із відфільтрованими статтями успішно збережено в json-файл.')

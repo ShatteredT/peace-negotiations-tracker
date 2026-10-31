@@ -124,5 +124,5 @@ class TestSchemaV2:
         ).fetchone()
         assert (review_status, reviewed_by, reviewed_at) == ("APPROVED", None, None)
 
-    def test_schema_version_is_2(self, conn):
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+    def test_schema_version_is_3(self, conn):
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 3

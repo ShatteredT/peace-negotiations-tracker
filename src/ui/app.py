@@ -74,6 +74,7 @@ REVIEW_BADGE = {
     "PENDING_APPROVAL": ":orange-badge[На розгляді]",
     "REJECTED": ":red-badge[Відхилено]",
 }
+SOURCE_LABELS = {"bbc": "BBC", "radio_svoboda": "Радіо Свобода", "all": "Усі джерела"}
 TREND_BADGE = {
     "escalation": ":red-badge[Ескалація]",
     "compromise": ":green-badge[Компроміс]",
@@ -143,9 +144,9 @@ def count_hidden_assessments(start_date: str, end_date: str, categories: tuple,
 
 @st.cache_data(ttl=30, show_spinner=False)
 def load_expert_notes(start_date: str | None = None, end_date: str | None = None,
-                      categories: tuple = (), statuses: tuple = ()) -> pd.DataFrame:
+                      categories: tuple = (), statuses: tuple = (), sources: tuple = ()) -> pd.DataFrame:
     query = """
-        SELECT id, event_date, metric_category, content, author_id, importance_type, status,
+        SELECT id, event_date, metric_category, content, author_id, source, importance_type, status,
                created_at, updated_at, review_status, reviewed_by, reviewed_at
         FROM expert_notes WHERE 1=1
     """
@@ -162,13 +163,16 @@ def load_expert_notes(start_date: str | None = None, end_date: str | None = None
     if statuses:
         query += f" AND status IN ({','.join('?' * len(statuses))})"
         params += list(statuses)
+    if sources:
+        query += f" AND source IN ({','.join('?' * len(sources))})"
+        params += list(sources)
     return pd.read_sql_query(query + " ORDER BY event_date DESC, id DESC", get_connection(), params=params)
 
 
 @st.cache_data(ttl=30, show_spinner=False)
 def load_pending_notes() -> pd.DataFrame:
     query = """
-        SELECT id, event_date, metric_category, content, author_id, importance_type, status,
+        SELECT id, event_date, metric_category, content, author_id, source, importance_type, status,
                created_at, updated_at, review_status
         FROM expert_notes 
         WHERE status = 'PUBLISHED' AND review_status = 'PENDING_APPROVAL'
@@ -193,14 +197,17 @@ def get_article_text(article_id: str) -> str:
     return (row[0] if row and row[0] else "")
 
 
-SUMMARY_COLUMNS = ["period", "trend", "summary", "articles_count", "avg_sentiment", "model", "created_at"]
-ANNOTATION_COLUMNS = ["period", "article_id", "kind", "text", "date", "title", "url", "overall_sentiment"]
+SUMMARY_COLUMNS = ["source", "period", "trend", "summary", "articles_count", "avg_sentiment", "model", "created_at"]
+ANNOTATION_COLUMNS = [
+    "source", "period", "article_id", "kind", "text", "date", "title", "url", "overall_sentiment",
+]
 
 
 @st.cache_data(ttl=30, show_spinner=False)
 def load_summaries() -> pd.DataFrame:
     try:
-        return pd.read_sql_query(f"SELECT {', '.join(SUMMARY_COLUMNS)} FROM period_summaries ORDER BY period DESC",
+        return pd.read_sql_query(f"SELECT {', '.join(SUMMARY_COLUMNS)} FROM period_summaries "
+                                 "ORDER BY period DESC, source",
                                  get_connection())
     except (sqlite3.OperationalError, pd.errors.DatabaseError):
         return pd.DataFrame(columns=SUMMARY_COLUMNS)
@@ -209,7 +216,7 @@ def load_summaries() -> pd.DataFrame:
 @st.cache_data(ttl=30, show_spinner=False)
 def load_annotations() -> pd.DataFrame:
     query = """
-        SELECT s.period, s.article_id, s.kind, s.text, a.date, a.title, a.url,
+        SELECT s.source, s.period, s.article_id, s.kind, s.text, a.date, a.title, a.url,
                (SELECT MAX(overall_sentiment) FROM assessment_records WHERE article_id = a.id) AS overall_sentiment
         FROM summary_annotations s JOIN news_articles a ON a.id = s.article_id
         ORDER BY a.date
@@ -266,11 +273,13 @@ def _clean_content(content: str) -> str:
     return content
 
 
-def _validate_new_note(event_date: str, metric_category: str, importance_type: str) -> None:
+def _validate_new_note(event_date: str, metric_category: str, importance_type: str, source: str) -> None:
     if metric_category not in CATEGORIES:
         raise ValidationError("Невідома категорія")
     if importance_type not in IMPORTANCE_TYPES:
         raise ValidationError("Невідомий тип замітки")
+    if not isinstance(source, str) or not source.strip() or len(source) > 50:
+        raise ValidationError("Невідоме джерело замітки")
     try:
         parsed = date.fromisoformat(event_date)
     except (TypeError, ValueError):
@@ -281,10 +290,10 @@ def _validate_new_note(event_date: str, metric_category: str, importance_type: s
 
 @observed("create_note")
 def create_note(user_id: str, event_date: str, metric_category: str,
-                content: str, importance_type: str = "COMMENT") -> int:
+                content: str, importance_type: str = "COMMENT", source: str = "bbc") -> int:
     """Створює замітку; офіційні заяви очікують схвалення адміністратора."""
     content = _clean_content(content)
-    _validate_new_note(event_date, metric_category, importance_type)
+    _validate_new_note(event_date, metric_category, importance_type, source)
 
     review_status = "PENDING_APPROVAL" if importance_type == "OFFICIALSTATEMENT" else "APPROVED"
 
@@ -293,9 +302,11 @@ def create_note(user_id: str, event_date: str, metric_category: str,
         with _write_conn() as conn:
             cur = conn.execute(
                 """INSERT INTO expert_notes
-                   (event_date, metric_category, content, author_id, importance_type, status, created_at, updated_at, review_status)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (event_date, metric_category, content, user_id, importance_type, ACTIVE, now, now, review_status),
+                   (event_date, metric_category, content, author_id, source, importance_type,
+                    status, created_at, updated_at, review_status)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (event_date, metric_category, content, user_id, source, importance_type,
+                 ACTIVE, now, now, review_status),
             )
             return cur.lastrowid
     except sqlite3.IntegrityError:
@@ -620,7 +631,7 @@ def dashboard_page() -> None:
     f = ctx()["filters"]
     df, arts = current_filtered_data()
     # Показуємо тільки схвалені замітки
-    notes = load_expert_notes(f["start"], f["end"], f["categories"], (ACTIVE,))
+    notes = load_expert_notes(f["start"], f["end"], f["categories"], (ACTIVE,), f["sources"])
     # Додатковий фільтр по схваленню: review_status must be APPROVED
     notes = notes[notes['review_status'] == 'APPROVED']
 
@@ -648,10 +659,14 @@ def dashboard_page() -> None:
     k4.metric("Експертних заміток", len(notes), border=True,
               help="Активні (опубліковані) замітки в обраному періоді.")
 
-    trend_section(df, arts, notes, _visible_annotations(arts))
-
-    t_heat, t_year, t_extreme = st.tabs([":material/grid_on: Теплова карта", ":material/bar_chart: По роках",
-                                         ":material/swap_vert: Екстремуми"])
+    t_compare, t_heat, t_year, t_extreme = st.tabs([
+        ":material/compare_arrows: Порівняння джерел",
+        ":material/grid_on: Теплова карта",
+        ":material/bar_chart: По роках",
+        ":material/swap_vert: Екстремуми",
+    ])
+    with t_compare:
+        trend_section(df, arts, notes, _visible_annotations(arts))
     with t_heat:
         heatmap_section(df)
     with t_year:
@@ -763,12 +778,16 @@ def _run_action(action, *args, ok_msg: str, icon: str = "✅") -> None:
 
 def new_note_form(user: dict) -> None:
     today = utc_now().date()
+    sources = get_filter_options()["sources"] or ["bbc"]
     with st.expander("Нова замітка", icon=":material/add:"):
         with st.form("new_note_form", border=False, clear_on_submit=True):
-            c1, c2 = st.columns(2)
+            c1, c2, c3 = st.columns(3)
             event_date = c1.date_input("Дата події (UTC)", value=today, min_value=WAR_START,
                                        max_value=today, format="DD.MM.YYYY", key="nn_date")
             cat = c2.selectbox("Категорія", CATEGORIES, format_func=CAT_LABEL.get, key="nn_cat")
+            source = c3.selectbox(
+                "Джерело", sources, format_func=lambda value: SOURCE_LABELS.get(value, value), key="nn_source"
+            )
             imp = st.segmented_control(
                 "Тип", list(IMPORTANCE_TYPES), default="COMMENT", key="nn_imp",
                 format_func=lambda x: "Коментар" if x == "COMMENT" else "Офіційна заява",
@@ -777,7 +796,7 @@ def new_note_form(user: dict) -> None:
                                    placeholder="Що сталося і чому це важливо для динаміки переговорів…")
             submitted = st.form_submit_button("Додати замітку", type="primary", icon=":material/save:")
         if submitted:
-            _run_action(create_note, user["id"], event_date.isoformat(), cat, content, imp,
+            _run_action(create_note, user["id"], event_date.isoformat(), cat, content, imp, source,
                         ok_msg="Замітку збережено")
 
 
@@ -800,6 +819,7 @@ def _note_card(note: pd.Series, user: dict) -> None:
         st.markdown(
             f"**{pd.to_datetime(note['event_date']):%d.%m.%Y}** &nbsp; "
             f":gray-badge[{CAT_LABEL.get(note['metric_category'], note['metric_category'])}] "
+            f":gray-badge[{SOURCE_LABELS.get(note['source'], note['source'])}] "
             f"{IMPORTANCE_BADGE.get(note['importance_type'], '')} {STATUS_BADGE.get(note['status'], note['status'])} "
             f"{REVIEW_BADGE.get(note['review_status'], '')}"
         )
@@ -840,7 +860,7 @@ def notes_page() -> None:
     
     with selected_tab[0]:
         new_note_form(user)
-        notes = load_expert_notes(f["start"], f["end"], f["categories"])
+        notes = load_expert_notes(f["start"], f["end"], f["categories"], sources=f["sources"])
         is_admin = user["role"] == "Admin"
         # Активні бачать усі; архівні — лише автор (та Admin)
         visible = notes[(notes["status"] == ACTIVE) | (notes["author_id"] == user["id"]) | is_admin]
@@ -883,12 +903,16 @@ def _agent_summaries() -> None:
         return
     annotations = load_annotations()
     for _, row in summaries.iterrows():
-        _summary_card(row, annotations[annotations["period"] == row["period"]])
+        selected = annotations[
+            (annotations["period"] == row["period"]) & (annotations["source"] == row["source"])
+        ]
+        _summary_card(row, selected)
 
 
 def _summary_card(row: pd.Series, annotations: pd.DataFrame) -> None:
     with st.container(border=True):
-        st.markdown(f"### {row['period']} &nbsp; {TREND_BADGE.get(row['trend'], row['trend'])}")
+        source = SOURCE_LABELS.get(row["source"], row["source"])
+        st.markdown(f"### {source} · {row['period']} &nbsp; {TREND_BADGE.get(row['trend'], row['trend'])}")
         st.write(row["summary"])
         for _, a in annotations.iterrows():
             mark = ":green[▲ пік]" if a["kind"] == "peak" else ":red[▼ спад]"

@@ -125,7 +125,7 @@ def test_init_db_migrates_existing_v1_database(tmp_path):
     init_db(db_path)
 
     with sqlite3.connect(db_path) as conn:
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
         assert conn.execute(
             "SELECT content, status, review_status FROM expert_notes WHERE id = 2"
         ).fetchone() == ("Existing official note", "PUBLISHED", "APPROVED")

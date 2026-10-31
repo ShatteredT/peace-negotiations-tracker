@@ -18,6 +18,8 @@ CAT_COLOR = {
     "humanitarian": "#14B8A6",
 }
 OVERALL_COLOR = "#94A3B8"
+SOURCE_COLORS = {"bbc": "#2563EB", "radio_svoboda": "#F97316"}
+SOURCE_LABELS = {"bbc": "BBC", "radio_svoboda": "Радіо Свобода"}
 VIEW_OVERALL = "Загальний тон"
 VIEW_CATEGORIES = "За категоріями"
 
@@ -40,14 +42,18 @@ def _add_bands(fig: go.Figure) -> None:
     fig.add_hline(y=0, line_dash="dash", opacity=0.35)
 
 
-def _add_overall(fig, months, overall_raw, base, window) -> None:
+def _add_overall(fig, months, overall_raw, base, window, source=None) -> None:
+    label = SOURCE_LABELS.get(source, source) if source else None
+    raw_name = f"{label} · середнє за місяць" if label else "Середнє за місяць"
+    trend_name = f"{label} · тренд ({window} міс.)" if label else f"Тренд ({window} міс.)"
+    color = SOURCE_COLORS.get(source, OVERALL_COLOR)
     fig.add_trace(go.Scatter(
-        x=months, y=overall_raw, mode="markers", name="Середнє за місяць",
-        marker=dict(size=6, opacity=0.35, color=OVERALL_COLOR),
+        x=months, y=overall_raw, mode="markers", name=raw_name,
+        marker=dict(size=6, opacity=0.35, color=color),
         hovertemplate="%{y:+.2f}<extra>за місяць</extra>"))
     fig.add_trace(go.Scatter(
-        x=months, y=base, mode="lines", name=f"Тренд ({window} міс.)", connectgaps=True,
-        line=dict(width=3.5, color=OVERALL_COLOR, shape="spline"),
+        x=months, y=base, mode="lines", name=trend_name, connectgaps=source is None,
+        line=dict(width=3.5, color=color, shape="spline"),
         hovertemplate="%{y:+.2f}<extra>тренд</extra>"))
 
 
@@ -67,8 +73,12 @@ def _add_notes(fig, notes, months, lookup) -> None:
     if n.empty:
         return
     n["y"] = [
-        (v if (v := lookup(d.to_period("M").to_timestamp(), c)) is not None and pd.notna(v) else 0.0)
-        for d, c in zip(n["event_date"], n["metric_category"])
+        (
+            v if (v := lookup(
+                d.to_period("M").to_timestamp(), c, n.iloc[i].get("source")
+            )) is not None and pd.notna(v) else 0.0
+        )
+        for i, (d, c) in enumerate(zip(n["event_date"], n["metric_category"]))
     ]
     fig.add_trace(go.Scatter(
         x=n["event_date"], y=n["y"], mode="markers", name="Експертні замітки",
@@ -124,16 +134,30 @@ def trend_figure(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, anno
     fig = go.Figure()
     _add_bands(fig)
     if view == VIEW_OVERALL:
-        overall_raw = arts.groupby("month")["overall_sentiment"].mean().reindex(months)
-        base = smooth(overall_raw)
-        _add_overall(fig, months, overall_raw, base, window)
-        lookup = lambda month, cat: base.get(month)  # noqa: E731
+        source_bases = {}
+        if "source" in arts.columns and arts["source"].nunique() > 1:
+            for source, source_arts in arts.groupby("source", sort=True):
+                overall_raw = source_arts.groupby("month")["overall_sentiment"].mean().reindex(months)
+                base = smooth(overall_raw)
+                source_bases[source] = base
+                _add_overall(fig, months, overall_raw, base, window, source)
+            lookup = lambda month, cat, source=None: (  # noqa: E731
+                source_bases[source].get(month) if source in source_bases
+                else pd.concat(source_bases.values(), axis=1).mean(axis=1).get(month)
+            )
+        else:
+            overall_raw = arts.groupby("month")["overall_sentiment"].mean().reindex(months)
+            base = smooth(overall_raw)
+            _add_overall(fig, months, overall_raw, base, window)
+            lookup = lambda month, cat, source=None: base.get(month)  # noqa: E731
     else:
         cat_raw = df.groupby(["month", "metric_category"])["score"].mean().unstack().reindex(months)
         cat_raw = cat_raw[[c for c in CATEGORIES if c in cat_raw.columns]]
         smoothed = cat_raw.apply(smooth)
         _add_categories(fig, months, smoothed)
-        lookup = lambda month, cat: (smoothed[cat].get(month) if cat in smoothed else None)  # noqa: E731
+        lookup = lambda month, cat, source=None: (  # noqa: E731
+            smoothed[cat].get(month) if cat in smoothed else None
+        )
     if show_notes and not notes.empty:
         _add_notes(fig, notes, months, lookup)
     if show_annotations and view == VIEW_OVERALL and not annotations.empty:

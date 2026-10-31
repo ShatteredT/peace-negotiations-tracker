@@ -105,9 +105,10 @@ def test_schema_accepts_valid_and_rejects_unknown_trend():
 def test_run_saves_summaries_and_annotations_for_each_period(db):
     client = make_client()
     report = SynthesizerAgent(db, client=client).run()
-    assert report == {"done": ["2023-H1", "2023-H2"], "failed": [], "skipped": []}
-    assert query(db, "SELECT period, trend, articles_count, model FROM period_summaries ORDER BY period") == [
-        ("2023-H1", "mixed", 4, "gemini-3.5-flash-lite"), ("2023-H2", "mixed", 2, "gemini-3.5-flash-lite")]
+    assert report == {"done": ["bbc/2023-H1", "bbc/2023-H2"], "failed": [], "skipped": []}
+    assert query(db, "SELECT source, period, trend, articles_count, model FROM period_summaries ORDER BY period") == [
+        ("bbc", "2023-H1", "mixed", 4, "gemini-3.5-flash-lite"),
+        ("bbc", "2023-H2", "mixed", 2, "gemini-3.5-flash-lite")]
     kinds = dict(query(db, "SELECT article_id, kind FROM summary_annotations WHERE period = '2023-H1'"))
     assert kinds == {"a1": "peak", "a2": "peak", "a3": "drop", "a4": "drop"}
 
@@ -138,7 +139,7 @@ def test_second_run_skips_existing_summaries_without_calling_model(db):
     agent = SynthesizerAgent(db, client=client)
     agent.run()
     report = agent.run()
-    assert report["done"] == [] and report["skipped"] == ["2023-H1", "2023-H2"]
+    assert report["done"] == [] and report["skipped"] == ["bbc/2023-H1", "bbc/2023-H2"]
     assert len(client.models.calls) == 2
 
 
@@ -157,7 +158,7 @@ def test_503_is_retried_after_exactly_20_seconds(db, sleeps):
     err = Exception("503 UNAVAILABLE. The model is overloaded")
     client = make_client(err, err)
     report = SynthesizerAgent(db, client=client).run(["2023-H1"])
-    assert report["done"] == ["2023-H1"]
+    assert report["done"] == ["bbc/2023-H1"]
     assert sleeps == [20, 20] and RETRY_DELAY_SECONDS == 20
     assert len(client.models.calls) == 3
 
@@ -165,27 +166,27 @@ def test_503_is_retried_after_exactly_20_seconds(db, sleeps):
 def test_gives_up_after_max_attempts_and_reports_failure(db, sleeps):
     client = make_client(*[Exception("503 UNAVAILABLE")] * MAX_ATTEMPTS)
     report = SynthesizerAgent(db, client=client).run(["2023-H1"])
-    assert report["failed"] == ["2023-H1"] and report["done"] == []
+    assert report["failed"] == ["bbc/2023-H1"] and report["done"] == []
     assert sleeps == [20] * (MAX_ATTEMPTS - 1)
     assert query(db, "SELECT COUNT(*) FROM period_summaries") == [(0,)]
 
 
 def test_non_retryable_error_fails_immediately_without_waiting(db, sleeps):
     report = SynthesizerAgent(db, client=make_client(ValueError("boom"))).run(["2023-H1"])
-    assert report["failed"] == ["2023-H1"] and sleeps == []
+    assert report["failed"] == ["bbc/2023-H1"] and sleeps == []
 
 
 def test_failed_period_does_not_stop_the_next_one(db, sleeps):
     client = make_client(ValueError("boom"))
     report = SynthesizerAgent(db, client=client).run()
-    assert report["failed"] == ["2023-H1"] and report["done"] == ["2023-H2"]
+    assert report["failed"] == ["bbc/2023-H1"] and report["done"] == ["bbc/2023-H2"]
 
 
 def test_invalid_model_json_is_a_failure_not_a_crash(db, sleeps):
     client = SimpleNamespace(models=SimpleNamespace(
         generate_content=lambda **kw: SimpleNamespace(text='{"trend": "chaos"}')))
     report = SynthesizerAgent(db, client=client).run(["2023-H1"])
-    assert report["failed"] == ["2023-H1"] and sleeps == []
+    assert report["failed"] == ["bbc/2023-H1"] and sleeps == []
 
 
 # середовище й CLI
@@ -202,4 +203,28 @@ def test_cli_returns_zero_on_success_and_one_on_failure(db, monkeypatch, capsys,
     monkeypatch.setattr(agent_module.genai, "Client", lambda **kw: next(clients))
     assert agent_module.main(["--db", str(db), "--period", "2023-H1"]) == 0
     assert agent_module.main(["--db", str(db), "--period", "2023-H2"]) == 1
-    assert "Не вдалося: 2023-H2" in capsys.readouterr().out
+    assert "Не вдалося: bbc/2023-H2" in capsys.readouterr().out
+
+
+def test_synthesizer_keeps_sources_and_notes_separate(db):
+    with sqlite3.connect(db) as conn:
+        load_articles(conn, [{
+            "id": "r1", "source": "radio_svoboda", "title": "Радіо Свобода",
+            "date": "2023-02-01", "url": "https://x/r1", "text": "text",
+        }])
+        load_assessments(conn, [{
+            "article_id": "r1", "overall_sentiment": 0.6, "is_compromise_oriented": True,
+            "categories": {c: {"score": 0.6, "justification": "j"} for c in CATEGORIES},
+        }], "1.0")
+        conn.commit()
+
+    client = make_client()
+    report = SynthesizerAgent(db, client=client).run()
+    assert report["done"] == ["bbc/2023-H1", "bbc/2023-H2", "radio_svoboda/2023-H1"]
+    rows = query(db, "SELECT source, period, articles_count FROM period_summaries ORDER BY source, period")
+    assert rows == [
+        ("bbc", "2023-H1", 4), ("bbc", "2023-H2", 2), ("radio_svoboda", "2023-H1", 1),
+    ]
+    assert "Джерело: BBC" in client.models.calls[0]["prompt"]
+    radio_prompt = next(call["prompt"] for call in client.models.calls if "Джерело: Радіо Свобода" in call["prompt"])
+    assert "ОПУБЛІКОВАНА-ЗАМІТКА" not in radio_prompt

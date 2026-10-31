@@ -56,7 +56,7 @@ def save_summary(path):
         grouped = load_period_articles(conn)
         result = PeriodSynthesis(trend="mixed", summary=SUMMARY, annotations=[])
         annotations = {"a1": ("peak", ANNOTATION), "a2": ("drop", "Ескалація після заяви")}
-        agent.save_summary(conn, "2023-H1", grouped["2023-H1"], result, annotations)
+        agent.save_summary(conn, "bbc", "2023-H1", grouped[("bbc", "2023-H1")], result, annotations)
 
 
 def open_page(tmp_path, page):
@@ -79,6 +79,22 @@ def test_summary_page_shows_saved_summary_and_annotations(db, tmp_path):
     assert any(ANNOTATION in t and "пік" in t for t in texts(at))
     assert any("Ескалація після заяви" in t and "спад" in t for t in texts(at))
     assert any("2023-H1" in t and "Змішано" in t for t in texts(at))
+
+
+def test_summary_page_distinguishes_same_period_by_source(db, tmp_path):
+    save_summary(db)
+    with sqlite3.connect(db) as conn:
+        conn.execute(
+            """INSERT INTO period_summaries
+               (source, period, trend, summary, articles_count, avg_sentiment, model, created_at)
+               VALUES ('radio_svoboda', '2023-H1', 'stable', 'Інше джерело', 1, 0.1, 'test', 'now')"""
+        )
+        conn.commit()
+    at = open_page(tmp_path, "summary_page")
+    rendered = "\n".join(texts(at))
+    assert "BBC · 2023-H1" in rendered
+    assert "Радіо Свобода · 2023-H1" in rendered
+    assert "Інше джерело" in rendered
 
 
 def test_summary_page_without_summaries_shows_how_to_generate_them(db, tmp_path):

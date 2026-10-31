@@ -45,12 +45,32 @@ streamlit run src/ui/app.py
 
 Analyst обробляє статті пачками по 15 і підтримує resume: повторний запуск оцінює лише ще не оброблені статті.
 Завантажувач ідемпотентний. Якщо в оцінці немає `confidence` (старі дані), у БД пишеться `NULL`, а не вигадане число.
+Для другого джерела Selector і Analyst використовують окремі файли корпусу й результатів. Синтезатор зберігає
+окреме резюме для кожного джерела й півріччя. На огляді відкрийте вкладку **«Порівняння джерел»**: при виборі
+обох джерел графік показує дві незалежні лінії.
+
+### Локальний запуск демо
+
+```powershell
+$env:PEACETALK_DEMO_MODE = "true"
+.\.venv\Scripts\python.exe -m streamlit run src/ui/app.py
+```
+
+Демо використовує санітизовану копію `data/demo/peacetalk_demo.db`; повні тексти статей не включаються.
+Щоб відтворити підсумки Радіо Свобода в робочій БД:
+
+```powershell
+python -m scripts.load_to_db --db data/peacetalk.db --articles data/filtered_corpus_radio_svoboda_optimized.json --analyses data/analyzed_radio_svoboda_articles.json --agent-version radio-svoboda
+python -m src.agents.synthesizer_agent --db data/peacetalk.db --source radio_svoboda --delay 20
+python -m scripts.build_demo_db --source data/peacetalk.db --output data/demo/peacetalk_demo.db --overwrite
+```
 
 ## Агент-Синтезатор
 
 ```bash
 python -m src.agents.synthesizer_agent                      # резюме для періодів, яких ще немає в БД
 python -m src.agents.synthesizer_agent --period 2024-H1     # окремий період (можна кілька разів)
+python -m src.agents.synthesizer_agent --source radio_svoboda # резюме лише для одного джерела
 python -m src.agents.synthesizer_agent --force              # перегенерувати наявні
 python -m src.agents.synthesizer_agent --delay 5            # пауза між періодами, секунд
 ```
@@ -58,11 +78,12 @@ python -m src.agents.synthesizer_agent --delay 5            # пауза між 
 Для кожного піврічного періоду агент отримує оцінки статей і опубліковані експертні замітки та повертає
 тенденцію (`escalation / compromise / stable / mixed`), резюме та анотації до двох піків і двох спадів тону.
 Піки й спади визначає код, модель лише пояснює їх. Модель задається `SYNTHESIZER_MODEL`
-(за замовчуванням `gemini-3.5-flash-lite`).
+(за замовчуванням `gemini-3.5-flash-lite`). SQLite-схема v3 додає джерело до резюме, анотацій та експертних
+заміток; старі записи мігрують із джерелом BBC.
 
-При помилках 503 / 429 запити повторюються з паузою **20 секунд** (до 5 спроб). Збережені періоди повторно не
-генеруються, тому після збою достатньо запустити команду ще раз. Таблиці створюються самим агентом
-(`CREATE TABLE IF NOT EXISTS`), версія схеми `user_version` не змінюється.
+При помилках 503 / 429 запити повторюються з паузою **20 секунд** (до 5 спроб). Збережені пари «джерело/період»
+повторно не генеруються, тому після збою достатньо запустити команду ще раз. Схема БД v3 додає джерело до резюме,
+анотацій та експертних заміток; старі записи під час міграції отримують джерело BBC.
 
 ## Облікові записи (v1.0)
 

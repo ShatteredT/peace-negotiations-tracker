@@ -29,8 +29,8 @@ def row(db, note_id):
                             (note_id,)).fetchone()
 
 
-def make(user="analyst_1", date=DATE, cat="diplomacy", text="note", imp="COMMENT"):
-    return app.create_note(user, date, cat, text, imp)
+def make(user="analyst_1", date=DATE, cat="diplomacy", text="note", imp="COMMENT", source="bbc"):
+    return app.create_note(user, date, cat, text, imp, source)
 
 
 # валідація
@@ -66,6 +66,17 @@ def test_duplicate_active_note_is_conflict(db):
     make()
     with pytest.raises(ConflictError):
         make(text="other")
+
+
+def test_active_notes_are_unique_per_source(db):
+    bbc_note = make(source="bbc")
+    radio_note = make(source="radio_svoboda")
+
+    with sqlite3.connect(db) as conn:
+        assert conn.execute(
+            "SELECT source FROM expert_notes WHERE id IN (?, ?) ORDER BY source",
+            (bbc_note, radio_note),
+        ).fetchall() == [("bbc",), ("radio_svoboda",)]
 
 
 def test_archive_frees_slot_for_new_note(db):

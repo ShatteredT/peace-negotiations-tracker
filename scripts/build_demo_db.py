@@ -3,7 +3,7 @@ import sqlite3
 from pathlib import Path
 
 from scripts.init_db import SCHEMA_VERSION
-from scripts.migrate_v2 import migrate_database
+from scripts.migrate_v3 import migrate_database
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 SOURCE_DB = BASE_DIR / "data" / "peacetalk.db"

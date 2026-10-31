@@ -39,7 +39,7 @@ def test_demo_snapshot_redacts_article_text_and_preserves_app_data(tmp_path):
 
     with sqlite3.connect(snapshot) as conn:
         assert conn.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
-        assert conn.execute("PRAGMA user_version").fetchone()[0] == 2
+        assert conn.execute("PRAGMA user_version").fetchone()[0] == 3
         assert conn.execute("SELECT text FROM news_articles WHERE id = 'a1'").fetchone()[0] is None
         assert conn.execute("SELECT COUNT(*) FROM assessment_records").fetchone()[0] == 1
         assert conn.execute("SELECT content FROM expert_notes").fetchone()[0] == "Demo note"

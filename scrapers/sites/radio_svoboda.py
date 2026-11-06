@@ -2,11 +2,16 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import gzip
 import json
-from scrapers.base import BaseScraper, BaseParser, BaseFilter
+from scrapers.base import BaseScraper, BaseParser
+from src.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 class RadioScraper(BaseScraper):
     def __init__(self):
         super().__init__()
+        self.source_name = "radio_svoboda"
         self.ARCHIVE_URL = "https://www.radiosvoboda.org/sitemap.xml"
 
     def get_sitemap_urls(self):
@@ -51,25 +56,6 @@ class RadioScraper(BaseScraper):
 
         return article_urls
 
-    def scrape(self):
-        print("Getting sitemap list...") #
-
-        sitemap_urls = self.get_sitemap_urls()
-        print(f"Found {len(sitemap_urls)} sitemap files.")
-
-        all_articles = dict()
-
-        for i, sitemap_url in enumerate(sitemap_urls, start=1):
-
-            print(f"\n[{i}/{len(sitemap_urls)}]")
-            articles = self.get_article_urls(sitemap_url)
-
-            print(f"Found {len(articles)} ")
-
-            articles = list(set(articles)) # Видаляємо дублікати URL
-            all_articles[sitemap_url] = articles
-
-        return all_articles
 
 class RadioArticleParser(BaseParser):
     def __init__(self, target_years=range(2021, 2027)) -> None:
@@ -94,8 +80,7 @@ class RadioArticleParser(BaseParser):
         return date
 
       except ValueError:
-        print('Date conversion fail:')
-        print(date_str)
+        logger.warning("Radio Svoboda article date conversion failed")
       return None
 
     def _get_article_date(self, soup):

@@ -3,10 +3,15 @@ from datetime import datetime
 import pandas as pd
 import json
 from scrapers.base import BaseScraper, BaseParser, BaseFilter
+from src.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 class BBC_Scraper(BaseScraper):
   def __init__(self) -> None:
      super().__init__()
+     self.source_name = "bbc"
      self.INDEX_URL = (
               "https://www.bbc.com/sitemaps/"
               "https-index-com-archive.xml" )
@@ -31,7 +36,7 @@ class BBC_Scraper(BaseScraper):
     """
     Завантажує один sitemap і повертає список URL із /ukrainian/
     """
-    print(f"Processing: {sitemap_url}") #
+    logger.debug("Processing BBC sitemap")
     response = self.get_response(sitemap_url)
     soup = BeautifulSoup(response, "xml")
 
@@ -39,7 +44,7 @@ class BBC_Scraper(BaseScraper):
     for url in soup.find_all("url"):
         loc = url.find("loc")
         if not loc:
-            print('loc not found') #
+            logger.debug("BBC sitemap entry has no location")
             continue
 
         article_url = loc.get_text(strip=True)
@@ -50,27 +55,6 @@ class BBC_Scraper(BaseScraper):
         articles.append(article_url)
 
     return articles
-
-  def scrape(self):
-
-    print("Getting sitemap list...") #
-
-    sitemap_urls = self.get_sitemap_urls()
-    print(f"Found {len(sitemap_urls)} sitemap files.")
-
-    all_articles = dict()
-
-    for i, sitemap_url in enumerate(sitemap_urls, start=1):
-
-        print(f"\n[{i}/{len(sitemap_urls)}]")
-        articles = self.get_article_urls(sitemap_url)
-
-        print(f"Found {len(articles)} ")
-
-        articles = list(set(articles)) # Видаляємо дублікати URL
-        all_articles[sitemap_url] = articles
-
-    return all_articles
 
 
 class BBC_ArticleParser(BaseParser):
@@ -96,8 +80,7 @@ class BBC_ArticleParser(BaseParser):
         return date
 
     except ValueError:
-        print('Date conversion fail:')
-        print(date_str)
+        logger.warning("BBC article date conversion failed")
     return None
 
   def _get_article_date(self, soup):

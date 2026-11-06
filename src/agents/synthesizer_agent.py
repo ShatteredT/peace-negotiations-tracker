@@ -11,7 +11,7 @@ from google.genai import types
 from src.agents.synthesizer_schemas import PeriodSynthesis
 from src.config import DB_PATH, GEMINI_API_KEY, SYNTHESIZER_MODEL, validate_config
 from src.logger import get_logger
-from src.ops import utc_now_iso
+from src.ops import record, utc_now_iso
 
 logger = get_logger("synthesizer_agent")
 
@@ -213,6 +213,35 @@ class SynthesizerAgent:
 
     def run(self, periods: Optional[list] = None, force: bool = False, delay_seconds: int = 0,
             sources: Optional[list] = None) -> dict:
+        started = time.perf_counter()
+        metrics = {"periods_done": 0, "periods_failed": 0, "periods_skipped": 0}
+        result, error = "error", None
+        try:
+            report = self._run(periods, force, delay_seconds, sources)
+            metrics = {
+                "periods_done": len(report["done"]),
+                "periods_failed": len(report["failed"]),
+                "periods_skipped": len(report["skipped"]),
+            }
+            result = "error" if metrics["periods_failed"] else "ok"
+            return report
+        except Exception as exc:
+            error = type(exc).__name__
+            logger.error("Synthesizer run failed error=%s", error)
+            raise
+        finally:
+            record(
+                "synthesizer_run",
+                result,
+                (time.perf_counter() - started) * 1000,
+                error,
+                metrics=metrics,
+            )
+
+    def _run(
+            self, periods: Optional[list] = None, force: bool = False,
+            delay_seconds: int = 0, sources: Optional[list] = None
+    ) -> dict:
         if not self.db_path.exists():
             raise FileNotFoundError(f"БД не знайдено: {self.db_path}. Спершу виконайте python -m scripts.load_to_db")
         with closing(sqlite3.connect(self.db_path)) as conn:
@@ -247,7 +276,10 @@ class SynthesizerAgent:
                                 source, period, len(annotations))
                 except Exception as err:
                     report["failed"].append(f"{source}/{period}")
-                    logger.error("Джерело %s, період %s пропущено: %s", source, period, err)
+                    logger.error(
+                        "Synthesizer period failed source=%s period=%s error=%s",
+                        source, period, type(err).__name__,
+                    )
                 if delay_seconds and index < len(targets) - 1:
                     time.sleep(delay_seconds)
         return report

@@ -36,12 +36,30 @@ def new_request_id() -> str:
     return uuid.uuid4().hex[:8]
 
 
-def record(op: str, result: str, ms: float = 0.0, error: Optional[str] = None,
-           request_id: Optional[str] = None) -> str:
-    """Дописує один рядок у журнал і повертає request_id. Збій запису журналу не ламає операцію."""
+def record(
+    op: str, result: str, ms: float = 0.0, error: Optional[str] = None,
+    request_id: Optional[str] = None,
+    metrics: Optional[dict[str, int]] = None,
+) -> str:
+    """Дописує рядок у журнал і повертає request_id.
+
+    Помилка запису журналу не ламає операцію.
+    """
     rid = request_id or new_request_id()
     entry = {"ts": utc_now_iso(), "op": op, "result": result, "error": error,
              "ms": round(ms, 2), "request_id": rid}
+    if metrics is not None:
+        invalid = any(
+            not isinstance(key, str)
+            or not key
+            or not isinstance(value, int)
+            or isinstance(value, bool)
+            or value < 0
+            for key, value in metrics.items()
+        )
+        if invalid:
+            raise ValueError("Invalid metric counters")
+        entry["metrics"] = metrics
     try:
         LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
         with _lock, open(LOG_PATH, "a", encoding="utf-8") as f:
@@ -114,6 +132,10 @@ def summarize(events: list) -> dict:
         durations = [e["ms"] for e in items]
         total = len(items)
         errors = sum(1 for e in items if e["result"] == "error")
+        metrics = {}
+        for event in items:
+            for name, value in event.get("metrics", {}).items():
+                metrics[name] = metrics.get(name, 0) + value
         summary[op] = {
             "total": total,
             "ok": sum(1 for e in items if e["result"] == "ok"),
@@ -124,6 +146,8 @@ def summarize(events: list) -> dict:
             "p95_ms": percentile(durations, 95),
             "max_ms": max(durations),
         }
+        if metrics:
+            summary[op]["metrics"] = metrics
     return summary
 
 

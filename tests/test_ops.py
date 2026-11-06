@@ -75,9 +75,12 @@ def test_percentiles_use_nearest_rank():
 
 def test_summary_counts_results_and_durations():
     data = [make_event("ok", 10), make_event("ok", 20), make_event("rejected", 5), make_event("error", 40)]
+    data[0]["metrics"] = {"urls_attempted": 2, "articles_saved": 1}
+    data[1]["metrics"] = {"urls_attempted": 3, "articles_saved": 3}
     s = ops.summarize(data)["create_note"]
     assert (s["total"], s["ok"], s["rejected"], s["error"]) == (4, 2, 1, 1)
     assert s["error_rate"] == 0.25 and s["max_ms"] == 40
+    assert s["metrics"] == {"urls_attempted": 5, "articles_saved": 4}
 
 
 # правило сповіщення
@@ -100,9 +103,12 @@ def write_log(path, items):
 
 def test_report_exit_code_0_when_healthy(tmp_path, capsys):
     log = tmp_path / "healthy.jsonl"
-    write_log(log, [make_event("ok", 3), make_event("rejected", 2)])
+    event = make_event("ok", 3)
+    event["metrics"] = {"urls_attempted": 4, "articles_saved": 4}
+    write_log(log, [event, make_event("rejected", 2)])
     assert ops_report.main(["--log", str(log)]) == 0
-    assert "create_note" in capsys.readouterr().out
+    output = capsys.readouterr().out
+    assert "create_note" in output and "urls_attempted=4" in output
 
 
 def test_report_exit_code_2_on_alert(tmp_path, capsys):

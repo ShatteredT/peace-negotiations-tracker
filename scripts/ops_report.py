@@ -32,6 +32,11 @@ def print_summary(summary: dict) -> None:
     for op, m in sorted(summary.items()):
         print(f"{op:<16}{m['total']:>7}{m['ok']:>6}{m['rejected']:>8}{m['error']:>7}"
               f"{m['p50_ms']:>9.1f}{m['p95_ms']:>9.1f}{m['max_ms']:>9.1f}")
+        if m.get("metrics"):
+            counters = " ".join(
+                f"{name}={value}" for name, value in sorted(m["metrics"].items())
+            )
+            print(f"  лічильники: {counters}")
 
 
 def main(argv=None) -> int:

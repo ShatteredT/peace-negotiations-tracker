@@ -1,8 +1,48 @@
-import requests
 import json
-from bs4 import BeautifulSoup
-import time
 import os
+import tempfile
+import time
+from pathlib import Path
+
+import requests
+from bs4 import BeautifulSoup
+
+from src import ops
+from src.logger import get_logger
+
+logger = get_logger(__name__)
+
+
+def _write_json(path: Path, payload) -> None:
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            suffix=".tmp",
+            delete=False,
+        ) as output:
+            temp_path = Path(output.name)
+            json.dump(payload, output, ensure_ascii=False, indent=2)
+        os.replace(temp_path, path)
+    finally:
+        if temp_path and temp_path.exists():
+            temp_path.unlink()
+
+
+def _merge_articles(existing: list[dict], new: list[dict]) -> list[dict]:
+    merged = []
+    seen_urls = set()
+    for article in existing + new:
+        url = article.get("url")
+        if url and url in seen_urls:
+            continue
+        if url:
+            seen_urls.add(url)
+        merged.append(article)
+    return merged
+
 
 class BaseScraper():
     def __init__(self) -> None:
@@ -29,7 +69,41 @@ class BaseScraper():
         pass
 
     def scrape(self):
-      pass
+        source = getattr(self, "source_name", type(self).__name__.lower())
+        op = f"scrape_urls_{source}"
+        started = time.perf_counter()
+        metrics = {"sitemaps": 0, "urls_found": 0}
+        result, error = "error", None
+        try:
+            logger.info("Starting sitemap scan source=%s", source)
+            sitemap_urls = self.get_sitemap_urls()
+            metrics["sitemaps"] = len(sitemap_urls)
+            all_articles = {}
+            for index, sitemap_url in enumerate(sitemap_urls, start=1):
+                urls = list(dict.fromkeys(self.get_article_urls(sitemap_url)))
+                all_articles[sitemap_url] = urls
+                metrics["urls_found"] += len(urls)
+                logger.debug(
+                    "Sitemap processed source=%s index=%d total=%d urls=%d",
+                    source, index, len(sitemap_urls), len(urls),
+                )
+            result = "ok"
+            logger.info(
+                "Sitemap scan complete source=%s sitemaps=%d urls=%d",
+                source, metrics["sitemaps"], metrics["urls_found"],
+            )
+            return all_articles
+        except Exception as exc:
+            error = type(exc).__name__
+            logger.error(
+                "Sitemap scan failed source=%s error=%s", source, error
+            )
+            raise
+        finally:
+            ops.record(
+                op, result, (time.perf_counter() - started) * 1000,
+                error, metrics=metrics,
+            )
 
     def save_urls(self, all_articles, save_path):
         """
@@ -56,9 +130,13 @@ class BaseParser():
             response.raise_for_status()
             soup = BeautifulSoup(response.content, "html.parser")
             return soup
-        except requests.exceptions.RequestException as e:
-            print(f"  ! Помилка завантаження {url}: {e}")
-            return None
+        except requests.exceptions.RequestException as exc:
+            source = getattr(self, "source_name", type(self).__name__)
+            logger.warning(
+                "Article request failed source=%s error=%s",
+                source, type(exc).__name__,
+            )
+            raise
 
     def _get_article_date(self, soup):
         pass
@@ -106,51 +184,99 @@ class BaseParser():
             return entry
         return None
 
-    def scrape_corpus(self, urls: list, save_dir):
-        print(f"URLs to process: {len(urls)}")
+    def scrape_corpus(
+            self, urls: list, save_dir, *, merge: bool = False
+    ) -> dict[str, int]:
+        source = self.source_name
+        op = f"scrape_corpus_{source}"
+        started = time.perf_counter()
+        metrics = {
+            "urls_attempted": 0,
+            "articles_saved": 0,
+            "urls_skipped": 0,
+            "urls_failed": 0,
+            "failures_pending": 0,
+        }
+        result, error = "error", None
+        save_dir = Path(save_dir)
+        save_path = save_dir / f"{source}_articles.json"
+        failed_path = save_dir / f"{source}_failed_urls.json"
+        articles, failed_urls = [], []
+        try:
+            save_dir.mkdir(parents=True, exist_ok=True)
+            existing = []
+            if merge and save_path.exists():
+                existing = json.loads(save_path.read_text(encoding="utf-8"))
+                if not isinstance(existing, list):
+                    raise ValueError("Expected an article list")
 
-        os.makedirs(save_dir, exist_ok=True)
-        save_path = f"{save_dir}/{self.source_name}_articles.json"
-        skipped_urls_path = f"{save_dir}/{self.source_name}_failed_urls.json"
+            total = len(urls)
+            logger.info(
+                "Scraping article corpus source=%s urls=%d merge=%s",
+                source, total, merge,
+            )
+            for index, url in enumerate(urls, start=1):
+                metrics["urls_attempted"] += 1
+                try:
+                    article = self.scrape_article(url)
+                except Exception as exc:
+                    error = error or type(exc).__name__
+                    metrics["urls_failed"] += 1
+                    failed_urls.append(url)
+                    logger.warning(
+                        "Article scrape failed source=%s index=%d error=%s",
+                        source, index, type(exc).__name__,
+                    )
+                else:
+                    if article:
+                        articles.append(article)
+                        metrics["articles_saved"] += 1
+                    else:
+                        metrics["urls_skipped"] += 1
+                        failed_urls.append(url)
 
-        articles = []
-        failed_urls = []
-        total = len(urls)
+                if index % 50 == 0:
+                    saved = (
+                        _merge_articles(existing, articles)
+                        if merge else articles
+                    )
+                    _write_json(save_path, saved)
+                    _write_json(failed_path, failed_urls)
+                    logger.info(
+                        "Scrape progress source=%s processed=%d/%d saved=%d "
+                        "skipped=%d failed=%d",
+                        source, index, total, metrics["articles_saved"],
+                        metrics["urls_skipped"], metrics["urls_failed"],
+                    )
+                time.sleep(0.5)
 
-        for i, url in enumerate(urls, start=1):
-            print(f"[{i}/{total}] {url}")
-            article = self.scrape_article(url)
-
-            if article:
-                articles.append(article)
-                print(f"  + {article['date']} "
-                      f"{article['title']}")
-            else:
-                failed_urls.append(url)
-                print("  - skipped (помилка або фільтр за датою)")
-
-            # Пауза між запитами
-            time.sleep(0.5)
-
-            # Проміжне збереження
-            if i % 50 == 0:
-                with open(save_path, "w", encoding="utf-8") as f:
-                    json.dump(articles, f, ensure_ascii=False, indent=2)
-                if failed_urls:
-                    with open(skipped_urls_path, "w", encoding="utf-8") as f:
-                        json.dump(failed_urls, f, ensure_ascii=False, indent=2)
-                print(f"\nSaved progress: {len(articles)} articles\n")
-
-        # Фінальне збереження
-        with open(save_path, "w", encoding="utf-8") as f:
-            json.dump(articles, f, ensure_ascii=False, indent=2)
-        if failed_urls:
-            with open(skipped_urls_path, "w", encoding="utf-8") as f:
-                json.dump(failed_urls, f, ensure_ascii=False, indent=2)
-
-        print('Done')
-        print(f"Articles: {len(articles)}")
-        print(f"Failed/skipped: {len(failed_urls)}")
+            saved = (
+                _merge_articles(existing, articles)
+                if merge else articles
+            )
+            _write_json(save_path, saved)
+            _write_json(failed_path, failed_urls)
+            metrics["failures_pending"] = len(failed_urls)
+            result = "error" if metrics["failures_pending"] else "ok"
+            logger.info(
+                "Scrape complete source=%s attempted=%d saved=%d skipped=%d "
+                "failed=%d pending=%d",
+                source, metrics["urls_attempted"], metrics["articles_saved"],
+                metrics["urls_skipped"], metrics["urls_failed"],
+                metrics["failures_pending"],
+            )
+            return metrics
+        except Exception as exc:
+            error = type(exc).__name__
+            logger.error(
+                "Corpus scrape failed source=%s error=%s", source, error
+            )
+            raise
+        finally:
+            ops.record(
+                op, result, (time.perf_counter() - started) * 1000,
+                error, metrics=metrics,
+            )
 
 
 class BaseFilter():

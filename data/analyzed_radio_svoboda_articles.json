@@ -1,0 +1,4052 @@
+[
+  {
+    "article_id": "radio-svoboda-109e25dbeef99fd2b8b0d21b0ea3fb9feb5098ea33a3f35028911fec5e2dab23",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Президент України Володимир Зеленський заявив, що Росія має припинити бомбардування українських міст, перш ніж можна буде розпочати змістовні переговори",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Київ наполягатиме на негайному припиненні вогню і виведенні російських військ з України",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Вимога виведення російських військ з України",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання обміну полоненими чи гуманітарних коридорів прямо не деталізуються у фокусі",
+        "confidence": 0.3
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-89f3884b8035d074d18873e0bdf548f1ecb93182b267ff556a7bce9eccc0a33c",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Третій раунд переговорів завершився з невеликими позитивними зрушеннями, консультації будуть продовжені",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Із точки зору ключового політичного треку, в який входить і припинення вогню... результатів поки що немає",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Київ наполягатиме на повному виведенні російських військ з України",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.6,
+        "justification": "Є невеликі позитивні зрушення щодо покращення логістики гуманітарних коридорів",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-dbfa1998bac1a012e7308d3829932627677abaf5213be50d7b3711fd85a9cfdf",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Наявні принципові суперечності. Але простір для компромісу точно є. Росія починає конструктивно розмовляти",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Переговори щодо припинення війни та зустрічі на найвищому рівні",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій безпосередньо не розкрите в деталях, фокус на переговорному процесі",
+        "confidence": 0.4
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарних аспектів або обміну полоненими не згадуються",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-58d828d935df0d77a1b0df8287f2982cbb9102d83b5babbdad5685fcb424a0f1",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Позиції на переговорах звучать уже реалістичніше. Проте ще необхідний час, щоб рішення були в інтересах саме України",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Будь-яка війна завершується угодою. Зустрічі тривають",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не винесено на передній план у цьому уривку",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання чи обміни не згадуються",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-5e140147bef5cc112602326b37b7d0c591f48836edccbd3f371983db7738a7f3",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Переговори тривають. Росія починає конструктивно розмовляти",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Мої пріоритети на переговорах абсолютно зрозумілі: завершення війни, гарантії безпеки",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Відновлення територіальної цілісності",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються у тексті",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-2ec1cf16e8223809beb2c490553af7917ea82da96ecc794668927a89b7699ab0",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Мирні переговори між Росією й Україною не досягли серйозних проривів. Зеленський готовий до переговорів",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Якщо ці переговори зазнають невдачі, це означатиме третю світову війну",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.6,
+        "justification": "Україна на цих переговорах за жодних умов не може поступитися своєю територіальною цілісністю",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-42b14b9eefc143b0c0454b7ffe3f682cd6aa5694a6c1b80940aded2ed429d11f",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Будь-які формати компромісів із Росією будуть винесені в Україні на референдум",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Є країни НАТО, які хочуть бути гарантами безпеки... і я вважаю, що це нормальний компроміс",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Україна фізично не може виконати ультимативні вимоги Росії щодо здачі міст",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-1b49529e0e5d8feaace78adcd22be9f9663508a033171a0dc9af555fd751d47e",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Українська і російська делегації розпочали переговори віч-на-віч у Стамбулі",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Київ і Москва обговорюють варіанти врегулювання, які включають відмову від НАТО в обмін на гарантії безпеки",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.4,
+        "justification": "Росія більше не вимагає денацифікації і готова погодитися зі вступом до ЄС при нейтральному статусі",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Мінімальне завдання Києва – вирішення гуманітарних проблем",
+        "confidence": 0.9
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-5d2ee2150f84304575cb375d204d25912d8a2d037c2782ffac83b7e1eaa74c99",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Під час Стамбульського раунду переговорів українська делегація озвучила своє бачення нової системи гарантій",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Договір про безпекові гарантії, схожий на 5 статтю НАТО, з участю країн-гарантів",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Гарантії тимчасово не поширюватимуться на окуповані території ОРДЛО та Крим",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-51e14e80946a83fa85142e762f91e30d67b983a4cd893a7ce28b03079134e658",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Інтенсивні консультації з декількох важливих питань у Стамбулі",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Ключове питання – договір про міжнародні гарантії безпеки для України",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання прямо не акцентується окрім загального контексту",
+        "confidence": 0.4
+      },
+      "humanitarian": {
+        "score": 0.7,
+        "justification": "Питання припинення вогню заради вирішення всіх гуманітарних проблем, гуманітарні коридори",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-52e3856fcb480b4d09357f7a23dca0923374ce5002637b10a4dd4a4397b52c72",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Коментар експерта щодо переговорів у Стамбулі та проєктів для обговорень",
+        "confidence": 0.8
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Набуття нейтрального статусу може дати можливість вийти зі стану війни",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання згадується побіжно через статус Росії як сторони конфлікту",
+        "confidence": 0.4
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-f4f72e922e54f62e1cb22d6b846372547b0bc57417a0a2077c8724d91fea3e03",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Готовність з українського боку до обговорення президентами проєктів угод",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Російська сторона не заперечує проти таких позицій, готується зустріч президентів",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Виключення чи розбіжності залишаються лише щодо питання Криму",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються у цьому тексті",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-01412a26b1b1cab4fcd428b3d77309d4a4c0350d73933ed63c0f9cfc3f6f4e9b",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Президент підписав указ про склад делегації для участі у переговорах",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Підготовка проекту договору про гарантії безпеки України",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не є фокусом указу",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-7d949ec50c0674a9a640176cc167932e7daa1a37b3661fb619e8177f8d66c55d",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Саме Україна вирішуватиме, в який момент сідатиме за стіл переговорів",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки згадуються загалом через позицію Макрона",
+        "confidence": 0.4
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Пропозиції щодо часткового поступу суверенітетом раніше відкидалися",
+        "confidence": 0.7
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-2ee9279f921ad63a0f254fae9d00cbba520565821af543e4002cc68754645780",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Анґела Меркель заявила, що готова стати посередником у мирному врегулюванні",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Згадки про попередні спроби європейської безпеки",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання безпосередньо не порушуються",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні",
+        "confidence": 0.1
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-f2b8c24b13ce257a7f4eb1ee07fe77ab5a18b6550a47141ea249257528b49155",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "Президент України Володимир Зеленський в інтерв’ю американському телеканалу CNN заявив, що наразі переговори з президентом Росії Володимиром Путіним неможливі.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.8,
+        "justification": "Будь-яка угода між Україною та Росією може бути укладена лише у разі повного виведення військ РФ з української території.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -1.0,
+        "justification": "Зеленський наголосив на повному виведенні військ та відкинув порівняння з Мінськими угодами.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру або обміну полоненими у тексті не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-8b815b0d4731110b729678683a623e7f5a54c8f2cb183ea02c95fd31ed73fa92",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.7,
+        "justification": "Президент Росії Володимир Путін на початку війни відкинув угоду щодо мирного врегулювання з Україною.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Путін вважав за краще продовжити війну замість укладення попередніх домовленостей про позаблоковий статус.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Путін планував окупувати територію України та скасував попередні домовленості.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання та обмін полоненими не згадуються в тексті статті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-44adf56a83329c34bb6266aa7b4f7244325c1097a434b3edc112e962f4a12ab8",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.7,
+        "justification": "Росія не хоче вести переговори – вона лише висуває ультиматуми.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.8,
+        "justification": "Українська армія боротиметься за звільнення своїх регіонів.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.9,
+        "justification": "Переговори можуть відновитися лише тоді, коли Росія повністю піде з території України, враховуючи захоплений Крим.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру або обміну полоненими не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-a5eedbe4bdee6fc2b3066d6a69ee38f856552a87562911e7f45e4d92059003c0",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Відбулись переговори керівника Офісу з радниками Президента США і Президента Туреччини – дуже предметні переговори.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Необхідність отримання Україною надійних міжнародних гарантій безпеки до набуття членства в НАТО.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Обговорення реакції на спробу анексії окупованих територій та непохитна підтримка суверенітету.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "Обговорення ситуації на Запорізькій АЕС та продовження співпраці з ООН щодо експорту продовольства.",
+        "confidence": 0.8
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-8ab9d94935ee81e733653a1bfe23991703951291c866ccb76e2d23d8f5cb4bc3",
+    "overall_sentiment": -0.8,
+    "categories": {
+      "diplomacy": {
+        "score": -0.9,
+        "justification": "Президент України Володимир Зеленський своїм указом ввів у дію рішення РНБО, яке передбачає неможливість ведення переговорів із президентом Росії.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.7,
+        "justification": "Рішення передбачає необхідність посилення обороноздатності України та продовження наступу.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Україна заявляє, що озброєним шляхом боротиметься за повернення окупованих територій.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання у тексті не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-d1e3b7987735df10a6dc526fd09dd7e135cb88d3d80b834beeafc3ce490d3572",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Російський президент Володимир Путін заявив, що Росія, як і раніше, готова до переговорів з Україною.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Кремль хоче виграти час і готується до повномасштабного наступу на початку 2023 року.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Контекст триваючої війни та планів обох сторін щодо територій.",
+        "confidence": 0.5
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-4ad9ca17353aee7ac212961123c6fea6a2da85ce85935d257adaac8902a080a2",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Для чого керівництво Росії намагається посадити українську владу за стіл переговорів?",
+        "confidence": 0.7
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Росія не в змозі наступати на Херсонщині, тому серйозно готується до оборони.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Втрата Росією Херсону та деокупація Херсонської області стане переломом у війні.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні в тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-fd706ae61bfbe2d5c8cdbffebe00273a64187c628321f1d6cf00949c10f506c9",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Метою переговорів з російськими офіційними особами було знизити ризик ескалації в Україні і тримати канали комунікації відкритими.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Вашингтон застерігав Москву від використання ядерної зброї, обговорювалися ризики ескалації.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Умови щодо територій безпосередньо не обговорювалися у згаданих контактах.",
+        "confidence": 0.5
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-bc40775ec12028484b86c6d13097109334e74a0be6a9e73828c7979974645237",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Офіційна Москва виступила з черговою заявою про готовність до переговорів – ми відкриті до діалогу без попередніх умов.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Заяви пролунали на тлі відведення військ з Херсона та поразок на полі бою.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.6,
+        "justification": "Переговори мають відбутися з урахуванням реалій – фактично визнання анексії українських територій.",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні у тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-1742dcd58057badaf6e7dcda68c10c16a59448e1bc660d98d929f8b3c53a54e1",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Президент України вважає безперспективними переговори з нинішнім російським керівництвом.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Наше завдання – щоб вони мали найкращу позицію на полі бою, коли буде можливість для дипломатії.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Пропозиція задуматися про перегляд тези щодо силового звільнення Криму.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-33a18137d40d01a5147e6363b126e82bd9088bddc03c23039153b598f3bab551",
+    "overall_sentiment": -0.8,
+    "categories": {
+      "diplomacy": {
+        "score": -0.9,
+        "justification": "Українські військові не приймуть ніяких переговорів, домовленостей чи компромісних рішень щодо завершення війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.7,
+        "justification": "Запевнив, що ми будемо боротися, доки стане сил, ситуація на фронті контрольована.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.9,
+        "justification": "Умова для переговорів одна: Росія має залишити всі захоплені території.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання чи обміни в тексті не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-f11817c4ba2c43ceb8296de33da91feb1806a916bb70e1c7ca540fddacf9e2f2",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Міністр закордонних справ Росії заявив, що умови України для переговорів є нереалістичними.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Серед пропозицій України – виведення військ, якому має передувати припинення вогню.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.6,
+        "justification": "Вимога виведення російських військ з усієї території України.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються в цій статті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-587aa8a9223b77204a165226d20e9e0448c7af7de3c7910d33e6bcac465441a5",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Президент Туреччини провів телефонні переговори з Путіним, обговорювалися регіональні питання та зерновий коридор.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Ердоган висловив щирі побажання якнайшвидшого припинення війни.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не згадуються в контексті переговорів.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.6,
+        "justification": "Успішна реалізація та продовження зернової угоди для експорту продовольства.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-005c40e334af9b10dbe9d1b08ce3d188cd2de27e00bf7351b6f89d27d0477d18",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Президент Росії назвав корисними та своєчасними переговори у Мінську з Лукашенком.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.7,
+        "justification": "Обговорення створення єдиного оборонного простору, спільних навчань та можливого нового наступу.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Згадки про військову інтеграцію та плани на півночі.",
+        "confidence": 0.5
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-5681ae0a16788f6a0d50be96ea0a00cb8eff57cd6d17badb495a41233761a5eb",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Україна прагне провести мирний саміт до кінця лютого за участю ООН.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Обговорення справедливого миру на зустрічі з Байденом.",
+        "confidence": 0.5
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Справедливий мир – це жодних компромісів щодо нашої землі і територіальної цілісності.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються в тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-543c6e054bb3ca159654954286e6a942b4cf4b91eea62818eacbd2e6dea99c58",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Не вважає перспективу мирних переговорів близькою і Тоні Брентон, колишній посол Великої Британії в Росії.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "На думку, ймовірність припинення вогню у 2023 році «дуже низька».",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Українці сподіваються отримати повний контроль над власними територіями, але ми не думаємо, що Росія повністю відступить.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання безпосередньо не обговорюються у контексті переговорів.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-1a7cf303447535e8136829aadcdfce68cd5b8feee94f2db63a8156036f978369",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Президент Туреччини Реджеп Таїп Ердоган провів телефонну розмову з російським колегою Володимиром Путіним, закликавши до перемир’я.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Ердоган сказав, що заклики до миру та переговорів повинні підкріплюватися одностороннім припиненням вогню.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Поки Росія не залишить окупованих територій України, переговорів не може бути – Сунак.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру чи полонених не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-5b43cb3f94f09e7cec8957c1efac70265a4935d354665f6cf8792221bcee79c2",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "«Різдвяне перемир’я» Кремля було черговою спробою маніпулювати дипломатією з боку РФ, зазначив президент Володимир Зеленський.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Володимир Зеленський заявив, що російський лідер Володимир Путін сподівається використати так зване «перемирʼя», щоб краще підготуватися.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Відновлення територіальної цілісності названо гарантією миру, але без подробиць компромісів.",
+        "confidence": 0.5
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Повернення людей з російської неволі є справжніми гарантіями миру.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-472ec7fbfe303adfcb898e80e1e2c90bb1b5af295d9c1ad81f361b4374a190ce",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Орбан розповів українському лідеру, що в питанні війни Будапешт «належить до табору миру».",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Ми підтримуємо негайне припинення вогню, щоб уникнути подальших смертей.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Влада України наполягає, що укладення мирних домовленостей можливе лише тоді, коли російські війська залишать усі окуповані українські території.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Угорщина продовжить надавати гуманітарну та фінансову допомогу Україні.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-f3955e0c29da6b9a96581a362e5216f60cf09fd1251de3f8c2a105c605232651",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.6,
+        "justification": "Радник голови Офісу президента України Михайло Подоляк виключив мирні переговори з Москвою, якщо її війська не залишать українську територію.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Інші варіанти лише дають РФ час перегрупувати сили й відновити бойові дії будь-якої миті.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Переговори можуть розпочатися, коли РФ виведе війська з території України.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-d2a077cbffac30683c15976a05d2cff01486bd760f8c20b11532151499c10447",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Президент України Володимир Зеленський заявив, що тиск на Україну щодо початку мирних переговорів не має сенсу.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Україна наполягає, що єдиний шлях до справжніх мирних переговорів лежить через українську перемогу на полі бою.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Росія прийшла вбивати й захоплювати території, порушується тема історичних кордонів.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-929c98e3c8602548011b435657d44340833ac1a6a95a2caa75f0f439a1d95a7d",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Росія та Україна мають відновити переговори для досягнення «справедливого миру», заявив президент Туреччини Реджеп Таїп Ердоган.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Обидві сторони повинні зосередитися на розвʼязанні, заснованому на припиненні вогню та переговорах.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання згадуються лише контекстуально щодо повномасштабного вторгнення.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Наводяться статистичні дані ООН щодо жертв, але обмін полоненими чи гуманітарні коридори не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-0cdd5cc2dcabf613db4f0ff5ddf7ae11a28ccb7efd32b455f516c0e2120c26ba",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "МЗС Китаю представило план щодо врегулювання війни Росії з Україною. Документ містить 12 пунктів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "План містить ідеї щодо сприяння завершенню бойових дій.",
+        "confidence": 0.5
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Прямих заяв про поступки чи кордони немає, лише згадка формули миру України.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-0b582b7327a47eff103d8d2b76333668bb67cc67447b10063fa711ffc97a3aac",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Це основа для переговорів, і, якщо ви подивитеся на пропозиції українців, легко зрозуміти, що вони готові для миру.",
+        "confidence": 0.8
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Я думаю, вони знають, що ми готові організувати певні безпекові гарантії на мирний час.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "На питання, чи можливі безпекові гарантії в обмін на визнання втрати Криму, канцлер відповів, що рішень без українців не буде.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Ми продовжимо підтримувати Україну як у фінансовий і гуманітарний спосіб, так і зброєю.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-3bf0cfa0b09f016094eaebe7486f0a2ad30b504c26e4cd0b4f3e4f4ccd066ab9",
+    "overall_sentiment": -0.8,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "Це країна, з якою ви ні про що домовитися не можете. Тому що вони ніколи не тримають свого слова.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Звичайно, ми можемо сідати за стіл. Але, по-перше, це капітуляція Росії за цим столом має бути підписана.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Що ми повертаємо собі територіальну цілісність і розуміємо, як Росія компенсує.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-493ee17990b79ae4e0b235eab379ea6afb50b9f90f7c4a04b350fab68b5289f8",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Китай сподівається, що Україна та Росія не закриють двері для політичного вирішення війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Захід провокує збройний конфлікт наданням Україні зброї, за версією Китаю.",
+        "confidence": 0.5
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Міністр закордонних справ України наголосив на важливості принципу територіальної цілісності.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-72c46d02260b724ac3eb8754ec5995844ab377b96ca03b0fc3d73e6dfb6d05aa",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Світ має прислухатися до Китаю, щоб знайти вихід із війни в Україні.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання припинення вогню обговорюється лише як гіпотетичний пункт плану.",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Як у Пекіні планують вирішити проблему з повагою до територіальної цілісності, якщо Росія оголосила про приєднання територій?",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-c48b402389be4cd39169e5758cc6e319bc66b23e2638a61a3112761d733f9e94",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "У Держдепартаменті США наразі не бачать ознак того, що президент Росії Володимир Путін готовий до переговорів про мир.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "США зосереджені на наданні Україні засобів для переваги на полі бою.",
+        "confidence": 0.5
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Згадується звільнення окупованих Росією територій без деталей компромісу.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-6ad70a753aa58f6115417272ef6ece8fa11bee3775ac0c0efffeac21ff2727a8",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Олександр Лукашенко заявив, що настав унікальний шанс для переговорів Путіна та Зеленського.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Для цього Лукашенко запропонував оголосити перемир'я без права переміщення та перегрупування військ.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Згадується підготовка ЗСУ до контрнаступу для звільнення територій.",
+        "confidence": 0.5
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-759e378f87515fe525442839c7484b62e2f515ac4bffebb4e63adcb2e6b23262",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Спецпредставник Китаю Лі Хуей зустрівся з Зеленським, щоб пояснити позицію щодо політичного розвʼязання кризи.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Китай готовий сприяти міжнародному співтовариству, щоб зупинити війну та припинити вогонь.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Україна не сприймає ніяких пропозицій, які б передбачали втрату її територій або заморожування конфлікту.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-8ef5f64fb76aa3040cd3088ab30fdedb5df00d9e18cae37f4b322f0ceb2c4858",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Зустріч Зеленського і Байдена на полях саміту НАТО, обговорення ширших питань.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Обговорення пришвидшеного постачання зброї, авіаційного компонента та далекобійних ракет для контрнаступу.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання прямо не обговорюються у наведеному уривку.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру чи обміну полоненими не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-bce5252c3f145756a40603135963a36bd97c15c2db82a6dd8b6cdf56ccebff3a",
+    "overall_sentiment": -0.8,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Відмова від використання членства в НАТО для компромісних переговорів з РФ.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Обговорення перспектив вступу до НАТО та умов безпекової ситуації.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -1.0,
+        "justification": "Україна ніколи не обміняє будь-який статус на території, навіть якщо це одне село.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-966c3c77e701a7d27f5c497cc9566ff946b07239de34b6cbd9558e00cfec2f08",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Столтенберґ заявив, що лише українці вирішуватимуть, коли будуть умови для переговорів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Альянс не бачить змін у ядерних силах Росії.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Згадки про попередню помилкову заяву щодо територіальних поступок в обмін на НАТО, яку спростували.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-5e35b066e78520382507dcb11d619b15f5c354f4ebc0787292f4016a9086c061",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Представники США і ЄС почали обговорювати з Україною можливі мирні переговори для припинення війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "НАТО готове запропонувати Україні гарантії безпеки, які утримають Росію від нового вторгнення.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "У розмовах торкалися того, від чого Україні, можливо, доведеться відмовитися.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання безпосередньо не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-2288c77b1a8d3a00e6b0f9bf2370e268215353719d90a8133c5e6dd2080be6af",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Держдеп США заперечує розмови про переговори поза формулою миру, наголошуючи, що Кремль не зацікавлений.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Згадка про гарантії безпеки від НАТО з попередніх публікацій.",
+        "confidence": 0.5
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Зеленський зазначає, що Україна не вестиме переговори, доки РФ повністю не піде з територій.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-ac333b36d8024c1cb3991c94df63d391bb148594e10a44dbbe35f89d431e357b",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Олаф Шольц вважає за необхідне продовжувати діалог із Путіним.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Коаліція в Німеччині погодилася подвоїти військову допомогу Україні до 8 млрд євро.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Переговори можливі лише після виведення військ РФ з української території.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-092636e1d389f0b5dc070b6ad87e453919f7bc2ef0a78df1b783dd6cbdd4d108",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Путін заявив на саміті G20, що Росія ніколи не відмовлялася від мирних переговорів з Україною.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Констатація продовження бойових дій та нагадування про цілі так званої «спецоперації».",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Зеленський наголошує, що переговорів не буде до повного виходу РФ з українських територій.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-faa1476a84ba23a309f7cca3f740d56c2523f0c263d173708c64cd6c67ce0144",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.4,
+        "justification": "ISW оцінює заяви Путіна як маніпулятивні, мета яких — змусити Захід передчасно тиснути на Україну.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Аналітики застерігають, що передчасне припинення вогню збільшить ймовірність нової агресії РФ.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Українські посадовці готові до переговорів лише після виведення військ з міжнародно визнаної території.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні в тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-e9dbc5e0027855f90e2c47871cf3de9438a4de788d54b4533251ba7642e67f30",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Анонс програми за участю експертів без надання тексту з оцінками.",
+        "confidence": 0.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Анонс програми, відсутність змістовного тексту.",
+        "confidence": 0.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Анонс програми, відсутність змістовного тексту.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Анонс програми, відсутність змістовного тексту.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-c77bd0f2fff0d225865c2d52d6b708d6e98eab14227f6d46dd9bb583b6df1a22",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Обговорення західних планів щодо заморожування конфлікту та офіційні спростування Німеччини.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Згадки про обмеження у постачанні окремих видів озброєнь (Taurus, ATACMS) для утримання фронту.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Обговорення ідеї «мир в обмін на території», хоча Берлін і Вашингтон заперечують наявність такого плану.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-c1d3e923dc08902f3fea686959da98b0939180ac742ea453537651b40e6242a4",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Зустріч Зеленського і Байдена, переговори з американськими сенаторами і компаніями.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "США демонструють непохитну відданість Україні, обговорюється оборонний хаб та військова допомога.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -1.0,
+        "justification": "Зеленський назвав будь-яку мирну угоду з відмовою від територій «абсолютним божевіллям».",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання полонених чи інші гуманітарні теми не зачіпаються глибоко.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-ee2e3c78810629334c9ad7313ac0e0467af8e195f8f13bdc65a9598c783b61fa",
+    "overall_sentiment": -0.8,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Путін заявляє, що мир буде лише після досягнення цілей РФ.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Констатація продовження активних бойових дій та наявність великої кількості військ у зоні конфлікту.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Цілі РФ включають підпорядкування та фактичне знищення суверенітету України.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання обміну полоненими відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-d4842fe37c68977ac502f990c6b5c04a5c5590c9c4d7f1b374c04d33711ea79c",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Дискусія навколо закликів прем'єра Саксонії до дипломатичних ініціатив та переговорів з РФ.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Заклики до перемир'я через поступок територіями, які українське МЗС вважає стимулом для подальшої агресії.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -1.0,
+        "justification": "МЗС України різко відкинуло пропозиції тимчасової втрати територій заради перемир'я.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-e8baaf80c78784fb2b8bef7a6ef184a6b0ab7358cd8faa0e41bc031b20aafc5d",
+    "overall_sentiment": -0.6,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Західні офіційні особи нібито зміщують фокус на переговори, але ISW та Лавров заперечують реальну готовність сторін до чесних домовленостей.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Висновок ISW про те, що тимчасове припинення вогню дасть РФ час на підготовку до нової агресії.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Обговорення потенційних переговорів, які змусять Україну поступитися територією.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-adb7d1eec5e899b6e8b1dec8c1239296b038a1cead10f00513380caa7c2c14b8",
+    "overall_sentiment": -0.9,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "МЗС України заявляє, що ніякі розмови про переговори та перемир'я не зупинять агресію.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.9,
+        "justification": "Масований російський удар по цивільних об'єктах та заклик до надання всіх військових засобів для самозахисту.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Відмова від будь-яких розмов про тимчасову відмову від територій.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": -0.7,
+        "justification": "Загибель і поранення людей внаслідок масованого обстрілу цивільних об'єктів (пологовий будинок, школи тощо).",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-8762c1e13f03beb2b9e983b0673ff992ab2bd3f29f10bca983fcceff1adad48a",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Обговорили пункти форлуми миру та прогрес у їхній реалізації з принцом Саудівської Аравії.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Кроки задля реального відновлення безпеки для України та Європи.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій безпосередньо не деталізується в тексті.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.8,
+        "justification": "Питання повернення полонених і депортованих осіб, а також вивезених дітей.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-da5e9fbdcad793bf06d36b623c4e00cee24904cd92e326d2916c8e71b4ee06fa",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Публікація проєкту мирної угоди від квітня 2022 року.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Обговорення скорочення української армії та заборони на іноземне озброєння.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Збереження Криму під російським контролем без формальної відмови від суверенітету.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": -0.5,
+        "justification": "Вимога скасування розслідувань ймовірних воєнних злочинів.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-2a244dd539bfe21ebd48a6087600e96ca3d1f03b594295859fc12205c93a4f98",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Будь-яке обговорення політико-дипломатичного врегулювання неможливе без участі Росії.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Врахування інтересів Росії у сфері безпеки та відкидання ультиматумів.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій не обговорюється конкретно в цій заяві.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-85740018731db21bacd1bab0d9e861ebdcd049bc390a4781d728413cd16a1769",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Президенти України і Туреччини висловили різні підходи до участі Росії в мирному саміті.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Загальні розмови про завершення війни без конкретних безпекових угод.",
+        "confidence": 0.4
+      },
+      "territorial": {
+        "score": 0.5,
+        "justification": "Туреччина підтримує територіальну цілісність, суверенітет і незалежність України.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-5f5445bc3df49ca43dce5efba377709a76c8d7e253b057bc4a7c59f19d897493",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.4,
+        "justification": "Мирні плани без участі Росії не дадуть жодних результатів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Заклик уникати кроків для загострення конфлікту в регіоні та НАТО.",
+        "confidence": 0.7
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Українська формула миру вимагає повернення всіх територій, але РФ їх утримує.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-d23be35fad2dae9da29e1d4076584ff60c2363f3f42f363037cf5e0a86a9f64d",
+    "overall_sentiment": 0.8,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Заклик до миру та відмови від логіки зброї у Великодньому посланні.",
+        "confidence": 0.8
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії не обговорюються.",
+        "confidence": 0.1
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не згадується.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 1.0,
+        "justification": "Заклик до загального обміну усіма полоненими між Росією та Україною: всіх на всіх!",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-6e16edcd451934e0fbe5a734f5b952160a4933c3828dde7cafcd6e3eb36eda7f",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.6,
+        "justification": "Росія має конкретний план зірвати Глобальний саміт миру у Швейцарії.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові аспекти саміту згадуються опосередковано.",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "Формула миру передбачає виведення російських військ, що відкидається Москвою.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються в цьому тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-5774b6337e20ca1c0e3f64d9fbd8624f719d9e24c19afe5bd15990e5df763f7d",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Підготовка до Глобального саміту миру у Швейцарії.",
+        "confidence": 0.8
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії безпосередньо не розглядаються.",
+        "confidence": 0.2
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не є фокусом статті.",
+        "confidence": 0.1
+      },
+      "humanitarian": {
+        "score": 1.0,
+        "justification": "Заклик провести обмін полоненими за принципом всіх на всіх.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-cfb0d63ef2c9089dc9c71440ccbd393f7d33c56748cc24a3d4c95b5397bf8a15",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Путін готовий провести мирні переговори з Києвом через посередництво сигналів.",
+        "confidence": 0.8
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Готовність припинити військові дії на нинішній лінії фронту.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Укладення перемир'я зі збереженням уже окупованих українських територій.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-588041af3444388697cd7f0ba0e080c451c33402b361c70487aaf8093ece3250",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Обговорення нібито готовності Путіна до переговорів та їх зрив саміту.",
+        "confidence": 0.8
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Міжнародні норми безпеки згадуються у словах Зеленського.",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Російське перемир'я передбачає привласнення 18% окупованої території України.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-9a1428c9fda08729dbe98fb15d797b43c1694f4542a777d80dc20d33feda401f",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Президент Зеленський закликає Байдена та Сі Цзіньпіня приєднатися до саміту.",
+        "confidence": 0.8
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки анонсовано, але не деталізовано в короткому описі подкасту.",
+        "confidence": 0.2
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не розглядається у цьому тексті.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-8d898c26b38498935bfef90cd0c0ebadc1ec0e4d191e18c0194e1f6a1daabebe",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": -0.4,
+        "justification": "Китай не їде на Саміт миру через відсутність Росії та незгоду з формулою миру.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки прямо не обговорюються.",
+        "confidence": 0.2
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Згадки про підтримку територіальної цілісності України минулого року.",
+        "confidence": 0.7
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-8ed703e8ea14e6c9a8c2bda384a87519f3dbf77b4479908273d83d824246b957",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Саміт у Швейцарії має велике значення для діалогу про принципи справедливого миру.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Путін має дати зрозуміти, що готовий закінчити війну і відвести війська.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання демаркації чи кордонів не обговорюється детально.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-197412e696f69c12d0b38cbe87365cad4742d59a276cd4f0f3582a98685b2683",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Участь близько 100 країн і міжнародних організацій у Саміті миру.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Робота у сферах ядерної та продовольчої безпеки.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не розглядається у цьому повідомленні.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Повернення військовополонених і всіх депортованих осіб, зокрема дітей.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-1ab2fbf39116f6de6b63b6546fae3b378cf0dc06c276f7e1d644080ac9b014b8",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Проведення наступного Саміту миру та переговори з країнами про це.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії безпосередньо не обговорюються.",
+        "confidence": 0.2
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не є предметом обговорення в цій статті.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-45eee4493d220b9ab29e039a45c248114e2996a5a96fe99504b94b23f7c6fb80",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Прем’єр-міністр Угорщини Віктор Орбан пропонує Україні домовитись з Росією про припинення вогню, а тоді сісти за стіл перемовин.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Я попросив пана президента подумати про те, чи не можна піти інакше – зробити перерву, перервати вогонь, потім продовжити перемовини.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій безпосередньо у тексті не обговорюється детально.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Володимир Зеленський та Віктор Орбан домовились про створення української школи в Угорщині для біженців з України.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-c5b593e47dae599dcfc1e0fc14ab7ff3b4ad57e4421f42a2ad89a7781c5219a0",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.2,
+        "justification": "Прем’єр-міністр Угорщини Віктор Орбан заявив, що прибув до Москви для продовження «мирної місії», але ЄС зазначає, що він не представляє блок.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Путін відмовив Орбану: припинення вогню в Україні не буде до початку переговорів.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій не є ключовим у цій статті.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-a60b890e9708f1f76dbf701f0b859da5ae128426e82d574b857d73dc6fa06734",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Україна продовжує дотримуватися позиції, що можливо залучити Росію до другого саміту миру.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпекових гарантій чи припинення вогню детально не розглядається.",
+        "confidence": 0.2
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територіальних позовів або поступок безпосередньо не обговорюється.",
+        "confidence": 0.1
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-ca790ca8a732371fcc64e13aaeac1e5b359cbee417dc80c88ef0f2e98852f6b6",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Україна готова до переговорів – це головний пункт.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Повітряна тривога у Києві з ночі 31 липня тривала понад 7 годин, російські дрони заходили на столицю.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не є центральним фокусом матеріалу.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання у контексті переговорів не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-de2375e3dee706b118d8ba1ff6d5e7b4882479739c6057b7772c230c8b99c8ca",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Текст є анонсом ефіру і не містить суттєвих оцінок дипломатії.",
+        "confidence": 0.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Немає конкретних даних про безпекові гарантії чи припинення вогню.",
+        "confidence": 0.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій не розкрите.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-ecfb17383ff5789f57ff74be6a256d0850228252e21ea2e79bd18fc49240dfa5",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "Трамп звинуватив Зеленського у відмові «укласти угоду» про припинення війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Обговорюється контекст повномасштабного вторгнення та критика відсутності угод.",
+        "confidence": 0.6
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Україна мала піти на поступки... визнання незаконної анексії Росією Криму та контрольованих росіянами утворень.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-9e9e1b0c8e2092319c9db44db924207137d5d7e1d4a0d0f00b0efb02d042b1f6",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Ми обидва хочемо, щоб це закінчилося, і ми обидва хочемо, щоб була укладена справедлива угода.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання припинення вогню чи безпекових гарантій не деталізовані.",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Він на нашій території. Це найважливіше зрозуміти.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-edaf8928c48d6f5314be896d8392ca00bb8b7044e26f50b197c60b56757e2d97",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Слід посилити позиції України, щоб створити необхідні умови, справедливу атмосферу для чесної дипломатії.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обговорюється підготовка нового безпекового пакета для України та план перемоги.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Конкретні територіальні поступки чи межі у тексті не обговорюються.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-690b4ee9a8d28eb06ac3c6bfe050bbb826fb72fbeafb535007e6e3cdb741bc2d",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Прем’єр-міністр Угорщини Віктор Орбан написав, що його «лякає» план перемоги України та закликав розпочати переговори з Росією.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Нам потрібне припинення вогню і мирні переговори.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання прямо не окреслено.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-bf4ee697716be2c0d263c09a6c115a3a4c350bca003f814904bd175cd5b8b1bf",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Президент України обговорював стратегію наближення миру – миру завдяки силі з американськими лідерами.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "У нас так. У розмові з Дональдом Трампом я йому сказав: Який же вихід? Або в України буде ядерна зброя, або ми повинні мати якийсь альянс (НАТО).",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій безпосередньо не обговорюється в цій цитаті.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-ba210829cab3a058431d2707d7acc3fd01e6b55cbb4f9140327b14f9f0df41e6",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Ми всі хочемо завершити цю війну якнайшвидше та справедливо. Домовилися працювати далі. Мир завдяки силі можливий!",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Спілкувалися про наших людей, ситуацію на полі бою та справедливий мир для України.",
+        "confidence": 0.7
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Конкретні деталі територіальних рішень не наводяться.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-fdc9f36a97c6ec692643b1e78e5fdc14bf83a9fbd3f8d5e5d3f3f3433a3ca694",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Тристаронню зустріч Зеленського, Трампа та Макрона за закритими дверима вже почалася і завершилась.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпекових гарантій не розкрите.",
+        "confidence": 0.2
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не обговорюються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-e65b1d4d62e0dfe24eb0074fe7103cb869f86a7b7dfecfa7db96f222f6a5b382",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Новообраний президент США Дональд Трамп закликав до негайного припинення вогню та початку переговорів щодо війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Повинно бути негайно припинено вогонь і розпочато переговори.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Він допустив закінчення гарячої фази війни за умови, що частина території під парасолькою НАТО, щоб домовитися про повернення окупованих територій дипломатичним шляхом.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-3b51b638ebef19e323f26f07ed2b0a643231ee18680239bd7c0b3b452d122776",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Реальні переговори про сталий мир розпочнуться лише тоді, коли у ворога не стане ресурсів продовжувати війну.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Акцент робиться на виснаженні ресурсів ворога для примусу до миру.",
+        "confidence": 0.5
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Конкретні деталі територіального поділу чи поступок у тексті не вирішуються остаточно.",
+        "confidence": 0.4
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-b99ffdb5263aac96096e758b52d0726f606da9ce5b6d59d30d274c905384deef",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Спецпредставник Трампа з питань України Кіт Келлог вважає, що Україна і Росія вже готові до мирних переговорів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Обговорюється виснаженість обох сторін як аргумент для можливості припинення бойових дій.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання прямо не аналізується в цій заяві.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-914e9a6627bacf634eea6d4e0486526443abf682743d9901de199cc95e5414b6",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Команди України й США поновили роботу, сподіваємося на змістовну зустріч",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Велика Британія разом із Францією працюватиме з Україною над планом припинення вогню",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання прямо не обговорювалися в контексті поступок",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-c787d769f6621f00e4788e9ca018a2dbbb3792482d5734f667e31ba8eef2a276",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Представники Європи обов'язково братимуть участь у мирному процесі",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Україна погодилася з пропозицією американської сторони про запровадження режиму припинення вогню на 30 днів",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Сторони погоджуються щодо неприйнятності сценарію замороженого конфлікту",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання та обмін полоненими не згадуються детально",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-a2f01ea9c78ef7469884165537e6c1ed8b12260fb1711267a0d704cd8e2af7db",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Переговори США з Росією пройдуть 23 березня в Джидді",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Рух до миру почнеться з енергетичного й інфраструктурного припинення вогню",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Путін висловився про необхідність зупинки примусової мобілізації та переозброєння ЗСУ",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Російський президент також анонсував обмін полоненими",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-8f122a61041d893f47fdd7125fabe20813db00cb56fa6d9eb4c4297be02e76de",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "В Ер-Ріяді розпочалися переговори делегацій США та Росії, обговорення тривають",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Обговорюється відновлення чорноморської ініціативи та безпека судноплавства",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій не розглядається у цьому тексті",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-1e1aeca9e594172e7c015938aa3e52b81c98f2f86967bc8011a72a232ebbc41a",
+    "overall_sentiment": -0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Спецпосланець США обговорював кроки щодо припинення війни з Путіним",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Згадуються протоколи безпеки та відсутність статті 5 НАТО",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.8,
+        "justification": "Для нас - це червоні лінії визнавати будь-які території тимчасово окуповані як не українські",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-4817be3dd1e1986b9d9225dfc52216f4eb16db9cc8acaeae4ae9e41c36c0a62e",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Зеленський збирається у Туреччину на переговори з Путіним",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпеки та припинення вогню згадуються опосередковано",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Оглядачі пишуть, що чи не єдиний прийнятний варіант миру для Путіна це капітуляція України",
+        "confidence": 0.7
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-ea5ecca3cdf8fb304439330f3ae7fd05bcb5d0094cdc92a7907283d70f3d38d7",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Делегація США перенесла візит до Стамбула на переговори Росії та України",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Конкретні безпекові гарантії чи перемир'я не деталізуються",
+        "confidence": 0.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не обговорюються",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-976fe4bf5271aa24f510db14353f70705f9ebea7a741036e39565303f9d8e358",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": -0.3,
+        "justification": "Рубіо заявив, що не має великих очікувань від переговорів у Стамбулі через команду другого рівня від РФ",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання припинення вогню згадується лише як мета майбутніх зустрічей лідерів",
+        "confidence": 0.5
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не обговорюються",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-e478e1ffcce9bc54058ed9f92f066e91cd22f26932151cc1767943139c3b4e94",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Перші за три роки прямі переговори між представниками України та Росії в Стамбулі завершилися",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Росія висунула як передумову вимогу виведення українських військ із територій",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "Вимога виведення українських військ із територій, які не захопила воєнним шляхом",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.8,
+        "justification": "Ми говорили про обмін полоненими за формулою тисяча на тисячу",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-aa7aceb63e06554383b0d432b00eac83114b181417fcaa25619a284b72e39177",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Сторони принципово домовилися про повторну зустріч у Стамбулі",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Росія висувала як передумову для режиму тиші вимогу виведення українських військ",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Вимога виведення українських військ із територій",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "Домовилися обмінятися тисячею людей з кожної країни як захід зміцнення довіри",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-5656596ec7f65987242a1a991d63b344fd96535cff025264c71b37620444e1a6",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.7,
+        "justification": "Кремль далі сигналізує про незацікавленість у добросовісних переговорах",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Росія залишається налаштованою на затягування мирних переговорів, щоб підтримувати наступальні операції",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій не є ключовим фокусом цієї аналітичної статті",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-4775db648e4061bc478a67b2aec2a51e57fb26354bf4b590024612ba99541189",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.0,
+        "justification": "Другий раунд переговорів України та Росії в Стамбулі пройшов, але без загальної згоди",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.4,
+        "justification": "Росія знову не прийняла пропозицію України щодо перемир'я та відкидає ідею повного перемир'я",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання конкретних територіальних поступок детально не розкривається",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.6,
+        "justification": "Домовлено про обмін важкохворими військовополоненими та тими, кому до 25 років",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-b107631d6ce2918a71869f1fd16921160b6851306abd05c40dab36bd2772792e",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Україна й Росія 2 червня проведуть нові переговори в Стамбулі",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Ми пропонуємо й надалі повне, безумовне припинення вогню",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки в тексті не обговорюються",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються в цьому тексті",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-aa483c2b99ae755083698f16b1975dc59ae3c7075c66cdd4351d44291f1e8cc6",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "У Стамбулі розпочалася зустріч делегацій України та Росії за присутності турецької сторони",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Ми пропонуємо й надалі повне, безумовне припинення вогню",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "Серед пропозицій - відсутність зобов'язання мати нейтральний статус і невизнання окупованих територій російськими",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні у тексті",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-9bca8b80920976ca908c1c7e4a6d73e9718477accf8e731674ea56f169948932",
+    "overall_sentiment": -0.4,
+    "categories": {
+      "diplomacy": {
+        "score": -0.5,
+        "justification": "На жаль, ми побачили повну неадекватність російської сторони, що проявилося в тому документі",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Для нас зараз ключовим є досягнення перемир'я, зупинення вогню",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Вони не змінили риторику ультиматумів. Вони вимагають від нас капітуляції",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються як предмет дискусії у цитатах",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-deb9f9fb6000448518c36f0184cfa06479460a75c27f2f80a9e72ddc46375d99",
+    "overall_sentiment": -0.5,
+    "categories": {
+      "diplomacy": {
+        "score": -0.6,
+        "justification": "Міністерство закордонних справ Ірану у відповідь на заяви президента США назвало його заклики такими, що суперечать діям Вашингтона.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Припинення вогню між Іраном й Ізраїлем діє з 24 червня, але сторони обмінювалися ударами.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не є головною темою статті, йдеться про ядерну програму.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання чи обмін полоненими не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-bf10fa08839f45f1b5d93a92f2803e8771fbd6d103fb475c6e6db192748286e1",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Ці зустрічі стали найпродуктивнішими та найзмістовнішими за весь час переговорів щодо завершення війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Головна мета – покласти край кровопролиттю й війні за допомогою мирного плану.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": 0.5,
+        "justification": "Експертні групи доопрацьовують корективи, щоб зменшити розбіжності.",
+        "confidence": 0.7
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання безпосередньо не обговорюються в цьому тексті.",
+        "confidence": 0.2
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-b6f4155231d8824fa34d06d6d0438aed5cbfbe524f48aa007b1d9381a3833974",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Переговори української й американської делегацій у Женеві ознаменували суттєвий прогрес у напрямку припинення війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Будь-яка майбутня угода має цілковито поважати суверенітет України та забезпечити стійкий і справедливий мир.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": 0.4,
+        "justification": "Угода має поважати суверенітет України, проте конкретні деталі щодо територій не розголошуються.",
+        "confidence": 0.6
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання обміну полоненими чи гуманітарні аспекти не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-bd121d9b26758a8c5c55f51fdc2d14460fb5c6874435e445006c1870876026d4",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Україна обговорила зі США кожний пункт запропонованого плану, план скоротився з 28 до 19 пунктів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обговорюються питання можливого вступу до НАТО та лінії зіткнення.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "У американському варіанті пропонувалося ділити Херсонську та Запорізьку області, а Крим і Донбас визнавати російськими, що викликає суперечки.",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-0856c8bf115273573011a5f274672eba509bdaa907b078b558f471a1503950ed",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Оприлюднено розшифровку розмови представників США та РФ щодо підготовки мирного плану.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії конкретно не обговорюються у наведеному уривку.",
+        "confidence": 0.4
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Віткофф зазначає: 'що потрібно для укладання мирної угоди: Донецьк та, можливо, обмін територіями десь ще'.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні в тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-f137ed202cdfe76bd3a58828451f608ec15c0730bfc6e37bfd27a3d677ce3cb5",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "У Кремлі заявили, що отримали останні версії мирного плану, але серйозного обговорення ще не було.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.1,
+        "justification": "Обговорюється позаблоковий статус України та обмеження чисельності ЗСУ.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій згадується побіжно, основний акцент на пунктах плану.",
+        "confidence": 0.5
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-d8aaa4ff45b0099eb388c9ba56f604ab57d3eebcb07a2f6bfbfc53817cd431d0",
+    "overall_sentiment": -0.7,
+    "categories": {
+      "diplomacy": {
+        "score": -0.8,
+        "justification": "Президент Росії Володимир Путін відхилив мирну пропозицію США й України під час зустрічі з делегацією США в Москві.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Кремль не збирається приймати жодної мирної ініціативи, що не відповідає максималістським вимогам.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": -0.7,
+        "justification": "Справжня мета Путіна – взяти під контроль не лише всю Запорізьку та Херсонську області, а й всю Україну.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-e5454d8d177de8468c42dd6f8e535a1ced9d261099ae7bf9b1c07765f6e9b799",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "США не планують нав’язувати мирну угоду, дипломатичне врегулювання вимагає, щоб кожна сторона від чогось відмовилася.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Розглядаються шляхи досягнення стабільного врегулювання без капітуляції.",
+        "confidence": 0.7
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "США намагаються зрозуміти, від чого Росія готова відмовитися і що Україна може сподіватися отримати.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-cc675a18df10db52b2d9307a9c6cca3337517b8d7fecc0ae9701264b731ce700",
+    "overall_sentiment": 0.8,
+    "categories": {
+      "diplomacy": {
+        "score": 0.9,
+        "justification": "Делегації України і США провели низку зустрічей, зосередившись на чотирьох ключових документах майбутньої мирної угоди.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Основна увага приділена багатосторонній та двосторонній угодам про гарантії безпеки.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.5,
+        "justification": "Обговорюється досягнення справедливого і стійкого миру та післявоєнна відбудова.",
+        "confidence": 0.6
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-36abee855582d0c557194d8064b9642f6d9dd4e2f5373469d69a2a843e18ec66",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "Україна винесе мирну угоду з 20 пунктів на ратифікацію парламенту або проведе всеукраїнський референдум.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "Гарантії безпеки набудуть чинності лише за умови ратифікації угоди; обговорюється безпека виборів.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки в цій статті безпосередньо не обговорюються.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-fc0b08dd5a5c1647390c40d2c532099278bdf0788cddcceffc6f1b7977336f0f",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "США і Україна підготували базовий документ про закінчення війни з 20 пунктів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "Другий пункт – угода про ненапад; передбачені гарантії безпеки, що віддзеркалюють статтю 5.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.3,
+        "justification": "РФ виводить війська з кількох областей, проте щодо Донеччини та Запорізької АЕС компромісу не досягнуто.",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-4dc852086873043c4bddf2c20033278588fdf2b0812415cbc57ac10517de4420",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Зеленський вирушив до США на зустріч із Дональдом Трампом для обговорення мирної угоди.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "План передбачає міцні гарантії безпеки та чисельність ЗСУ на рівні 800 тисяч осіб.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Конкретні деталі щодо територій у цьому тексті не деталізуються.",
+        "confidence": 0.4
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-1963ccd9171d95672d18beaf0e0daea5084520e9ee4cbc8af8f5ed365ad15277",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Трамп повідомив про хорошу та дуже продуктивну телефонну розмову з Путіним перед зустріччю із Зеленським.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Зустріч присвячена гарантіям безпеки, план узгоджений на 90%.",
+        "confidence": 0.9
+      },
+      "territorial": {
+        "score": 0.2,
+        "justification": "Головна перепона – вимога Росії щодо Донбасу; обговорюється демілітаризована вільна економічна зона та відведення військ.",
+        "confidence": 0.9
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-376736dcbed6e960a3c1705938cef106f03b3b1dfcbfe3e9dd7594fe11cef5f6",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Команди України та США відчутно просунулися в опрацюванні мирної рамки, домовилися про зустрічі на рівні лідерів у січні.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "Гарантії безпеки залишаються ключовою умовою, обговорюються терміни їх дії (15-50 років).",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.4,
+        "justification": "Сторони на фінальному етапі обговорення базового документа про закінчення війни.",
+        "confidence": 0.6
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-6a3260bed1927863709477c3da747539a66a7c17f4e46a4a597034b1b29b5994",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.1,
+        "justification": "Росія не виходить із переговорного процесу і продовжуватиме діалог із США попри звинувачення в атаці.",
+        "confidence": 0.9
+      },
+      "security": {
+        "score": -0.5,
+        "justification": "Москва заявила про перегляд позиції та визначила об'єкти для ударів у відповідь через нібито атаку на резиденцію.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій безпосередньо не обговорюється, йдеться про посилення переговорної позиції.",
+        "confidence": 0.4
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-c68638b9fe0e671f83019ef183ac16d9ff74fc8fbc18d5e28f3c1e09a5180a7a",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "У Парижі делегації України, США і країн Європи продовжать роботу над гарантіями безпеки й базовою рамкою для закінчення війни",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Паризька декларація про надійні гарантії безпеки для міцного й тривалого миру в Україні, яка передбачає розміщення багатонаціональних сил",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.2,
+        "justification": "Президент зазначив, що найбільшим питанням у мирному плані США з 20 пунктів залишається територіальне",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання безпосередньо не згадуються в тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-d3ed43b759712d68fcda797a83b1f720c2d8b0a9fd849a4758f59fa210cfd955",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "тристоронні переговори щодо війни РФ в Україні за участю представників США, України й Росії",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Конкретні заходи безпеки не обговорюються в деталях, фокус на підготовці до переговорів.",
+        "confidence": 0.2
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "Раніше Зеленський заявив, що питання Донбасу є ключовим на переговорах в Абу-Дабі.",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Питання гуманітарного характеру в цій статті відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-db7d214905c936edda6c16eedbd116f2d1ff8cae8e3af5ea4fa57c7c9554574f",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "у Обʼєднаних Арабських Еміратах (ОАЕ) розпочався другий день тристоронніх переговорів між представниками України, США та Росії",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Україна і США на тристоронній зустрічі в ОАЕ запропонують Росії припинити удари по енергетиці в обмін на припинення атак на НПЗ",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "без вирішення територіального питання щодо узгодженої в Анкориджі формули розраховувати на досягнення довгострокового врегулювання не варто",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні аспекти не порушуються в тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-8dbaba1773605897304ce01789628f2c2a069d5b9b766a7793000e6413cc2e88",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "учасники української делегації схарактеризувати зустрічі як позитивні та конструктивні",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Питання безпекових гарантій чи перемир'я згадуються контекстуально без нових деталей.",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "питання Донбасу є ключовим на переговорах в Абу-Дабі",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-5e04037cbb30aec5cd7bcffff79dd473c4cf1fb71a85748b06a0ca37e9cbc9f4",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "представники України та Росії збираються продовжити переговори, цього разу у двосторонньому форматі",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.0,
+        "justification": "Безпекові гарантії згадуються побіжно, основна увага на територіальному спорі.",
+        "confidence": 0.3
+      },
+      "territorial": {
+        "score": -0.6,
+        "justification": "Росія вимагає виведення ЗСУ з тієї частини Донецької області, яку її війська не захопили",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні у тексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-d7b0797a8042c0772d83149b070b3ea7da494f7de4f039b2b799fa0326ef6ebe",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Переговорний процес стартував у тристоронньому форматі – Україна, США та Росія",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "двосторонні гарантії безпеки зі США готові на 100%, і Київ очікує на їх підписання",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Росія вимагає виведення ЗСУ з тієї частини Донецької області, яку її війська не захопили",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не порушуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-c9e9ea3a4a5964ca4678d0e0fab9eb835653a2148c030d9b728900e18bdc7e51",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Тристоронні переговори України, США і Росії в Абу-Дабі 5 лютого завершилися",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "делегації Сполучених Штатів, України й Росії домовилися про перший за п'ять місяців обмін полоненими та продовження обговорень",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій у цій конкретній статті не деталізується.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "делегації Сполучених Штатів, України й Росії домовилися про перший за п'ять місяців обмін полоненими (314 людей)",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-57b10581faafa87b036f209338750c9b748afde7c6c56a58b8343b2eafd246d5",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.5,
+        "justification": "завершився ще один раунд переговорів про шляхи завершення війни",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "методи упровадження перемирʼя та моніторингу припинення воєнних дій",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання прямо не аналізується в тексті підсумків зустрічі.",
+        "confidence": 0.3
+      },
+      "humanitarian": {
+        "score": 0.9,
+        "justification": "домовленість про перший за п’ять місяців обмін полоненими: 314 бранців із російського й українського боку",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-010dd17e316fe03eb13c1f28b53e9e6b84623a8bcde91d8173a4786d98c1256b",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "наступний раунд переговорів із Росією запланований на 17 або 18 лютого у США",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "на переговорах в Абу-Дабі обговорювалося питання припинення вогню та створення умов для міцного миру",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.3,
+        "justification": "пропозиція США щодо створення вільної економічної зони як буфера на Донбасі; жодна зі сторін не в захваті",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.8,
+        "justification": "досягли домовленості щодо обміну військовополоненими – першого за останні п’ять місяців",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-8ff6f1bab0ab8a47221a1616f00bed147c72dfae636eed6fdab7c455cb0af3d1",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "У Женеві розпочинається черговий раунд тристоронніх переговорів України, США, Росії",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "на порядку денному – безпекові та гуманітарні питання, обговорення енергетичного перемир’я",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "невирішеним залишається територіальне питання щодо Донецької області",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.7,
+        "justification": "гуманітарні питання включені до порядку денного переговорів у Женеві",
+        "confidence": 0.8
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-3a6e704c798031964c483e117ac1e57bcb089970d9b1732d76332bd5fdc2cb0a",
+    "overall_sentiment": 0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "Політичний сектор тристоронніх переговорів у Женеві завершився, військові групи продовжують працювати",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "на порядку денному – безпекові питання",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання у цій новині не обговорюється окремо.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.3,
+        "justification": "на порядку денному – гуманітарні питання",
+        "confidence": 0.8
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-f0de272404fa23cced18a572c350a2da46c53e5b41dca1e9185278817b2f4f06",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "зустрічі з представниками Росії за посередництва США в Женеві були непростими, але домовилися продовжувати",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "військові розуміють, як моніторити припинення вогню і припинення війни, майже про все домовилися",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.4,
+        "justification": "політична складова: всі чутливі питання, про які ви знаєте: схід, станція тощо, позиції різні",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання в цьому тексті не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-daa959577629d3c1dd40dccf2358a20564fcab56e1f9513d88824486c438849b",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Спецпосланець президента США Стів Віткофф після тристоронніх переговорів з Україною і Росією в Женеві заявив про досягнення значного прогресу",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "перший день тристоронніх переговорів у Женеві був зосереджений на практичних питаннях і механіці можливих рішень",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки чи межі у тексті не обговорюються.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-eca845163473484bd3e849a4d34b4d38248f9cd5e6549521d6350ca281382ffc",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "наступний раунд тристоронніх переговорів України, США і Росії щодо припинення війни може пройти на початку березня",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.4,
+        "justification": "тристоронні переговори щодо припинення війни тривають, обговорюються кроки до врегулювання",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання не порушується безпосередньо у цій статті.",
+        "confidence": 0.2
+      },
+      "humanitarian": {
+        "score": 0.8,
+        "justification": "завдання, яке я поставив Умєрову, він буде проговорювати деталі обміну, дуже надіємося на позитив на цьому гуманітарному треку",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-d52a5669ae52dd7dfd6a17623495e17ffd26f6fc2df7a24bc3b65fec1b4d0458",
+    "overall_sentiment": 0.0,
+    "categories": {
+      "diplomacy": {
+        "score": 0.3,
+        "justification": "У Кремлі висловили сподівання на відновлення тристоронніх мирних переговорів із Росією й Україною",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "привітали двотижневе припинення вогню між США й Іраном і сподіваються на відновлення переговорів по Україні",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.6,
+        "justification": "Сполучені Штати поставили умову, згідно з якою Україна має вивести свої війська з Донбасу для отримання гарантій безпеки",
+        "confidence": 1.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання обміну полоненими тут не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-307a59bc327e36b9672ed8f8a0498d74bf6aaebc21dafb14e1d5e68cd298d434",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Домовилися про інтенсифікацію перемовного процесу на всіх рівнях.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Провели змістовну розмову щодо безпекових кроків, обговорили виробництво перехоплювачів для Петріотів.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Питання територій безпосередньо у тексті не обговорюється.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання чи полонені в тексті не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-5abb62c65bea4fe05263df5b21c28b4a10d8f7e3a254681049b8d56d94c7d905",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Українська влада буде дуже старатися, щоб завершення бойових дій і досягнення мирної угоди сталося восени.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.2,
+        "justification": "Путін готує мобілізацію та нові удари, переговори щодо умов припинення війни не ведуться кілька місяців.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки в тексті не деталізуються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Була лише досягнута домовленість про обміни військовополоненими.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-84bd56c7bb1b2145ba21dbd675630ab18a61db1c77c063b9f3fd05a53ef7f10d",
+    "overall_sentiment": 0.4,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "США продовжують працювати над підтримкою врегулювання шляхом переговорів, мають намір активізувати зусилля.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Зміцнення економічних і безпекових зв’язків, але сторони мають досить жорсткі червоні лінії.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Згадка про досить жорсткі червоні лінії обох сторін щодо переговорів.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Згадується попередня домовленість про обміни військовополоненими.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-ddee273c4035f231ae89619e0d3a00c0821d716f2ef5707a4e2741275bc72f82",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Переговори за посередництва США можуть поновитися до кінця вересня.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Умови для припинення вогню навряд чи з’являться до весни на тлі посилення російських ударів.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальне питання в тексті прямо не порушується.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Згадується попередня домовленість про обміни військовополоненими.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-e75d814000bdf80a4026c6fafd7b7898793f3098c2b5d73dc475e50eceee920d",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Україна, США і європейські партнери домовилися зустрітися знову, аби продовжити діалог.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.2,
+        "justification": "Спецпосланці США провели зустрічі з метою припинення війни Росії проти України.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не обговорюються в цій статті.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-5467dc0ccd27c7c61159527d4a832afd5948af93b99e61431e7ae59da0afa058",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Послання від представників США полягало в тому, що росіяни готові до переговорів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обговорили гарантії безпеки, постачання ППО та пакет допомоги напередодні зими.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не порушуються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання прямо не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-ad56df6cfa2c841bb696c9eb02538796e9649fc395f8464cc0dc8e1f5b41edc5",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Україна хоче провести тристоронню зустріч зі США й РФ восени.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.3,
+        "justification": "Обговорення безпекових та військових питань у рамках підготовки до саміту.",
+        "confidence": 0.6
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не обговорюються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.8,
+        "justification": "Серед питань названо гуманітарні питання, передусім обмін військовополоненими.",
+        "confidence": 1.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-7dbd1e78fe37c582cbcd3abac7cf0ab850daec8268ec2b6e1f594b61c0c6d105",
+    "overall_sentiment": 0.1,
+    "categories": {
+      "diplomacy": {
+        "score": 0.4,
+        "justification": "Трамп заявив, що Путів хоче укласти угоду і вони втомилися воювати.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.3,
+        "justification": "Аналітики зазначають, що Путін нав'язує спотворене бачення ситуації на полі бою, щоб тиснути на Україну.",
+        "confidence": 0.8
+      },
+      "territorial": {
+        "score": -0.5,
+        "justification": "Спроба переконати Трампа змусити Україну поступитися вимогам Росії.",
+        "confidence": 0.8
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не згадуються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-ac774f3f56db3eaad16837e6a42eed57bd74a412503c12a55282dfc29d22ce91",
+    "overall_sentiment": 0.5,
+    "categories": {
+      "diplomacy": {
+        "score": 0.6,
+        "justification": "Необхідно знайти можливість для енергетичного перемир'я та рухатись крок за кроком.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.5,
+        "justification": "Пропозиція енергетичного перемир'я, взаємна пауза в ударах по енергетичних об'єктах.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не обговорюються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Згадується уникнення гуманітарних катастроф через блекаути.",
+        "confidence": 0.7
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-6144b1ad94f547a45767560cd336f5886eb060f079aaa7be0f0e33ac6167fbe1",
+    "overall_sentiment": -0.2,
+    "categories": {
+      "diplomacy": {
+        "score": 0.2,
+        "justification": "Москва нібито готова продовжувати переговорний процес, але ставить жорсткі умови.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.8,
+        "justification": "Росія не припинятиме бойові дії в Україні навіть на час можливих переговорів, не погодиться на паузу.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території в цій статті не згадуються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": false
+  },
+  {
+    "article_id": "radio-svoboda-3fba45821bb31a95a7a1565908e9c529eadfdd3a0abe37aaeb7df54bbca7c74f",
+    "overall_sentiment": 0.3,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Новий раунд переговорів щодо завершення війни у тристоронньому форматі може відбутися у жовтні.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": -0.6,
+        "justification": "Росія не має наміру припиняти бойові дії на час переговорів.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні аспекти не порушуються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання відсутні.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-0f5a080e1d1d966b850445c7325f3ad12d975510945c56a3e8439400c1fc1f93",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Україна готова до енергетичного перемир'я, чекає на відповідні кроки та списки від Росії.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Готовність до взаємного припинення ударів по критичній інфраструктурі та енергетичного перемир'я.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не згадуються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.6,
+        "justification": "Уникнення ударів по критичній інфраструктурі заради захисту населення перед зимою.",
+        "confidence": 0.8
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-b85a7bf566aa38682f48843cd5685930b7df5b9ad33085046aede4544116b7fe",
+    "overall_sentiment": 0.7,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Україна готова на будь-який формат енергетичного перемир'я, очікується швидке завершення війни.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.8,
+        "justification": "Обговорення взаємного припинення ударів по енергосистемі та потреби для захисту від балістики.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні питання не розглядаються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Збереження водопостачання та енергосистеми для цивільних.",
+        "confidence": 0.7
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-0ac117b9e9f1e370de57a6d859e385d67e643608efd652fe9ef5a6c6cf32bbe5",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.8,
+        "justification": "Війна в Україні закінчиться завдяки угоді, досягнутій шляхом переговорів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.6,
+        "justification": "Обговорення можливого енергетичного перемир'я як логічного кроку.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Території не згадуються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.0,
+        "justification": "Гуманітарні питання не обговорюються в цьому контексті.",
+        "confidence": 0.0
+      }
+    },
+    "is_compromise_oriented": true
+  },
+  {
+    "article_id": "radio-svoboda-904f41c8f72545a3c1b6a0540788f044d16b0bd1182d1918b48570c1fed643bd",
+    "overall_sentiment": 0.6,
+    "categories": {
+      "diplomacy": {
+        "score": 0.7,
+        "justification": "Росія та Україна висловили зацікавленість у тимчасовій зупинці взаємних ударів.",
+        "confidence": 1.0
+      },
+      "security": {
+        "score": 0.7,
+        "justification": "Обмежене припинення вогню, що поширюється на зерно й енергетику.",
+        "confidence": 1.0
+      },
+      "territorial": {
+        "score": 0.0,
+        "justification": "Територіальні поступки не розглядаються.",
+        "confidence": 0.0
+      },
+      "humanitarian": {
+        "score": 0.5,
+        "justification": "Згадка про зерно та безпеку постачання продовольства.",
+        "confidence": 0.8
+      }
+    },
+    "is_compromise_oriented": true
+  }
+]

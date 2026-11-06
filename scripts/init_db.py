@@ -6,7 +6,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("db_init")
 
 DB_PATH = Path(__file__).resolve().parent.parent / "data" / "peacetalk.db"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 SCHEMA_SQL = """
 -- NewsArticles: сирі статті зі скраперів
@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS expert_notes (
     metric_category TEXT NOT NULL,
     content TEXT NOT NULL,
     author_id TEXT NOT NULL,
+    source TEXT NOT NULL DEFAULT 'bbc',
     importance_type TEXT NOT NULL DEFAULT 'COMMENT',
     status TEXT NOT NULL DEFAULT 'PUBLISHED',
     review_status TEXT DEFAULT 'APPROVED',
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS expert_notes (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS uq_active_note
-    ON expert_notes(author_id, event_date, metric_category)
+    ON expert_notes(author_id, source, event_date, metric_category)
     WHERE status = 'PUBLISHED';
 
 CREATE INDEX IF NOT EXISTS idx_news_articles_date ON news_articles(date);
@@ -76,9 +77,13 @@ def init_db(db_path=DB_PATH):
         else:
             columns = set()
 
-    moderation_columns = {"review_status", "reviewed_by", "reviewed_at"}
-    if notes_table_exists and not moderation_columns <= columns:
-        from scripts.migrate_v2 import migrate_database
+    if notes_table_exists:
+        moderation_columns = {"review_status", "reviewed_by", "reviewed_at"}
+        if not moderation_columns <= columns:
+            from scripts.migrate_v2 import migrate_database
+
+            migrate_database(db_path)
+        from scripts.migrate_v3 import migrate_database
 
         migrate_database(db_path)
 

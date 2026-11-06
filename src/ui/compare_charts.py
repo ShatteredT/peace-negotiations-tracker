@@ -24,6 +24,7 @@ from src.ui.charts import CAT_LABEL, CATEGORIES, SOURCE_COLORS, SOURCE_LABELS, _
 BBC, RADIO = "bbc", "radio_svoboda"
 SOURCES = (BBC, RADIO)
 SHORT_LABEL = {BBC: "BBC", RADIO: "Свобода"}
+HIGHER_IN = {BBC: "вище в BBC", RADIO: "вище в Радіо Свобода"}
 
 # Межі «ескалація / компроміс» збігаються зі score_color в app.py
 STANCE_THRESHOLD = 0.3
@@ -113,6 +114,22 @@ def fmt_gap(gap: float, fmt: str) -> str:
     if fmt.endswith("%"):
         return f"{gap * 100:+.0f} п.п."
     return format(gap, fmt if fmt.startswith("+") else "+" + fmt)
+
+
+def fmt_delta(gap: float, fmt: str) -> str:
+    """Модуль різниці зі знаком «Δ»: «+/−» легко сплутати з тоном, напрям показує колір джерела."""
+    if gap is None or pd.isna(gap):
+        return "—"
+    if fmt.endswith("%"):
+        return f"Δ {abs(gap) * 100:.0f} п.п."
+    return "Δ " + format(abs(gap), fmt.lstrip("+"))
+
+
+def leader(gap: float) -> str | None:
+    """Джерело з вищим значенням (різниця = Радіо Свобода − BBC) або None, якщо рівні чи немає даних."""
+    if gap is None or pd.isna(gap) or gap == 0:
+        return None
+    return RADIO if gap > 0 else BBC
 
 
 @dataclass(frozen=True)
@@ -490,6 +507,11 @@ def _cell_outline(fig: go.Figure, grid: dict, selected_cell) -> None:
                       layer="above", fillcolor="rgba(0,0,0,0)", line=dict(width=width, color=color))
 
 
+def _delta_hover(gap: float) -> str:
+    who = leader(gap)
+    return fmt_delta(gap, ".2f") + (f" · {HIGHER_IN[who]}" if who else "")
+
+
 def heatmap_figure(df: pd.DataFrame, mode: str = HEAT_DIFF, selected_cell=None) -> go.Figure:
     grid = heatmap_grid(df)
     cats, periods = grid["cats"], grid["periods"]
@@ -498,11 +520,12 @@ def heatmap_figure(df: pd.DataFrame, mode: str = HEAT_DIFF, selected_cell=None) 
     if mode == HEAT_DIFF:
         m = _symmetric_limit(list(z.to_numpy().ravel()), floor=0.3)
         scale = dict(colorscale=DIFF_SCALE, zmin=-m, zmax=m, zmid=0)
-        colorbar = dict(tickvals=[-m, 0, m], ticktext=[f"BBC вище −{m:.1f}", "0", f"Свобода вище +{m:.1f}"])
+        colorbar = dict(tickvals=[-m, 0, m], ticktext=[f"BBC вище Δ {m:.1f}", "0", f"Свобода вище Δ {m:.1f}"])
     else:
         scale = dict(colorscale="RdYlGn", zmin=-1, zmax=1, zmid=0)
         colorbar = dict(title="Оцінка")
-    text = [["" if pd.isna(v) else f"{v:+.2f}" for v in row] for row in z.to_numpy()]
+    cell = (lambda v: f"Δ {abs(v):.2f}") if mode == HEAT_DIFF else (lambda v: f"{v:+.2f}")
+    text = [["" if pd.isna(v) else cell(v) for v in row] for row in z.to_numpy()]
     fig = go.Figure(go.Heatmap(
         z=z.to_numpy(), x=periods, y=labels, text=text, texttemplate="%{text}", xgap=2, ygap=2,
         colorbar=colorbar, hoverinfo="skip", **scale))
@@ -514,7 +537,7 @@ def heatmap_figure(df: pd.DataFrame, mode: str = HEAT_DIFF, selected_cell=None) 
             xs.append(period)
             ys.append(label)
             custom.append([cat, period, fmt_val(a, "+.2f"), fmt_val(b, "+.2f"),
-                           "немає даних" if pd.isna(a) or pd.isna(b) else f"{b - a:+.2f}",
+                           "немає даних" if pd.isna(a) or pd.isna(b) else _delta_hover(b - a),
                            int(grid["n_bbc"].at[cat, period]), int(grid["n_radio"].at[cat, period])])
     fig.add_trace(go.Scatter(
         x=xs, y=ys, customdata=custom, mode="markers", showlegend=False,

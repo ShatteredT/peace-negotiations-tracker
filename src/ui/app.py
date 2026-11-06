@@ -692,15 +692,38 @@ def dashboard_page() -> None:
 #  Сторінка 2: Порівняння джерел
 PLOT_CONFIG = {"displaylogo": False}
 CMP_DISCLAIMER = (
-    "· Різниця скрізь рахується як Радіо Свобода - BBC "
+    "· Δ — різниця між джерелами (Радіо Свобода - BBC); колір показує, у якого джерела значення вище "
     "· зірочка (*) позначає різницю за межами 95% довірчого інтервалу."
 )
 
 
-def _cmp_metric_card(col, metric: "cmp.Metric") -> None:
-    with col, st.container(border=True):
-        st.metric(f"{metric.label} · різниця", cmp.fmt_gap(metric.gap, metric.fmt), help=metric.help,
-                  border=False)
+def _cmp_card_css() -> str:
+    """Підсвічування карток кольором джерела з вищим значенням і перенос довгих назв."""
+    rules = [
+        ".cmp-delta{font-size:clamp(1.25rem,2.2vw,1.75rem);font-weight:600;line-height:1.2;white-space:nowrap}",
+        ".cmp-lead{font-size:0.85rem;font-weight:600}",
+    ]
+    for src in cmp.SOURCES:
+        color = cmp.SOURCE_COLORS[src]
+        rules.append(f'[class*="st-key-cmp_card_{src}_"]{{border-color:{color} !important;'
+                     f"background:{cmp._rgba(color, 0.08)};box-shadow:inset 4px 0 0 {color}}}")
+        rules.append(f'[class*="st-key-cmp_card_{src}_"] .cmp-delta,'
+                     f'[class*="st-key-cmp_card_{src}_"] .cmp-lead{{color:{color}}}')
+    return "<style>" + "".join(rules) + "</style>"
+
+
+def _cmp_card_head(label: str, value: str, help_text: str) -> None:
+    # Назва звичайним markdown, а не підписом st.metric: так вона переноситься, а не обрізається.
+    st.markdown(f"**{label}**", help=help_text)
+    st.markdown(f"<div class='cmp-delta'>{value}</div>", unsafe_allow_html=True)
+
+
+def _cmp_metric_card(col, idx: int, metric: "cmp.Metric") -> None:
+    lead = cmp.leader(metric.gap)
+    with col, st.container(border=True, key=f"cmp_card_{lead or 'even'}_{idx}"):
+        _cmp_card_head(metric.label, cmp.fmt_delta(metric.gap, metric.fmt), metric.help)
+        st.markdown(f"<div class='cmp-lead'>{cmp.HIGHER_IN[lead] if lead else 'однаково'}</div>",
+                    unsafe_allow_html=True)
         st.markdown(f":blue-badge[BBC {cmp.fmt_val(metric.a, metric.fmt)}] "
                     f":orange-badge[Свобода {cmp.fmt_val(metric.b, metric.fmt)}]")
         if metric.half is None:
@@ -716,11 +739,11 @@ def _cmp_correlation_card(col, arts: pd.DataFrame) -> None:
     with col, st.container(border=True):
         help_text = "Кореляція Пірсона між піврічними середніми тону двох джерел."
         if corr is None:
-            st.metric("Узгодженість динаміки", "—", help=help_text, border=False)
+            _cmp_card_head("Узгодженість динаміки", "—", help_text)
             st.caption("замало піврічних періодів")
             return
         r, n = corr
-        st.metric("Узгодженість динаміки", f"r = {r:+.2f}", help=help_text, border=False)
+        _cmp_card_head("Узгодженість динаміки", f"r = {r:+.2f}", help_text)
         st.markdown(f":violet-badge[{cmp.correlation_word(r)}]")
         st.caption(f"за {n} піврічними періодами")
 
@@ -861,9 +884,10 @@ def compare_page() -> None:
     st.caption(CMP_DISCLAIMER)
 
     metrics = cmp.head_to_head(df, arts)
+    st.markdown(_cmp_card_css(), unsafe_allow_html=True)
     cols = st.columns(len(metrics) + 1)
-    for col, metric in zip(cols, metrics):
-        _cmp_metric_card(col, metric)
+    for idx, (col, metric) in enumerate(zip(cols, metrics)):
+        _cmp_metric_card(col, idx, metric)
     _cmp_correlation_card(cols[-1], arts)
 
     notes = cmp.highlights(df, arts)

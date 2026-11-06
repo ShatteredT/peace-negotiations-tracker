@@ -570,6 +570,7 @@ def trend_section(df: pd.DataFrame, arts: pd.DataFrame, notes: pd.DataFrame, ann
         show_ann = st.toggle("Анотації агента", value=True, key="trend_ann")
     fig = trend_figure(df, arts, notes, annotations, view, window, show_notes, show_ann)
     st.plotly_chart(fig, width="stretch", config={"displaylogo": False})
+    st.caption("Маркери показують лише доступні значення; для порожніх місяців окремі точки не додаються.")
 
 
 @st.fragment
@@ -758,7 +759,8 @@ def cmp_trend_section(arts: pd.DataFrame) -> None:
         dots = st.toggle("Окремі статті", key="cmp_dots", help="Показати кожну статтю точкою; при наведенні видно заголовок.")
     st.plotly_chart(cmp.trend_gap_figure(arts, cmp.GRANULARITY[label], dots), width="stretch", config=PLOT_CONFIG)
     st.caption("Заливка між лініями: помаранчева — тон вищий у Радіо Свобода, синя — у BBC. Розмір маркера — "
-               "кількість статей у періоді. У піврічному кроці обидва джерела представлені порівнянною добіркою.")
+               "кількість статей у періоді. Лінії з’єднують наявні спостереження; у порожніх періодах окремих точок немає. "
+               "У піврічному кроці обидва джерела представлені порівнянною добіркою.")
 
 
 @st.fragment

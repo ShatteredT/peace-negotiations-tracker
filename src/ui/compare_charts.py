@@ -321,6 +321,7 @@ def trend_gap_figure(arts: pd.DataFrame, granularity: str = "half", show_article
         n = table[f"n_{key}"]
         fig.add_trace(go.Scatter(
             x=table["mid"], y=table[key], mode="lines+markers", name=SOURCE_LABELS[src],
+            connectgaps=True,
             line=dict(width=3, color=SOURCE_COLORS[src]),
             marker=dict(size=(6 + 2 * np.sqrt(n)).clip(upper=16), color=SOURCE_COLORS[src],
                         line=dict(width=1.5, color="white")),

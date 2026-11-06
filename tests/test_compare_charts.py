@@ -98,6 +98,21 @@ def test_trend_has_both_fills_when_lines_cross_and_one_when_they_do_not(data):
     assert "Тон вищий у BBC" in names and "Тон вищий у Радіо Свобода" in names
 
 
+def test_monthly_trend_connects_observed_points_across_missing_periods(data):
+    _, arts = data
+    table = cmp.period_table(arts, "month")
+    assert table["bbc"].isna().any() and table["radio"].isna().any()
+
+    fig = cmp.trend_gap_figure(arts, "month")
+    source_lines = {
+        trace.name: trace for trace in fig.data
+        if getattr(trace, "mode", None) == "lines+markers" and trace.name in ("BBC", "Радіо Свобода")
+    }
+
+    assert set(source_lines) == {"BBC", "Радіо Свобода"}
+    assert all(trace.connectgaps for trace in source_lines.values())
+
+
 def test_gap_fill_polygons_are_closed_and_positioned_on_the_real_timeline(data):
     """Регресія: у pandas 3 одиниця часу не завжди ns, і заливка «з'їжджала» в 1970 рік."""
     _, arts = data

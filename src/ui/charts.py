@@ -52,7 +52,7 @@ def _add_overall(fig, months, overall_raw, base, window, source=None) -> None:
         marker=dict(size=6, opacity=0.35, color=color),
         hovertemplate="%{y:+.2f}<extra>за місяць</extra>"))
     fig.add_trace(go.Scatter(
-        x=months, y=base, mode="lines", name=trend_name, connectgaps=source is None,
+        x=months, y=base, mode="lines", name=trend_name, connectgaps=True,
         line=dict(width=3.5, color=color, shape="spline"),
         hovertemplate="%{y:+.2f}<extra>тренд</extra>"))
 

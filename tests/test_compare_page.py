@@ -83,7 +83,6 @@ def test_one_source_selected_asks_for_both(page):
     assert not page.exception and not page.tabs
     assert any("потрібні два джерела" in i.value for i in page.info)
 
-
 def test_narrow_period_degrades_gracefully(page):
     group(page, "f_preset").set_value("2026").run()
     assert not page.exception, [e.value for e in page.exception]

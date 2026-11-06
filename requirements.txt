@@ -11,6 +11,7 @@ pandas>=2.0
 # Testing
 pytest>=7.0
 pytest-cov>=4.0
+numpy
 
 # Scraping (PT-28)
 beautifulsoup4>=4.12

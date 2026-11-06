@@ -20,6 +20,7 @@ from src.errors import (
     AccessDenied, ConflictError, NoteError, NotFoundError, TechnicalFailure, ValidationError,
 )
 from src.ops import observed, record, utc_now, utc_now_iso
+from src.ui import compare_charts as cmp
 from src.ui.charts import (
     CAT_LABEL, CATEGORIES, VIEW_CATEGORIES, VIEW_OVERALL, articles_for_cell, cell_from_event, heatmap_figure,
     period_tone_figure, trend_figure, year_share_figure, year_violin_figure,
@@ -660,7 +661,7 @@ def dashboard_page() -> None:
               help="Активні (опубліковані) замітки в обраному періоді.")
 
     t_compare, t_heat, t_year, t_extreme = st.tabs([
-        ":material/compare_arrows: Порівняння джерел",
+        ":material/compare_arrows: Динаміка",  # було: "Порівняння джерел"
         ":material/grid_on: Теплова карта",
         ":material/bar_chart: По роках",
         ":material/swap_vert: Екстремуми",
@@ -686,6 +687,233 @@ def dashboard_page() -> None:
                         st.markdown(f"[{r['title']}]({r['url']})")
                         st.markdown(f":gray-badge[{r['date']:%d.%m.%Y}] :gray-badge[{r['source'].upper()}] "
                                     f":{score_color(r['overall_sentiment'])}-badge[{r['overall_sentiment']:+.2f}]")
+
+
+#  Сторінка 2: Порівняння джерел
+PLOT_CONFIG = {"displaylogo": False}
+CMP_DISCLAIMER = (
+    "· Δ — різниця між джерелами (Радіо Свобода - BBC); колір показує, у якого джерела значення вище "
+    "· зірочка (*) позначає різницю за межами 95% довірчого інтервалу."
+)
+
+
+def _cmp_card_css() -> str:
+    """Підсвічування карток кольором джерела з вищим значенням і перенос довгих назв."""
+    rules = [
+        ".cmp-delta{font-size:clamp(1.25rem,2.2vw,1.75rem);font-weight:600;line-height:1.2;white-space:nowrap}",
+        ".cmp-lead{font-size:0.85rem;font-weight:600}",
+    ]
+    for src in cmp.SOURCES:
+        color = cmp.SOURCE_COLORS[src]
+        rules.append(f'[class*="st-key-cmp_card_{src}_"]{{border-color:{color} !important;'
+                     f"background:{cmp._rgba(color, 0.08)};box-shadow:inset 4px 0 0 {color}}}")
+        rules.append(f'[class*="st-key-cmp_card_{src}_"] .cmp-delta,'
+                     f'[class*="st-key-cmp_card_{src}_"] .cmp-lead{{color:{color}}}')
+    return "<style>" + "".join(rules) + "</style>"
+
+
+def _cmp_card_head(label: str, value: str, help_text: str) -> None:
+    # Назва звичайним markdown, а не підписом st.metric: так вона переноситься, а не обрізається.
+    st.markdown(f"**{label}**", help=help_text)
+    st.markdown(f"<div class='cmp-delta'>{value}</div>", unsafe_allow_html=True)
+
+
+def _cmp_metric_card(col, idx: int, metric: "cmp.Metric") -> None:
+    lead = cmp.leader(metric.gap)
+    with col, st.container(border=True, key=f"cmp_card_{lead or 'even'}_{idx}"):
+        _cmp_card_head(metric.label, cmp.fmt_delta(metric.gap, metric.fmt), metric.help)
+        st.markdown(f"<div class='cmp-lead'>{cmp.HIGHER_IN[lead] if lead else 'однаково'}</div>",
+                    unsafe_allow_html=True)
+        st.markdown(f":blue-badge[BBC {cmp.fmt_val(metric.a, metric.fmt)}] "
+                    f":orange-badge[Свобода {cmp.fmt_val(metric.b, metric.fmt)}]")
+        if metric.half is None:
+            st.caption("описова характеристика")
+        elif metric.significant:
+            st.markdown(":violet-badge[помітна різниця]")
+        else:
+            st.markdown(":gray-badge[в межах похибки]")
+
+
+def _cmp_correlation_card(col, arts: pd.DataFrame) -> None:
+    corr = cmp.dynamics_correlation(arts)
+    with col, st.container(border=True):
+        help_text = "Кореляція Пірсона між піврічними середніми тону двох джерел"
+        if corr is None:
+            _cmp_card_head("Узгодженість динаміки", "—", help_text)
+            st.caption("замало піврічних періодів")
+            return
+        r, n = corr
+        _cmp_card_head("Узгодженість динаміки", f"r = {r:+.2f}", help_text)
+        st.markdown(f":violet-badge[{cmp.correlation_word(r)}]")
+        st.caption(f"за {n} піврічними періодами")
+
+
+@st.fragment
+def cmp_trend_section(arts: pd.DataFrame) -> None:
+    c1, c2, _ = st.columns([2, 2, 3], vertical_alignment="bottom")
+    with c1:
+        label = st.segmented_control("Крок часу", list(cmp.GRANULARITY), default="Півріччя",
+                                     key="cmp_gran") or "Півріччя"
+    with c2:
+        dots = st.toggle("Окремі статті", key="cmp_dots", help="Показати кожну статтю точкою; при наведенні видно заголовок.")
+    st.plotly_chart(cmp.trend_gap_figure(arts, cmp.GRANULARITY[label], dots), width="stretch", config=PLOT_CONFIG)
+    st.caption("Заливка між лініями: помаранчева — тон вищий у Радіо Свобода, синя — у BBC. Розмір маркера — "
+               "кількість статей у періоді. У піврічному кроці обидва джерела представлені порівнянною добіркою.")
+
+
+@st.fragment
+def cmp_category_section(df: pd.DataFrame) -> None:
+    key = st.segmented_control("Критерій", list(cmp.CRITERIA), default="direction", key="cmp_criterion",
+                               format_func=lambda k: cmp.CRITERIA[k]["label"]) or "direction"
+    table = cmp.category_table(df, key)
+    if table.empty:
+        empty_state()
+        return
+    c1, c2 = st.columns(2)
+    c1.plotly_chart(cmp.radar_figure(table, key), width="stretch", config=PLOT_CONFIG)
+    c2.plotly_chart(cmp.dumbbell_figure(table, key), width="stretch", config=PLOT_CONFIG)
+    st.caption(f"{cmp.CRITERIA[key]['about']} Вуса на правому графіку — 95% довірчий інтервал.")
+
+
+def _cmp_heat_selected() -> None:
+    clicked = cmp.cell_from_event(st.session_state.get("cmp_heatmap"))
+    if clicked is None:
+        st.session_state.pop("_cmp_heat_applied", None)
+    elif clicked != st.session_state.get("_cmp_heat_applied"):
+        st.session_state["_cmp_heat_applied"] = clicked
+        st.session_state["cmp_heat_cat"], st.session_state["cmp_heat_period"] = clicked
+
+
+def _cmp_article_card(r: pd.Series) -> None:
+    with st.container(border=True):
+        st.markdown(f"[{r['title']}]({r['url']})")
+        conf = "" if pd.isna(r["confidence"]) else f" :gray-badge[впевненість {r['confidence']:.2f}]"
+        st.markdown(f":gray-badge[{r['date']:%d.%m.%Y}] :{score_color(r['score'])}-badge[{r['score']:+.2f}]{conf}")
+        if r["justification"]:
+            st.caption(r["justification"])
+
+
+@st.fragment
+def cmp_heatmap_section(df: pd.DataFrame) -> None:
+    """Теплова карта різниці: клік по клітинці показує статті обох джерел поруч."""
+    mode = st.segmented_control("Показати", list(cmp.HEAT_MODES), default=cmp.HEAT_DIFF,
+                                key="cmp_heat_mode") or cmp.HEAT_DIFF
+    selected = None
+    if st.session_state.get("cmp_heat_cat") and st.session_state.get("cmp_heat_period"):
+        selected = (st.session_state["cmp_heat_cat"], st.session_state["cmp_heat_period"])
+    st.plotly_chart(cmp.heatmap_figure(df, mode, selected), width="stretch", config=PLOT_CONFIG,
+                    key="cmp_heatmap", on_select=_cmp_heat_selected, selection_mode="points")
+    cats = [c for c in CATEGORIES if c in set(df["metric_category"])]
+    periods = cmp.heatmap_grid(df)["periods"]
+    for key, options in (("cmp_heat_cat", cats), ("cmp_heat_period", periods)):
+        if st.session_state.get(key) not in options:
+            st.session_state[key] = None  # фільтри змінились, і вибраної клітинки вже немає
+
+    c1, c2 = st.columns(2)
+    cat = c1.selectbox("Категорія", cats, index=None, key="cmp_heat_cat", format_func=lambda c: CAT_LABEL[c],
+                       placeholder="Клікніть клітинку на карті або оберіть тут")
+    period = c2.selectbox("Півріччя", periods, index=None, key="cmp_heat_period",
+                          placeholder="Клікніть клітинку на карті або оберіть тут")
+    if not (cat and period):
+        st.caption("Клікніть клітинку, щоб побачити статті обох джерел, з яких складено її колір.")
+        return
+    rows = cmp.cell_articles(df, cat, period)
+    st.markdown(f"**{CAT_LABEL[cat]} · {period}**: статей {len(rows)}")
+    cols = st.columns(2)
+    for col, src in zip(cols, cmp.SOURCES):
+        part = rows[rows["source"] == src]
+        with col:
+            badge = ":blue-badge[BBC]" if src == cmp.BBC else ":orange-badge[Радіо Свобода]"
+            avg = "" if part.empty else f" · середня {part['score'].mean():+.2f}"
+            st.markdown(f"{badge} статей {len(part)}{avg}")
+            if part.empty:
+                st.caption("У цій клітинці немає статей цього джерела.")
+            for _, r in part.iterrows():
+                _cmp_article_card(r)
+
+
+@st.fragment
+def cmp_distribution_section(df: pd.DataFrame, arts: pd.DataFrame) -> None:
+    scope = st.segmented_control("Що показати", [cmp.SCOPE_CATEGORIES, cmp.SCOPE_OVERALL],
+                                 default=cmp.SCOPE_CATEGORIES, key="cmp_scope") or cmp.SCOPE_CATEGORIES
+    st.plotly_chart(cmp.distribution_figure(df, arts, scope), width="stretch", config=PLOT_CONFIG)
+    st.caption("Ліворуч BBC, праворуч Радіо Свобода; пунктир — середня оцінка.")
+    ca, cb = st.columns([3, 2])
+    ca.markdown("**Склад тону за роками**")
+    ca.plotly_chart(cmp.stance_figure(arts), width="stretch", config=PLOT_CONFIG)
+    cb.markdown("**Частка статей, орієнтованих на компроміс**")
+    cb.plotly_chart(cmp.compromise_year_figure(arts), width="stretch", config=PLOT_CONFIG)
+    st.caption(f"Клас тону: ескалація ≤ −{cmp.STANCE_THRESHOLD}, компроміс ≥ +{cmp.STANCE_THRESHOLD}, "
+               "решта — нейтрально.")
+
+
+@st.fragment
+def cmp_summary_section() -> None:
+    summaries = load_summaries()
+    summaries = summaries[summaries["source"].isin(cmp.SOURCES)]
+    if summaries.empty:
+        st.info("Резюме ще не згенеровано.", icon=":material/info:")
+        return
+    periods = sorted(summaries["period"].unique())
+    period = st.select_slider("Півріччя", options=periods, value=periods[-1], key="cmp_period")
+    st.plotly_chart(cmp.summary_timeline_figure(summaries, period), width="stretch", config=PLOT_CONFIG)
+    st.caption("Резюме створює агент для всього півріччя; вони не залежать від фільтрів у бічній панелі.")
+    annotations = load_annotations()
+    for col, src in zip(st.columns(2), cmp.SOURCES):
+        row = summaries[(summaries["period"] == period) & (summaries["source"] == src)]
+        with col:
+            if row.empty:
+                st.info(f"Для {SOURCE_LABELS[src]} у цьому півріччі резюме немає.", icon=":material/info:")
+                continue
+            row = row.iloc[0]
+            selected = annotations[(annotations["period"] == period) & (annotations["source"] == src)]
+            _summary_card(row, selected)
+
+
+def compare_page() -> None:
+    st.title(":material/compare_arrows: BBC та Радіо Свобода")
+    df, arts = current_filtered_data()
+    if df.empty:
+        empty_state()
+        return
+    if not set(cmp.SOURCES) <= set(arts["source"]):
+        st.info("Для порівняння потрібні два джерела. Оберіть два будь-яких джерела (напр. BBC і Радіо Свобода) у фільтрі «Джерела» "
+                "в бічній панелі.", icon=":material/compare_arrows:")
+        return
+    df, arts = cmp.add_period(df), cmp.add_period(arts)
+    st.caption(CMP_DISCLAIMER)
+
+    metrics = cmp.head_to_head(df, arts)
+    st.markdown(_cmp_card_css(), unsafe_allow_html=True)
+    cols = st.columns(len(metrics) + 1)
+    for idx, (col, metric) in enumerate(zip(cols, metrics)):
+        _cmp_metric_card(col, idx, metric)
+    _cmp_correlation_card(cols[-1], arts)
+
+    notes = cmp.highlights(df, arts)
+    if notes:
+        with st.container(border=True):
+            st.markdown("**Головне**")
+            for note in notes:
+                st.markdown(f"- {note}")
+
+    t_trend, t_cat, t_heat, t_dist, t_sum = st.tabs([
+        ":material/show_chart: Динаміка",
+        ":material/radar: Категорії",
+        ":material/grid_on: Теплова карта",
+        ":material/stacked_bar_chart: Розподіли",
+        ":material/menu_book: Півріччя поруч",
+    ])
+    with t_trend:
+        cmp_trend_section(arts)
+    with t_cat:
+        cmp_category_section(df)
+    with t_heat:
+        cmp_heatmap_section(df)
+    with t_dist:
+        cmp_distribution_section(df, arts)
+    with t_sum:
+        cmp_summary_section()
 
 
 def articles_page() -> None:
@@ -963,6 +1191,7 @@ def main() -> None:
     bootstrap()
     pages = [
         st.Page(dashboard_page, title="Огляд", icon=":material/monitoring:", url_path="overview", default=True),
+        st.Page(compare_page, title="Порівняння", icon=":material/compare_arrows:", url_path="compare"),
         st.Page(articles_page, title="Статті", icon=":material/article:", url_path="articles"),
         st.Page(notes_page, title="Замітки", icon=":material/edit_note:", url_path="notes"),
         st.Page(summary_page, title="Підсумки", icon=":material/summarize:", url_path="summary"),

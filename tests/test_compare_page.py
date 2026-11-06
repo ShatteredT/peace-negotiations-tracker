@@ -81,7 +81,7 @@ def test_picking_a_heatmap_cell_lists_articles_of_both_sources(page):
 def test_one_source_selected_asks_for_both(page):
     group(page, "f_srcs").set_value(["bbc"]).run()
     assert not page.exception and not page.tabs
-    assert any("потрібні обидва джерела" in i.value for i in page.info)
+    assert any("потрібні два джерела" in i.value for i in page.info)
 
 
 def test_narrow_period_degrades_gracefully(page):

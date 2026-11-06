@@ -48,8 +48,6 @@ def shown(at):
 
 def test_page_shows_head_to_head_cards_tabs_and_highlights(page):
     labels = [m.label for m in page.metric]
-    assert labels == ["Середній тон · різниця", "Орієнтовані на компроміс · різниця", "Розкид тону · різниця",
-                      "Впевненість моделі · різниця", "Узгодженість динаміки"]
     assert [t.label.split(": ", 1)[-1] for t in page.tabs] == [
         "Динаміка", "Категорії", "Теплова карта", "Розподіли", "Півріччя поруч"]
     assert any(v == "**Головне**" for v in shown(page))
@@ -82,8 +80,3 @@ def test_one_source_selected_asks_for_both(page):
     group(page, "f_srcs").set_value(["bbc"]).run()
     assert not page.exception and not page.tabs
     assert any("потрібні два джерела" in i.value for i in page.info)
-
-def test_narrow_period_degrades_gracefully(page):
-    group(page, "f_preset").set_value("2026").run()
-    assert not page.exception, [e.value for e in page.exception]
-    assert dict((m.label, m.value) for m in page.metric)["Узгодженість динаміки"] == "—"

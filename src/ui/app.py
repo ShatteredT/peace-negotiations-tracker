@@ -737,7 +737,7 @@ def _cmp_metric_card(col, idx: int, metric: "cmp.Metric") -> None:
 def _cmp_correlation_card(col, arts: pd.DataFrame) -> None:
     corr = cmp.dynamics_correlation(arts)
     with col, st.container(border=True):
-        help_text = "Кореляція Пірсона між піврічними середніми тону двох джерел."
+        help_text = "Кореляція Пірсона між піврічними середніми тону двох джерел"
         if corr is None:
             _cmp_card_head("Узгодженість динаміки", "—", help_text)
             st.caption("замало піврічних періодів")

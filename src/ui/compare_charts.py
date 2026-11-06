@@ -664,7 +664,7 @@ def summary_timeline_figure(summaries: pd.DataFrame, selected: str) -> go.Figure
 
 
 def highlights(df: pd.DataFrame, arts: pd.DataFrame) -> list[str]:
-    """Три короткі спостереження простою мовою; завжди про тон добірок, а не про факти."""
+    """Три короткі спостереження простою мовою; інформація про загальний тон добірок"""
     out = []
     cats = category_table(df, "direction")
     if not cats.empty:

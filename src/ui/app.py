@@ -661,7 +661,7 @@ def dashboard_page() -> None:
               help="Активні (опубліковані) замітки в обраному періоді.")
 
     t_compare, t_heat, t_year, t_extreme = st.tabs([
-        ":material/compare_arrows: Порівняння джерел",
+        ":material/compare_arrows: Динаміка",  # було: "Порівняння джерел"
         ":material/grid_on: Теплова карта",
         ":material/bar_chart: По роках",
         ":material/swap_vert: Екстремуми",
@@ -692,9 +692,8 @@ def dashboard_page() -> None:
 #  Сторінка 2: Порівняння джерел
 PLOT_CONFIG = {"displaylogo": False}
 CMP_DISCLAIMER = (
-    "Оцінки — результат роботи моделі на відібраних статтях (до 15 на джерело й піврічний період). "
-    "Це порівняння **тону добірок**, а не обсягу чи достовірності висвітлення. Різниця скрізь рахується "
-    "як Радіо Свобода − BBC; зірочка (*) позначає різницю за межами 95% довірчого інтервалу."
+    "· Різниця скрізь рахується як Радіо Свобода - BBC "
+    "· зірочка (*) позначає різницю за межами 95% довірчого інтервалу."
 )
 
 
@@ -815,8 +814,7 @@ def cmp_distribution_section(df: pd.DataFrame, arts: pd.DataFrame) -> None:
     scope = st.segmented_control("Що показати", [cmp.SCOPE_CATEGORIES, cmp.SCOPE_OVERALL],
                                  default=cmp.SCOPE_CATEGORIES, key="cmp_scope") or cmp.SCOPE_CATEGORIES
     st.plotly_chart(cmp.distribution_figure(df, arts, scope), width="stretch", config=PLOT_CONFIG)
-    st.caption("Ліворуч BBC, праворуч Радіо Свобода; пунктир — середня оцінка. Кожна панель має власну "
-               "шкалу відсотків, бо оцінки часто збираються в піку на нулі.")
+    st.caption("Ліворуч BBC, праворуч Радіо Свобода; пунктир — середня оцінка.")
     ca, cb = st.columns([3, 2])
     ca.markdown("**Склад тону за роками**")
     ca.plotly_chart(cmp.stance_figure(arts), width="stretch", config=PLOT_CONFIG)
@@ -856,7 +854,7 @@ def compare_page() -> None:
         empty_state()
         return
     if not set(cmp.SOURCES) <= set(arts["source"]):
-        st.info("Для порівняння потрібні обидва джерела. Оберіть BBC і Радіо Свобода в фільтрі «Джерела» "
+        st.info("Для порівняння потрібні два джерела. Оберіть два будь-яких джерела (напр. BBC і Радіо Свобода) у фільтрі «Джерела» "
                 "в бічній панелі.", icon=":material/compare_arrows:")
         return
     df, arts = cmp.add_period(df), cmp.add_period(arts)

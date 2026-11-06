@@ -850,7 +850,7 @@ def cmp_summary_section() -> None:
 
 
 def compare_page() -> None:
-    st.title(":material/compare_arrows: BBC проти Радіо Свобода")
+    st.title(":material/compare_arrows: BBC та Радіо Свобода")
     df, arts = current_filtered_data()
     if df.empty:
         empty_state()
